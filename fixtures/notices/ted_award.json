@@ -1,0 +1,1494 @@
+{
+  "iterationNextToken": null,
+  "notices": [
+    {
+      "buyer-country": [
+        "FRA"
+      ],
+      "buyer-name": {
+        "fra": [
+          "GLCT des Transports Publics Transfrontaliers"
+        ]
+      },
+      "classification-cpv": [
+        "71241000",
+        "71241000"
+      ],
+      "contract-nature": [
+        "services",
+        "services"
+      ],
+      "description-lot": {
+        "fra": [
+          "Le GLCT DES TPT souhaite définir la nouvelle offre de la ligne 271. Cette réflexion doit permettre au GLCT DES TPT d’optimiser son offre de transport et de l’adapter au mieux aux besoins des usagers, tout en intégrant les nouveaux projets d'infrastructures TC prévus sur les différents territoires et les contraintes budgétaires de la collectivité, en lien avec toutes les autres offres et opportunités présentes sur les différents territoires. Il est également attendu une réflexion sur l’évolution de la tarification de la ligne afin de pouvoir intégrer celle-ci en complémentarité avec la tarification franco-française définie par Thonon Agglomération, tout en conservant une tarification transfrontalière Léman Pass et en limitant fortement la pratique des achats scindés constatée aujourd’hui sur cette ligne. Le GLCT DES TPT souhaite donc s’attacher l’expertise et les compétences techniques, juridiques et financières d’un prestataire ou d’un groupement de prestataires pour l’accompagner dans cette démarche."
+        ]
+      },
+      "description-proc": {
+        "fra": "Le GLCT DES TPT souhaite définir la nouvelle offre de la ligne 271. Cette réflexion doit permettre au GLCT DES TPT d’optimiser son offre de transport et de l’adapter au mieux aux besoins des usagers, tout en intégrant les nouveaux projets d'infrastructures TC prévus sur les différents territoires et les contraintes budgétaires de la collectivité, en lien avec toutes les autres offres et opportunités présentes sur les différents territoires. Il est également attendu une réflexion sur l’évolution de la tarification de la ligne afin de pouvoir intégrer celle-ci en complémentarité avec la tarification franco-française définie par Thonon Agglomération, tout en conservant une tarification transfrontalière Léman Pass et en limitant fortement la pratique des achats scindés constatée aujourd’hui sur cette ligne. Le GLCT DES TPT souhaite donc s’attacher l’expertise et les compétences techniques, juridiques et financières d’un prestataire ou d’un groupement de prestataires pour l’accompagner dans cette démarche."
+      },
+      "form-type": "result",
+      "identifier-lot": [
+        "LOT-0001"
+      ],
+      "links": {
+        "html": {
+          "BUL": "https://ted.europa.eu/bg/notice/-/detail/543752-2026",
+          "CES": "https://ted.europa.eu/cs/notice/-/detail/543752-2026",
+          "DAN": "https://ted.europa.eu/da/notice/-/detail/543752-2026",
+          "DEU": "https://ted.europa.eu/de/notice/-/detail/543752-2026",
+          "ELL": "https://ted.europa.eu/el/notice/-/detail/543752-2026",
+          "ENG": "https://ted.europa.eu/en/notice/-/detail/543752-2026",
+          "EST": "https://ted.europa.eu/et/notice/-/detail/543752-2026",
+          "FIN": "https://ted.europa.eu/fi/notice/-/detail/543752-2026",
+          "FRA": "https://ted.europa.eu/fr/notice/-/detail/543752-2026",
+          "GLE": "https://ted.europa.eu/ga/notice/-/detail/543752-2026",
+          "HRV": "https://ted.europa.eu/hr/notice/-/detail/543752-2026",
+          "HUN": "https://ted.europa.eu/hu/notice/-/detail/543752-2026",
+          "ITA": "https://ted.europa.eu/it/notice/-/detail/543752-2026",
+          "LAV": "https://ted.europa.eu/lv/notice/-/detail/543752-2026",
+          "LIT": "https://ted.europa.eu/lt/notice/-/detail/543752-2026",
+          "MLT": "https://ted.europa.eu/mt/notice/-/detail/543752-2026",
+          "NLD": "https://ted.europa.eu/nl/notice/-/detail/543752-2026",
+          "POL": "https://ted.europa.eu/pl/notice/-/detail/543752-2026",
+          "POR": "https://ted.europa.eu/pt/notice/-/detail/543752-2026",
+          "RON": "https://ted.europa.eu/ro/notice/-/detail/543752-2026",
+          "SLK": "https://ted.europa.eu/sk/notice/-/detail/543752-2026",
+          "SLV": "https://ted.europa.eu/sl/notice/-/detail/543752-2026",
+          "SPA": "https://ted.europa.eu/es/notice/-/detail/543752-2026",
+          "SWE": "https://ted.europa.eu/sv/notice/-/detail/543752-2026"
+        },
+        "htmlDirect": {
+          "BUL": "https://ted.europa.eu/bg/notice/543752-2026/html",
+          "CES": "https://ted.europa.eu/cs/notice/543752-2026/html",
+          "DAN": "https://ted.europa.eu/da/notice/543752-2026/html",
+          "DEU": "https://ted.europa.eu/de/notice/543752-2026/html",
+          "ELL": "https://ted.europa.eu/el/notice/543752-2026/html",
+          "ENG": "https://ted.europa.eu/en/notice/543752-2026/html",
+          "EST": "https://ted.europa.eu/et/notice/543752-2026/html",
+          "FIN": "https://ted.europa.eu/fi/notice/543752-2026/html",
+          "FRA": "https://ted.europa.eu/fr/notice/543752-2026/html",
+          "GLE": "https://ted.europa.eu/ga/notice/543752-2026/html",
+          "HRV": "https://ted.europa.eu/hr/notice/543752-2026/html",
+          "HUN": "https://ted.europa.eu/hu/notice/543752-2026/html",
+          "ITA": "https://ted.europa.eu/it/notice/543752-2026/html",
+          "LAV": "https://ted.europa.eu/lv/notice/543752-2026/html",
+          "LIT": "https://ted.europa.eu/lt/notice/543752-2026/html",
+          "MLT": "https://ted.europa.eu/mt/notice/543752-2026/html",
+          "NLD": "https://ted.europa.eu/nl/notice/543752-2026/html",
+          "POL": "https://ted.europa.eu/pl/notice/543752-2026/html",
+          "POR": "https://ted.europa.eu/pt/notice/543752-2026/html",
+          "RON": "https://ted.europa.eu/ro/notice/543752-2026/html",
+          "SLK": "https://ted.europa.eu/sk/notice/543752-2026/html",
+          "SLV": "https://ted.europa.eu/sl/notice/543752-2026/html",
+          "SPA": "https://ted.europa.eu/es/notice/543752-2026/html",
+          "SWE": "https://ted.europa.eu/sv/notice/543752-2026/html"
+        },
+        "pdf": {
+          "BUL": "https://ted.europa.eu/bg/notice/543752-2026/pdf",
+          "CES": "https://ted.europa.eu/cs/notice/543752-2026/pdf",
+          "DAN": "https://ted.europa.eu/da/notice/543752-2026/pdf",
+          "DEU": "https://ted.europa.eu/de/notice/543752-2026/pdf",
+          "ELL": "https://ted.europa.eu/el/notice/543752-2026/pdf",
+          "ENG": "https://ted.europa.eu/en/notice/543752-2026/pdf",
+          "EST": "https://ted.europa.eu/et/notice/543752-2026/pdf",
+          "FIN": "https://ted.europa.eu/fi/notice/543752-2026/pdf",
+          "FRA": "https://ted.europa.eu/fr/notice/543752-2026/pdf",
+          "GLE": "https://ted.europa.eu/ga/notice/543752-2026/pdf",
+          "HRV": "https://ted.europa.eu/hr/notice/543752-2026/pdf",
+          "HUN": "https://ted.europa.eu/hu/notice/543752-2026/pdf",
+          "ITA": "https://ted.europa.eu/it/notice/543752-2026/pdf",
+          "LAV": "https://ted.europa.eu/lv/notice/543752-2026/pdf",
+          "LIT": "https://ted.europa.eu/lt/notice/543752-2026/pdf",
+          "MLT": "https://ted.europa.eu/mt/notice/543752-2026/pdf",
+          "NLD": "https://ted.europa.eu/nl/notice/543752-2026/pdf",
+          "POL": "https://ted.europa.eu/pl/notice/543752-2026/pdf",
+          "POR": "https://ted.europa.eu/pt/notice/543752-2026/pdf",
+          "RON": "https://ted.europa.eu/ro/notice/543752-2026/pdf",
+          "SLK": "https://ted.europa.eu/sk/notice/543752-2026/pdf",
+          "SLV": "https://ted.europa.eu/sl/notice/543752-2026/pdf",
+          "SPA": "https://ted.europa.eu/es/notice/543752-2026/pdf",
+          "SWE": "https://ted.europa.eu/sv/notice/543752-2026/pdf"
+        },
+        "pdfs": {
+          "FRA": "https://ted.europa.eu/fr/notice/543752-2026/pdfs"
+        },
+        "xml": {
+          "MUL": "https://ted.europa.eu/en/notice/543752-2026/xml"
+        }
+      },
+      "notice-identifier": "87c0d846-e03b-4fe3-9120-04af8c1bd7a0",
+      "notice-title": {
+        "bul": "Фpaнция – Проучване за осъществимост, консултантски услуги, анализ – Mission d'Assistance à Maîtrise d'Ouvrage pour la définition de l'offre de transport public de la ligne 271 Thonon-les-Bains / Excenevex / Genève et la passation d'un nouveau contrat",
+        "ces": "Francie – Studie proveditelnosti, poradenství, analýza – Mission d'Assistance à Maîtrise d'Ouvrage pour la définition de l'offre de transport public de la ligne 271 Thonon-les-Bains / Excenevex / Genève et la passation d'un nouveau contrat",
+        "dan": "Frankrig – Gennemførlighedsundersøgelser, rådgivning, analyser – Mission d'Assistance à Maîtrise d'Ouvrage pour la définition de l'offre de transport public de la ligne 271 Thonon-les-Bains / Excenevex / Genève et la passation d'un nouveau contrat",
+        "deu": "Frankreich – Durchführbarkeitsstudie, Beratung, Analyse – Mission d'Assistance à Maîtrise d'Ouvrage pour la définition de l'offre de transport public de la ligne 271 Thonon-les-Bains / Excenevex / Genève et la passation d'un nouveau contrat",
+        "ell": "Γαλλία – Μελέτες σκοπιμότητας, υπηρεσίες παροχής συμβουλών, υπηρεσίες αναλύσεων – Mission d'Assistance à Maîtrise d'Ouvrage pour la définition de l'offre de transport public de la ligne 271 Thonon-les-Bains / Excenevex / Genève et la passation d'un nouveau contrat",
+        "eng": "France – Feasibility study, advisory service, analysis – Mission d'Assistance à Maîtrise d'Ouvrage pour la définition de l'offre de transport public de la ligne 271 Thonon-les-Bains / Excenevex / Genève et la passation d'un nouveau contrat",
+        "est": "Prantsusmaa – Teostatavusuuringud, nõuandeteenused, analüüs – Mission d'Assistance à Maîtrise d'Ouvrage pour la définition de l'offre de transport public de la ligne 271 Thonon-les-Bains / Excenevex / Genève et la passation d'un nouveau contrat",
+        "fin": "Ranska – Toteutettavuustutkimus, neuvontapalvelut, analyysit – Mission d'Assistance à Maîtrise d'Ouvrage pour la définition de l'offre de transport public de la ligne 271 Thonon-les-Bains / Excenevex / Genève et la passation d'un nouveau contrat",
+        "fra": "France – Études de faisabilité, service de conseil, analyse – Mission d'Assistance à Maîtrise d'Ouvrage pour la définition de l'offre de transport public de la ligne 271 Thonon-les-Bains / Excenevex / Genève et la passation d'un nouveau contrat",
+        "gle": "An Fhrainc – Feasibility study, advisory service, analysis – Mission d'Assistance à Maîtrise d'Ouvrage pour la définition de l'offre de transport public de la ligne 271 Thonon-les-Bains / Excenevex / Genève et la passation d'un nouveau contrat",
+        "hrv": "Francuska – Studija izvodljivosti, savjetodavna usluga, analiza – Mission d'Assistance à Maîtrise d'Ouvrage pour la définition de l'offre de transport public de la ligne 271 Thonon-les-Bains / Excenevex / Genève et la passation d'un nouveau contrat",
+        "hun": "Franciaország – Megvalósíthatósági tanulmány, tanácsadó szolgáltatás, elemzés – Mission d'Assistance à Maîtrise d'Ouvrage pour la définition de l'offre de transport public de la ligne 271 Thonon-les-Bains / Excenevex / Genève et la passation d'un nouveau contrat",
+        "ita": "Francia – Studi di fattibilità, servizi di consulenza, analisi – Mission d'Assistance à Maîtrise d'Ouvrage pour la définition de l'offre de transport public de la ligne 271 Thonon-les-Bains / Excenevex / Genève et la passation d'un nouveau contrat",
+        "lav": "Francija – Priekšizpēte, konsultāciju dienests, analīze – Mission d'Assistance à Maîtrise d'Ouvrage pour la définition de l'offre de transport public de la ligne 271 Thonon-les-Bains / Excenevex / Genève et la passation d'un nouveau contrat",
+        "lit": "Prancūzija – Galimybių studijos, konsultavimo paslaugos, analizė – Mission d'Assistance à Maîtrise d'Ouvrage pour la définition de l'offre de transport public de la ligne 271 Thonon-les-Bains / Excenevex / Genève et la passation d'un nouveau contrat",
+        "mlt": "Franza – Studji ta' fattibbiltà, servizz ta' konsulenza, analiżi – Mission d'Assistance à Maîtrise d'Ouvrage pour la définition de l'offre de transport public de la ligne 271 Thonon-les-Bains / Excenevex / Genève et la passation d'un nouveau contrat",
+        "nld": "Frankrijk – Haalbaarheidsstudie, adviesverlening, analyse – Mission d'Assistance à Maîtrise d'Ouvrage pour la définition de l'offre de transport public de la ligne 271 Thonon-les-Bains / Excenevex / Genève et la passation d'un nouveau contrat",
+        "pol": "Francja – Studia wykonalności, usługi doradcze, analizy – Mission d'Assistance à Maîtrise d'Ouvrage pour la définition de l'offre de transport public de la ligne 271 Thonon-les-Bains / Excenevex / Genève et la passation d'un nouveau contrat",
+        "por": "França – Estudo de viabilidade, serviço consultivo, análise – Mission d'Assistance à Maîtrise d'Ouvrage pour la définition de l'offre de transport public de la ligne 271 Thonon-les-Bains / Excenevex / Genève et la passation d'un nouveau contrat",
+        "ron": "Franţa – Studii de fezabilitate, servicii de consultanţă, analize – Mission d'Assistance à Maîtrise d'Ouvrage pour la définition de l'offre de transport public de la ligne 271 Thonon-les-Bains / Excenevex / Genève et la passation d'un nouveau contrat",
+        "slk": "Francúzsko – Štúdia realizovateľnosti, poradenská služba, analýza – Mission d'Assistance à Maîtrise d'Ouvrage pour la définition de l'offre de transport public de la ligne 271 Thonon-les-Bains / Excenevex / Genève et la passation d'un nouveau contrat",
+        "slv": "Francija – Študija izvedljivosti, svetovanje, analiza – Mission d'Assistance à Maîtrise d'Ouvrage pour la définition de l'offre de transport public de la ligne 271 Thonon-les-Bains / Excenevex / Genève et la passation d'un nouveau contrat",
+        "spa": "Francia – Estudio de viabilidad, servicios de asesoramiento, análisis – Mission d'Assistance à Maîtrise d'Ouvrage pour la définition de l'offre de transport public de la ligne 271 Thonon-les-Bains / Excenevex / Genève et la passation d'un nouveau contrat",
+        "swe": "Frankrike – Genomförbarhetsstudie, rådgivning och analys – Mission d'Assistance à Maîtrise d'Ouvrage pour la définition de l'offre de transport public de la ligne 271 Thonon-les-Bains / Excenevex / Genève et la passation d'un nouveau contrat"
+      },
+      "notice-type": "can-standard",
+      "notice-version": 1,
+      "official-language": [
+        "FRA"
+      ],
+      "organisation-country-buyer": [
+        "FRA"
+      ],
+      "organisation-name-buyer": {
+        "fra": [
+          "GLCT des Transports Publics Transfrontaliers"
+        ]
+      },
+      "place-of-performance": [
+        "FRK28",
+        "CH013",
+        "FRA",
+        "CHE",
+        "FRK28",
+        "CH013",
+        "FRA",
+        "CHE"
+      ],
+      "procedure-type": "open",
+      "publication-date": "2026-08-06+02:00",
+      "publication-number": "543752-2026",
+      "title-lot": {
+        "fra": [
+          "Mission d'Assistance à Maîtrise d'Ouvrage pour la définition de l'offre de transport public de la ligne 271 Thonon-les-Bains / Excenevex / Genève et la passation d'un nouveau contrat"
+        ]
+      }
+    },
+    {
+      "buyer-country": [
+        "BEL"
+      ],
+      "buyer-name": {
+        "fra": [
+          "Infrabel sa"
+        ],
+        "nld": [
+          "Infrabel nv"
+        ]
+      },
+      "classification-cpv": [
+        "72000000",
+        "72000000"
+      ],
+      "contract-nature": [
+        "services",
+        "services"
+      ],
+      "description-lot": {
+        "fra": [
+          "e-Market 902 - SAP Fullstack Software Engineer"
+        ],
+        "nld": [
+          "e-Market 902 - SAP Fullstack Software Engineer"
+        ]
+      },
+      "description-proc": {
+        "fra": "e-Market 902 - SAP Fullstack Software Engineer (basé sur l’existence d’un système de qualification Y15Bis, I-46 publié aux niveaux belge et européen: https://www.publicprocurement.be/publication-workspaces/d5aa281d-f0b8-4143-a93e-c9cfbc8b9759/general conformément aux articles 11, 15 – 3° et 18 de l’AR du 18 juin 2017)",
+        "nld": "e-Market 902 - SAP Fullstack Software Engineer (op het bestaan van een kwalificatiestelsel Y15Bis, I-46 gebaseerd gepubliceerd op Europees en op Belgisch niveau: https://www.publicprocurement.be/publication-workspaces/d5aa281d-f0b8-4143-a93e-c9cfbc8b9759/general , in overeenstemming met de artikelen 11, 15 - 3° en 18 van het KB van 18 juni 2017)"
+      },
+      "form-type": "result",
+      "identifier-lot": [
+        "LOT-0001"
+      ],
+      "links": {
+        "html": {
+          "BUL": "https://ted.europa.eu/bg/notice/-/detail/543754-2026",
+          "CES": "https://ted.europa.eu/cs/notice/-/detail/543754-2026",
+          "DAN": "https://ted.europa.eu/da/notice/-/detail/543754-2026",
+          "DEU": "https://ted.europa.eu/de/notice/-/detail/543754-2026",
+          "ELL": "https://ted.europa.eu/el/notice/-/detail/543754-2026",
+          "ENG": "https://ted.europa.eu/en/notice/-/detail/543754-2026",
+          "EST": "https://ted.europa.eu/et/notice/-/detail/543754-2026",
+          "FIN": "https://ted.europa.eu/fi/notice/-/detail/543754-2026",
+          "FRA": "https://ted.europa.eu/fr/notice/-/detail/543754-2026",
+          "GLE": "https://ted.europa.eu/ga/notice/-/detail/543754-2026",
+          "HRV": "https://ted.europa.eu/hr/notice/-/detail/543754-2026",
+          "HUN": "https://ted.europa.eu/hu/notice/-/detail/543754-2026",
+          "ITA": "https://ted.europa.eu/it/notice/-/detail/543754-2026",
+          "LAV": "https://ted.europa.eu/lv/notice/-/detail/543754-2026",
+          "LIT": "https://ted.europa.eu/lt/notice/-/detail/543754-2026",
+          "MLT": "https://ted.europa.eu/mt/notice/-/detail/543754-2026",
+          "NLD": "https://ted.europa.eu/nl/notice/-/detail/543754-2026",
+          "POL": "https://ted.europa.eu/pl/notice/-/detail/543754-2026",
+          "POR": "https://ted.europa.eu/pt/notice/-/detail/543754-2026",
+          "RON": "https://ted.europa.eu/ro/notice/-/detail/543754-2026",
+          "SLK": "https://ted.europa.eu/sk/notice/-/detail/543754-2026",
+          "SLV": "https://ted.europa.eu/sl/notice/-/detail/543754-2026",
+          "SPA": "https://ted.europa.eu/es/notice/-/detail/543754-2026",
+          "SWE": "https://ted.europa.eu/sv/notice/-/detail/543754-2026"
+        },
+        "htmlDirect": {
+          "BUL": "https://ted.europa.eu/bg/notice/543754-2026/html",
+          "CES": "https://ted.europa.eu/cs/notice/543754-2026/html",
+          "DAN": "https://ted.europa.eu/da/notice/543754-2026/html",
+          "DEU": "https://ted.europa.eu/de/notice/543754-2026/html",
+          "ELL": "https://ted.europa.eu/el/notice/543754-2026/html",
+          "ENG": "https://ted.europa.eu/en/notice/543754-2026/html",
+          "EST": "https://ted.europa.eu/et/notice/543754-2026/html",
+          "FIN": "https://ted.europa.eu/fi/notice/543754-2026/html",
+          "FRA": "https://ted.europa.eu/fr/notice/543754-2026/html",
+          "GLE": "https://ted.europa.eu/ga/notice/543754-2026/html",
+          "HRV": "https://ted.europa.eu/hr/notice/543754-2026/html",
+          "HUN": "https://ted.europa.eu/hu/notice/543754-2026/html",
+          "ITA": "https://ted.europa.eu/it/notice/543754-2026/html",
+          "LAV": "https://ted.europa.eu/lv/notice/543754-2026/html",
+          "LIT": "https://ted.europa.eu/lt/notice/543754-2026/html",
+          "MLT": "https://ted.europa.eu/mt/notice/543754-2026/html",
+          "NLD": "https://ted.europa.eu/nl/notice/543754-2026/html",
+          "POL": "https://ted.europa.eu/pl/notice/543754-2026/html",
+          "POR": "https://ted.europa.eu/pt/notice/543754-2026/html",
+          "RON": "https://ted.europa.eu/ro/notice/543754-2026/html",
+          "SLK": "https://ted.europa.eu/sk/notice/543754-2026/html",
+          "SLV": "https://ted.europa.eu/sl/notice/543754-2026/html",
+          "SPA": "https://ted.europa.eu/es/notice/543754-2026/html",
+          "SWE": "https://ted.europa.eu/sv/notice/543754-2026/html"
+        },
+        "pdf": {
+          "BUL": "https://ted.europa.eu/bg/notice/543754-2026/pdf",
+          "CES": "https://ted.europa.eu/cs/notice/543754-2026/pdf",
+          "DAN": "https://ted.europa.eu/da/notice/543754-2026/pdf",
+          "DEU": "https://ted.europa.eu/de/notice/543754-2026/pdf",
+          "ELL": "https://ted.europa.eu/el/notice/543754-2026/pdf",
+          "ENG": "https://ted.europa.eu/en/notice/543754-2026/pdf",
+          "EST": "https://ted.europa.eu/et/notice/543754-2026/pdf",
+          "FIN": "https://ted.europa.eu/fi/notice/543754-2026/pdf",
+          "FRA": "https://ted.europa.eu/fr/notice/543754-2026/pdf",
+          "GLE": "https://ted.europa.eu/ga/notice/543754-2026/pdf",
+          "HRV": "https://ted.europa.eu/hr/notice/543754-2026/pdf",
+          "HUN": "https://ted.europa.eu/hu/notice/543754-2026/pdf",
+          "ITA": "https://ted.europa.eu/it/notice/543754-2026/pdf",
+          "LAV": "https://ted.europa.eu/lv/notice/543754-2026/pdf",
+          "LIT": "https://ted.europa.eu/lt/notice/543754-2026/pdf",
+          "MLT": "https://ted.europa.eu/mt/notice/543754-2026/pdf",
+          "NLD": "https://ted.europa.eu/nl/notice/543754-2026/pdf",
+          "POL": "https://ted.europa.eu/pl/notice/543754-2026/pdf",
+          "POR": "https://ted.europa.eu/pt/notice/543754-2026/pdf",
+          "RON": "https://ted.europa.eu/ro/notice/543754-2026/pdf",
+          "SLK": "https://ted.europa.eu/sk/notice/543754-2026/pdf",
+          "SLV": "https://ted.europa.eu/sl/notice/543754-2026/pdf",
+          "SPA": "https://ted.europa.eu/es/notice/543754-2026/pdf",
+          "SWE": "https://ted.europa.eu/sv/notice/543754-2026/pdf"
+        },
+        "pdfs": {
+          "FRA": "https://ted.europa.eu/fr/notice/543754-2026/pdfs",
+          "NLD": "https://ted.europa.eu/nl/notice/543754-2026/pdfs"
+        },
+        "xml": {
+          "MUL": "https://ted.europa.eu/en/notice/543754-2026/xml"
+        }
+      },
+      "notice-identifier": "e3849715-8044-4757-83b8-212a1724bf6d",
+      "notice-title": {
+        "bul": "Бeлгия – ИТ услуги: консултации, разработване на софтуер, Интернет и поддръжка – e-Market 902 - SAP Fullstack Software Engineer",
+        "ces": "Belgie – Informační technologie: poradenství, vývoj programového vybavení, internet a podpora – e-Market 902 - SAP Fullstack Software Engineer",
+        "dan": "Belgien – It-tjenester: rådgivning, programmeludvikling, internet og support – e-Market 902 - SAP Fullstack Software Engineer",
+        "deu": "Belgien – IT-Dienste: Beratung, Software-Entwicklung, Internet und Hilfestellung – e-Market 902 - SAP Fullstack Software Engineer",
+        "ell": "Βέλγιο – Υπηρεσίες τεχνολογίας των πληροφοριών: παροχή συμβουλών, ανάπτυξη λογισμικού, Διαδίκτυο και υποστήριξη – e-Market 902 - SAP Fullstack Software Engineer",
+        "eng": "Belgium – IT services: consulting, software development, Internet and support – e-Market 902 - SAP Fullstack Software Engineer",
+        "est": "Belgia – IT-teenused: nõuande-, tarkvaraarendus-, Interneti- ja tugiteenused – e-Market 902 - SAP Fullstack Software Engineer",
+        "fin": "Belgia – Tietotekniset palvelut: neuvonta, ohjelmistojen kehittäminen, Internet ja tuki – e-Market 902 - SAP Fullstack Software Engineer",
+        "fra": "Belgique – Services de technologies de l'information, conseil, développement de logiciels, internet et appui – e-Market 902 - SAP Fullstack Software Engineer",
+        "gle": "An Bheilg – IT services: consulting, software development, Internet and support – e-Market 902 - SAP Fullstack Software Engineer",
+        "hrv": "Belgija – Usluge informacijske tehnologije: savjetovanje, razvoj programske podrške, internet i podrška – e-Market 902 - SAP Fullstack Software Engineer",
+        "hun": "Belgium – IT-szolgáltatások: tanácsadás, szoftverfejlesztés, internet és támogatás – e-Market 902 - SAP Fullstack Software Engineer",
+        "ita": "Belgio – Servizi informatici: consulenza, sviluppo di software, Internet e supporto – e-Market 902 - SAP Fullstack Software Engineer",
+        "lav": "Beļģija – IT pakalpojumi konsultēšana, programmatūras izstrāde, internets un atbalsts – e-Market 902 - SAP Fullstack Software Engineer",
+        "lit": "Belgija – IT paslaugos: konsultavimas, programinės įrangos kūrimas, internetas ir aptarnavimo paslaugos – e-Market 902 - SAP Fullstack Software Engineer",
+        "mlt": "Il-Belġju – Servizzi ta' IT: konsulenza, żvilupp ta' softwer, Internet u appoġġ – e-Market 902 - SAP Fullstack Software Engineer",
+        "nld": "België – IT-diensten: adviezen, softwareontwikkeling, internet en ondersteuning – e-Market 902 - SAP Fullstack Software Engineer",
+        "pol": "Belgia – Usługi informatyczne: konsultacyjne, opracowywania oprogramowania, internetowe i wsparcia – e-Market 902 - SAP Fullstack Software Engineer",
+        "por": "Bélgica – Serviços de TI: consultoria, desenvolvimento de software, Internet e apoio – e-Market 902 - SAP Fullstack Software Engineer",
+        "ron": "Belgia – Servicii IT: consultanţă, dezvoltare de software, internet şi asistenţă – e-Market 902 - SAP Fullstack Software Engineer",
+        "slk": "Belgicko – Služby informačných technológií: konzultácie, vývoj softvéru, internet a podpora – e-Market 902 - SAP Fullstack Software Engineer",
+        "slv": "Belgija – Storitve informacijske tehnologije: svetovanje, razvoj programske opreme, internet in podpora – e-Market 902 - SAP Fullstack Software Engineer",
+        "spa": "Bélgica – Servicios TI: consultoría, desarrollo de software, Internet y apoyo – e-Market 902 - SAP Fullstack Software Engineer",
+        "swe": "Belgien – IT-tjänster: konsultverksamhet, programvaruutveckling, Internet och stöd – e-Market 902 - SAP Fullstack Software Engineer"
+      },
+      "notice-type": "can-standard",
+      "notice-version": 1,
+      "official-language": [
+        "NLD",
+        "FRA"
+      ],
+      "organisation-country-buyer": [
+        "BEL"
+      ],
+      "organisation-name-buyer": {
+        "fra": [
+          "Infrabel sa"
+        ],
+        "nld": [
+          "Infrabel nv"
+        ]
+      },
+      "place-of-performance": [
+        "BE100",
+        "BEL",
+        "BE100",
+        "BEL"
+      ],
+      "procedure-type": "neg-w-call",
+      "publication-date": "2026-08-06+02:00",
+      "publication-number": "543754-2026",
+      "title-lot": {
+        "fra": [
+          "0000815094_ZBE-Q - 1"
+        ],
+        "nld": [
+          "0000815094_ZBE-Q - 1"
+        ]
+      }
+    },
+    {
+      "buyer-country": [
+        "BEL"
+      ],
+      "buyer-name": {
+        "fra": [
+          "SNCB"
+        ],
+        "nld": [
+          "NMBS"
+        ]
+      },
+      "classification-cpv": [
+        "48218000",
+        "72212218",
+        "48218000",
+        "72212218"
+      ],
+      "contract-nature": [
+        "supplies",
+        "services",
+        "supplies",
+        "services"
+      ],
+      "description-lot": {
+        "fra": [
+          "La demande concerne d’une part l’acquisition de licences Primavera P6 et Unifier. Ces logiciels seront utilisés pour la planification de projets liés au développement, à la rénovation et à la maintenance des gares et des bâtiments. Plus concrètement, il s’agit des types de licences suivants : • Primavera P6 EPPM Cloud Service • Primavera P6 Progress Reporter Cloud Service • Primavera P6 EPPM Webservices Cloud Service • Primavera Unifier Project Controls Cloud Service D’autre part, des services : pour la formation sur les produits P6 et Unifier, ainsi que pour des conseils ponctuels en matière d’implémentation. La SNCB attend des mises à jour régulières du logiciel afin qu’il continue à répondre aux exigences de sécurité et permette la correction des bugs."
+        ],
+        "nld": [
+          "De aanvraag betreft enerzijds de aankoop van Primavera P6- en Unifier-licenties. Deze software zal worden gebruikt voor de planning van projecten met betrekking tot de ontwikkeling, renovatie en het onderhoud van stations en gebouwen. Concreet gaat het om de volgende types licenties: • Primavera P6 EPPM Cloud Service • Primavera P6 Progress Reporter Cloud Service • Primavera P6 EPPM Webservices Cloud Service • Primavera Unifier Project Controls Cloud Service Anderzijds worden ook diensten gevraagd: voor opleiding over de P6- en Unifier-producten, evenals voor occasioneel advies inzake implementatie. De NMBS verwacht regelmatige software-updates zodat deze blijft voldoen aan de veiligheidsvereisten en bugs kunnen worden opgelost."
+        ]
+      },
+      "description-proc": {
+        "fra": "La demande concerne d’une part l’acquisition de licences Primavera P6 et Unifier. Ces logiciels seront utilisés pour la planification de projets liés au développement, à la rénovation et à la maintenance des gares et des bâtiments. Plus concrètement, il s’agit des types de licences suivants : • Primavera P6 EPPM Cloud Service • Primavera P6 Progress Reporter Cloud Service • Primavera P6 EPPM Webservices Cloud Service • Primavera Unifier Project Controls Cloud Service D’autre part, des services : pour la formation sur les produits P6 et Unifier, ainsi que pour des conseils ponctuels en matière d’implémentation. La SNCB attend des mises à jour régulières du logiciel afin qu’il continue à répondre aux exigences de sécurité et permette la correction des bugs.",
+        "nld": "De aanvraag betreft enerzijds de aankoop van Primavera P6- en Unifier-licenties. Deze software zal worden gebruikt voor de planning van projecten met betrekking tot de ontwikkeling, renovatie en het onderhoud van stations en gebouwen. Concreet gaat het om de volgende types licenties: • Primavera P6 EPPM Cloud Service • Primavera P6 Progress Reporter Cloud Service • Primavera P6 EPPM Webservices Cloud Service • Primavera Unifier Project Controls Cloud Service Anderzijds worden ook diensten gevraagd: voor opleiding over de P6- en Unifier-producten, evenals voor occasioneel advies inzake implementatie. De NMBS verwacht regelmatige software-updates zodat deze blijft voldoen aan de veiligheidsvereisten en bugs kunnen worden opgelost."
+      },
+      "form-type": "result",
+      "identifier-lot": [
+        "LOT-0001"
+      ],
+      "links": {
+        "html": {
+          "BUL": "https://ted.europa.eu/bg/notice/-/detail/543756-2026",
+          "CES": "https://ted.europa.eu/cs/notice/-/detail/543756-2026",
+          "DAN": "https://ted.europa.eu/da/notice/-/detail/543756-2026",
+          "DEU": "https://ted.europa.eu/de/notice/-/detail/543756-2026",
+          "ELL": "https://ted.europa.eu/el/notice/-/detail/543756-2026",
+          "ENG": "https://ted.europa.eu/en/notice/-/detail/543756-2026",
+          "EST": "https://ted.europa.eu/et/notice/-/detail/543756-2026",
+          "FIN": "https://ted.europa.eu/fi/notice/-/detail/543756-2026",
+          "FRA": "https://ted.europa.eu/fr/notice/-/detail/543756-2026",
+          "GLE": "https://ted.europa.eu/ga/notice/-/detail/543756-2026",
+          "HRV": "https://ted.europa.eu/hr/notice/-/detail/543756-2026",
+          "HUN": "https://ted.europa.eu/hu/notice/-/detail/543756-2026",
+          "ITA": "https://ted.europa.eu/it/notice/-/detail/543756-2026",
+          "LAV": "https://ted.europa.eu/lv/notice/-/detail/543756-2026",
+          "LIT": "https://ted.europa.eu/lt/notice/-/detail/543756-2026",
+          "MLT": "https://ted.europa.eu/mt/notice/-/detail/543756-2026",
+          "NLD": "https://ted.europa.eu/nl/notice/-/detail/543756-2026",
+          "POL": "https://ted.europa.eu/pl/notice/-/detail/543756-2026",
+          "POR": "https://ted.europa.eu/pt/notice/-/detail/543756-2026",
+          "RON": "https://ted.europa.eu/ro/notice/-/detail/543756-2026",
+          "SLK": "https://ted.europa.eu/sk/notice/-/detail/543756-2026",
+          "SLV": "https://ted.europa.eu/sl/notice/-/detail/543756-2026",
+          "SPA": "https://ted.europa.eu/es/notice/-/detail/543756-2026",
+          "SWE": "https://ted.europa.eu/sv/notice/-/detail/543756-2026"
+        },
+        "htmlDirect": {
+          "BUL": "https://ted.europa.eu/bg/notice/543756-2026/html",
+          "CES": "https://ted.europa.eu/cs/notice/543756-2026/html",
+          "DAN": "https://ted.europa.eu/da/notice/543756-2026/html",
+          "DEU": "https://ted.europa.eu/de/notice/543756-2026/html",
+          "ELL": "https://ted.europa.eu/el/notice/543756-2026/html",
+          "ENG": "https://ted.europa.eu/en/notice/543756-2026/html",
+          "EST": "https://ted.europa.eu/et/notice/543756-2026/html",
+          "FIN": "https://ted.europa.eu/fi/notice/543756-2026/html",
+          "FRA": "https://ted.europa.eu/fr/notice/543756-2026/html",
+          "GLE": "https://ted.europa.eu/ga/notice/543756-2026/html",
+          "HRV": "https://ted.europa.eu/hr/notice/543756-2026/html",
+          "HUN": "https://ted.europa.eu/hu/notice/543756-2026/html",
+          "ITA": "https://ted.europa.eu/it/notice/543756-2026/html",
+          "LAV": "https://ted.europa.eu/lv/notice/543756-2026/html",
+          "LIT": "https://ted.europa.eu/lt/notice/543756-2026/html",
+          "MLT": "https://ted.europa.eu/mt/notice/543756-2026/html",
+          "NLD": "https://ted.europa.eu/nl/notice/543756-2026/html",
+          "POL": "https://ted.europa.eu/pl/notice/543756-2026/html",
+          "POR": "https://ted.europa.eu/pt/notice/543756-2026/html",
+          "RON": "https://ted.europa.eu/ro/notice/543756-2026/html",
+          "SLK": "https://ted.europa.eu/sk/notice/543756-2026/html",
+          "SLV": "https://ted.europa.eu/sl/notice/543756-2026/html",
+          "SPA": "https://ted.europa.eu/es/notice/543756-2026/html",
+          "SWE": "https://ted.europa.eu/sv/notice/543756-2026/html"
+        },
+        "pdf": {
+          "BUL": "https://ted.europa.eu/bg/notice/543756-2026/pdf",
+          "CES": "https://ted.europa.eu/cs/notice/543756-2026/pdf",
+          "DAN": "https://ted.europa.eu/da/notice/543756-2026/pdf",
+          "DEU": "https://ted.europa.eu/de/notice/543756-2026/pdf",
+          "ELL": "https://ted.europa.eu/el/notice/543756-2026/pdf",
+          "ENG": "https://ted.europa.eu/en/notice/543756-2026/pdf",
+          "EST": "https://ted.europa.eu/et/notice/543756-2026/pdf",
+          "FIN": "https://ted.europa.eu/fi/notice/543756-2026/pdf",
+          "FRA": "https://ted.europa.eu/fr/notice/543756-2026/pdf",
+          "GLE": "https://ted.europa.eu/ga/notice/543756-2026/pdf",
+          "HRV": "https://ted.europa.eu/hr/notice/543756-2026/pdf",
+          "HUN": "https://ted.europa.eu/hu/notice/543756-2026/pdf",
+          "ITA": "https://ted.europa.eu/it/notice/543756-2026/pdf",
+          "LAV": "https://ted.europa.eu/lv/notice/543756-2026/pdf",
+          "LIT": "https://ted.europa.eu/lt/notice/543756-2026/pdf",
+          "MLT": "https://ted.europa.eu/mt/notice/543756-2026/pdf",
+          "NLD": "https://ted.europa.eu/nl/notice/543756-2026/pdf",
+          "POL": "https://ted.europa.eu/pl/notice/543756-2026/pdf",
+          "POR": "https://ted.europa.eu/pt/notice/543756-2026/pdf",
+          "RON": "https://ted.europa.eu/ro/notice/543756-2026/pdf",
+          "SLK": "https://ted.europa.eu/sk/notice/543756-2026/pdf",
+          "SLV": "https://ted.europa.eu/sl/notice/543756-2026/pdf",
+          "SPA": "https://ted.europa.eu/es/notice/543756-2026/pdf",
+          "SWE": "https://ted.europa.eu/sv/notice/543756-2026/pdf"
+        },
+        "pdfs": {
+          "FRA": "https://ted.europa.eu/fr/notice/543756-2026/pdfs",
+          "NLD": "https://ted.europa.eu/nl/notice/543756-2026/pdfs"
+        },
+        "xml": {
+          "MUL": "https://ted.europa.eu/en/notice/543756-2026/xml"
+        }
+      },
+      "notice-identifier": "4a77cd10-6c53-48d5-8fc6-89dd889bf083",
+      "notice-title": {
+        "bul": "Бeлгия – Софтуерни пакети за управление на лицензи – Accord-cadre pour l’acquisition de licences Primavera avec services",
+        "ces": "Belgie – Balík programů pro správu licencí – Accord-cadre pour l’acquisition de licences Primavera avec services",
+        "dan": "Belgien – Programpakke til licensforvaltning – Accord-cadre pour l’acquisition de licences Primavera avec services",
+        "deu": "Belgien – Lizenzverwaltungssoftwarepaket – Accord-cadre pour l’acquisition de licences Primavera avec services",
+        "ell": "Βέλγιο – Πακέτα λογισμικού διαχείρισης αδειών – Accord-cadre pour l’acquisition de licences Primavera avec services",
+        "eng": "Belgium – License management software package – Accord-cadre pour l’acquisition de licences Primavera avec services",
+        "est": "Belgia – Litsentside haldamise tarkvarapakett – Accord-cadre pour l’acquisition de licences Primavera avec services",
+        "fin": "Belgia – Käyttöoikeuksien hallintaohjelmatuotteet – Accord-cadre pour l’acquisition de licences Primavera avec services",
+        "fra": "Belgique – Logiciels de gestion des licences – Accord-cadre pour l’acquisition de licences Primavera avec services",
+        "gle": "An Bheilg – License management software package – Accord-cadre pour l’acquisition de licences Primavera avec services",
+        "hrv": "Belgija – Programski paket za upravljanje dozvolama – Accord-cadre pour l’acquisition de licences Primavera avec services",
+        "hun": "Belgium – Licenckezelő szoftvercsomag – Accord-cadre pour l’acquisition de licences Primavera avec services",
+        "ita": "Belgio – Pacchetti software per la gestione di licenze – Accord-cadre pour l’acquisition de licences Primavera avec services",
+        "lav": "Beļģija – Licenču pārvaldības programmatūras pakotne – Accord-cadre pour l’acquisition de licences Primavera avec services",
+        "lit": "Belgija – Licencijų valdymo programinės įrangos paketai – Accord-cadre pour l’acquisition de licences Primavera avec services",
+        "mlt": "Il-Belġju – Pakkett ta' softwer għall-ġestjoni tal-liċenzji – Accord-cadre pour l’acquisition de licences Primavera avec services",
+        "nld": "België – Software voor licentiemanagement – Raamovereenkomst voor de aankoop van Primavera licenties met services",
+        "pol": "Belgia – Pakiety oprogramowania zarządzającego licencjami – Accord-cadre pour l’acquisition de licences Primavera avec services",
+        "por": "Bélgica – Pacote de software para gestão de licenças – Accord-cadre pour l’acquisition de licences Primavera avec services",
+        "ron": "Belgia – Pachete software pentru gestionarea licenţelor – Accord-cadre pour l’acquisition de licences Primavera avec services",
+        "slk": "Belgicko – Softvérový balík na riadenie licencií – Accord-cadre pour l’acquisition de licences Primavera avec services",
+        "slv": "Belgija – Programski paket za upravljanje licenc – Accord-cadre pour l’acquisition de licences Primavera avec services",
+        "spa": "Bélgica – Paquetes de software de gestión de licencias – Accord-cadre pour l’acquisition de licences Primavera avec services",
+        "swe": "Belgien – Programvara för licenshantering – Accord-cadre pour l’acquisition de licences Primavera avec services"
+      },
+      "notice-type": "can-standard",
+      "notice-version": 1,
+      "official-language": [
+        "FRA",
+        "NLD"
+      ],
+      "organisation-country-buyer": [
+        "BEL"
+      ],
+      "organisation-name-buyer": {
+        "fra": [
+          "SNCB"
+        ],
+        "nld": [
+          "NMBS"
+        ]
+      },
+      "place-of-performance": [
+        "BEL",
+        "BEL"
+      ],
+      "procedure-type": "neg-w-call",
+      "publication-date": "2026-08-06+02:00",
+      "publication-number": "543756-2026",
+      "title-lot": {
+        "fra": [
+          "WS2848982494 - 1"
+        ],
+        "nld": [
+          "WS2848982494 - 1"
+        ]
+      }
+    },
+    {
+      "buyer-country": [
+        "BEL"
+      ],
+      "buyer-name": {
+        "nld": [
+          "Lantis (de naam waaronder BAM nv van publiek recht handelt)"
+        ]
+      },
+      "classification-cpv": [
+        "51210000",
+        "51210000"
+      ],
+      "contract-nature": [
+        "services",
+        "services"
+      ],
+      "description-lot": {
+        "nld": [
+          "Raamovereenkomst permanente verkeerstellingen"
+        ]
+      },
+      "description-proc": {
+        "nld": "Raamovereenkomst permanente verkeerstellingen"
+      },
+      "estimated-value-cur-lot": [
+        "EUR"
+      ],
+      "estimated-value-lot": [
+        "1870000.00"
+      ],
+      "form-type": "result",
+      "identifier-lot": [
+        "LOT-0001"
+      ],
+      "links": {
+        "html": {
+          "BUL": "https://ted.europa.eu/bg/notice/-/detail/543782-2026",
+          "CES": "https://ted.europa.eu/cs/notice/-/detail/543782-2026",
+          "DAN": "https://ted.europa.eu/da/notice/-/detail/543782-2026",
+          "DEU": "https://ted.europa.eu/de/notice/-/detail/543782-2026",
+          "ELL": "https://ted.europa.eu/el/notice/-/detail/543782-2026",
+          "ENG": "https://ted.europa.eu/en/notice/-/detail/543782-2026",
+          "EST": "https://ted.europa.eu/et/notice/-/detail/543782-2026",
+          "FIN": "https://ted.europa.eu/fi/notice/-/detail/543782-2026",
+          "FRA": "https://ted.europa.eu/fr/notice/-/detail/543782-2026",
+          "GLE": "https://ted.europa.eu/ga/notice/-/detail/543782-2026",
+          "HRV": "https://ted.europa.eu/hr/notice/-/detail/543782-2026",
+          "HUN": "https://ted.europa.eu/hu/notice/-/detail/543782-2026",
+          "ITA": "https://ted.europa.eu/it/notice/-/detail/543782-2026",
+          "LAV": "https://ted.europa.eu/lv/notice/-/detail/543782-2026",
+          "LIT": "https://ted.europa.eu/lt/notice/-/detail/543782-2026",
+          "MLT": "https://ted.europa.eu/mt/notice/-/detail/543782-2026",
+          "NLD": "https://ted.europa.eu/nl/notice/-/detail/543782-2026",
+          "POL": "https://ted.europa.eu/pl/notice/-/detail/543782-2026",
+          "POR": "https://ted.europa.eu/pt/notice/-/detail/543782-2026",
+          "RON": "https://ted.europa.eu/ro/notice/-/detail/543782-2026",
+          "SLK": "https://ted.europa.eu/sk/notice/-/detail/543782-2026",
+          "SLV": "https://ted.europa.eu/sl/notice/-/detail/543782-2026",
+          "SPA": "https://ted.europa.eu/es/notice/-/detail/543782-2026",
+          "SWE": "https://ted.europa.eu/sv/notice/-/detail/543782-2026"
+        },
+        "htmlDirect": {
+          "BUL": "https://ted.europa.eu/bg/notice/543782-2026/html",
+          "CES": "https://ted.europa.eu/cs/notice/543782-2026/html",
+          "DAN": "https://ted.europa.eu/da/notice/543782-2026/html",
+          "DEU": "https://ted.europa.eu/de/notice/543782-2026/html",
+          "ELL": "https://ted.europa.eu/el/notice/543782-2026/html",
+          "ENG": "https://ted.europa.eu/en/notice/543782-2026/html",
+          "EST": "https://ted.europa.eu/et/notice/543782-2026/html",
+          "FIN": "https://ted.europa.eu/fi/notice/543782-2026/html",
+          "FRA": "https://ted.europa.eu/fr/notice/543782-2026/html",
+          "GLE": "https://ted.europa.eu/ga/notice/543782-2026/html",
+          "HRV": "https://ted.europa.eu/hr/notice/543782-2026/html",
+          "HUN": "https://ted.europa.eu/hu/notice/543782-2026/html",
+          "ITA": "https://ted.europa.eu/it/notice/543782-2026/html",
+          "LAV": "https://ted.europa.eu/lv/notice/543782-2026/html",
+          "LIT": "https://ted.europa.eu/lt/notice/543782-2026/html",
+          "MLT": "https://ted.europa.eu/mt/notice/543782-2026/html",
+          "NLD": "https://ted.europa.eu/nl/notice/543782-2026/html",
+          "POL": "https://ted.europa.eu/pl/notice/543782-2026/html",
+          "POR": "https://ted.europa.eu/pt/notice/543782-2026/html",
+          "RON": "https://ted.europa.eu/ro/notice/543782-2026/html",
+          "SLK": "https://ted.europa.eu/sk/notice/543782-2026/html",
+          "SLV": "https://ted.europa.eu/sl/notice/543782-2026/html",
+          "SPA": "https://ted.europa.eu/es/notice/543782-2026/html",
+          "SWE": "https://ted.europa.eu/sv/notice/543782-2026/html"
+        },
+        "pdf": {
+          "BUL": "https://ted.europa.eu/bg/notice/543782-2026/pdf",
+          "CES": "https://ted.europa.eu/cs/notice/543782-2026/pdf",
+          "DAN": "https://ted.europa.eu/da/notice/543782-2026/pdf",
+          "DEU": "https://ted.europa.eu/de/notice/543782-2026/pdf",
+          "ELL": "https://ted.europa.eu/el/notice/543782-2026/pdf",
+          "ENG": "https://ted.europa.eu/en/notice/543782-2026/pdf",
+          "EST": "https://ted.europa.eu/et/notice/543782-2026/pdf",
+          "FIN": "https://ted.europa.eu/fi/notice/543782-2026/pdf",
+          "FRA": "https://ted.europa.eu/fr/notice/543782-2026/pdf",
+          "GLE": "https://ted.europa.eu/ga/notice/543782-2026/pdf",
+          "HRV": "https://ted.europa.eu/hr/notice/543782-2026/pdf",
+          "HUN": "https://ted.europa.eu/hu/notice/543782-2026/pdf",
+          "ITA": "https://ted.europa.eu/it/notice/543782-2026/pdf",
+          "LAV": "https://ted.europa.eu/lv/notice/543782-2026/pdf",
+          "LIT": "https://ted.europa.eu/lt/notice/543782-2026/pdf",
+          "MLT": "https://ted.europa.eu/mt/notice/543782-2026/pdf",
+          "NLD": "https://ted.europa.eu/nl/notice/543782-2026/pdf",
+          "POL": "https://ted.europa.eu/pl/notice/543782-2026/pdf",
+          "POR": "https://ted.europa.eu/pt/notice/543782-2026/pdf",
+          "RON": "https://ted.europa.eu/ro/notice/543782-2026/pdf",
+          "SLK": "https://ted.europa.eu/sk/notice/543782-2026/pdf",
+          "SLV": "https://ted.europa.eu/sl/notice/543782-2026/pdf",
+          "SPA": "https://ted.europa.eu/es/notice/543782-2026/pdf",
+          "SWE": "https://ted.europa.eu/sv/notice/543782-2026/pdf"
+        },
+        "pdfs": {
+          "NLD": "https://ted.europa.eu/nl/notice/543782-2026/pdfs"
+        },
+        "xml": {
+          "MUL": "https://ted.europa.eu/en/notice/543782-2026/xml"
+        }
+      },
+      "notice-identifier": "db108603-d0a9-4f0a-ba41-c49b931d5604",
+      "notice-title": {
+        "bul": "Бeлгия – Услуги по инсталиране на уреди и апарати за измерване – Raamovereenkomst permanente verkeerstellingen",
+        "ces": "Belgie – Instalace a montáž měřících přístrojů – Raamovereenkomst permanente verkeerstellingen",
+        "dan": "Belgien – Installation af måleudstyr – Raamovereenkomst permanente verkeerstellingen",
+        "deu": "Belgien – Installation von Messgeräten – Raamovereenkomst permanente verkeerstellingen",
+        "ell": "Βέλγιο – Υπηρεσίες εγκατάστασης εξοπλισμού μέτρησης – Raamovereenkomst permanente verkeerstellingen",
+        "eng": "Belgium – Installation services of measuring equipment – Raamovereenkomst permanente verkeerstellingen",
+        "est": "Belgia – Mõõteseadmete paigaldusteenused – Raamovereenkomst permanente verkeerstellingen",
+        "fin": "Belgia – Mittauslaitteiden asentaminen – Raamovereenkomst permanente verkeerstellingen",
+        "fra": "Belgique – Services d'installation de matériel de mesure – Raamovereenkomst permanente verkeerstellingen",
+        "gle": "An Bheilg – Installation services of measuring equipment – Raamovereenkomst permanente verkeerstellingen",
+        "hrv": "Belgija – Usluge instaliranja mjerne opreme – Raamovereenkomst permanente verkeerstellingen",
+        "hun": "Belgium – Mérőberendezéssel kapcsolatos szerelési szolgáltatások – Raamovereenkomst permanente verkeerstellingen",
+        "ita": "Belgio – Servizi di installazione di attrezzature di misurazione – Raamovereenkomst permanente verkeerstellingen",
+        "lav": "Beļģija – Mērierīču uzstādīšanas pakalpojumi – Raamovereenkomst permanente verkeerstellingen",
+        "lit": "Belgija – Matavimo įrenginių montavimo paslaugos – Raamovereenkomst permanente verkeerstellingen",
+        "mlt": "Il-Belġju – Servizzi ta’ l-istallazzjoni ta’ apparat għall-kejl – Raamovereenkomst permanente verkeerstellingen",
+        "nld": "België – Installatie van meetuitrusting – Raamovereenkomst permanente verkeerstellingen",
+        "pol": "Belgia – Usługi instalowania urządzeń pomiarowych – Raamovereenkomst permanente verkeerstellingen",
+        "por": "Bélgica – Serviços de instalação de equipamento para medição – Raamovereenkomst permanente verkeerstellingen",
+        "ron": "Belgia – Servicii de instalare de echipament de măsurat – Raamovereenkomst permanente verkeerstellingen",
+        "slk": "Belgicko – Inštalácia meracích zariadení – Raamovereenkomst permanente verkeerstellingen",
+        "slv": "Belgija – Storitve inštalacije merilne opreme – Raamovereenkomst permanente verkeerstellingen",
+        "spa": "Bélgica – Servicios de instalación de equipo de medida – Raamovereenkomst permanente verkeerstellingen",
+        "swe": "Belgien – Installation av mätutrustning – Raamovereenkomst permanente verkeerstellingen"
+      },
+      "notice-type": "can-standard",
+      "notice-version": 1,
+      "official-language": [
+        "NLD"
+      ],
+      "organisation-country-buyer": [
+        "BEL"
+      ],
+      "organisation-name-buyer": {
+        "nld": [
+          "Lantis (de naam waaronder BAM nv van publiek recht handelt)"
+        ]
+      },
+      "place-of-performance": [
+        "BE211",
+        "BE211",
+        "BEL",
+        "BEL",
+        "BE211",
+        "BEL"
+      ],
+      "procedure-type": "neg-w-call",
+      "publication-date": "2026-08-06+02:00",
+      "publication-number": "543782-2026",
+      "title-lot": {
+        "nld": [
+          "Raamovereenkomst permanente verkeerstellingen"
+        ]
+      }
+    },
+    {
+      "buyer-country": [
+        "FRA"
+      ],
+      "buyer-name": {
+        "fra": [
+          "Communauté de Communes Loire Layon Aubance"
+        ]
+      },
+      "classification-cpv": [
+        "90641000",
+        "90641000"
+      ],
+      "contract-nature": [
+        "services",
+        "services"
+      ],
+      "description-lot": {
+        "fra": [
+          "Prestation de services de nettoyage des avaloirs"
+        ]
+      },
+      "description-proc": {
+        "fra": "Prestation de services de nettoyage des avaloirs"
+      },
+      "form-type": "result",
+      "identifier-lot": [
+        "LOT-0001"
+      ],
+      "links": {
+        "html": {
+          "BUL": "https://ted.europa.eu/bg/notice/-/detail/543838-2026",
+          "CES": "https://ted.europa.eu/cs/notice/-/detail/543838-2026",
+          "DAN": "https://ted.europa.eu/da/notice/-/detail/543838-2026",
+          "DEU": "https://ted.europa.eu/de/notice/-/detail/543838-2026",
+          "ELL": "https://ted.europa.eu/el/notice/-/detail/543838-2026",
+          "ENG": "https://ted.europa.eu/en/notice/-/detail/543838-2026",
+          "EST": "https://ted.europa.eu/et/notice/-/detail/543838-2026",
+          "FIN": "https://ted.europa.eu/fi/notice/-/detail/543838-2026",
+          "FRA": "https://ted.europa.eu/fr/notice/-/detail/543838-2026",
+          "GLE": "https://ted.europa.eu/ga/notice/-/detail/543838-2026",
+          "HRV": "https://ted.europa.eu/hr/notice/-/detail/543838-2026",
+          "HUN": "https://ted.europa.eu/hu/notice/-/detail/543838-2026",
+          "ITA": "https://ted.europa.eu/it/notice/-/detail/543838-2026",
+          "LAV": "https://ted.europa.eu/lv/notice/-/detail/543838-2026",
+          "LIT": "https://ted.europa.eu/lt/notice/-/detail/543838-2026",
+          "MLT": "https://ted.europa.eu/mt/notice/-/detail/543838-2026",
+          "NLD": "https://ted.europa.eu/nl/notice/-/detail/543838-2026",
+          "POL": "https://ted.europa.eu/pl/notice/-/detail/543838-2026",
+          "POR": "https://ted.europa.eu/pt/notice/-/detail/543838-2026",
+          "RON": "https://ted.europa.eu/ro/notice/-/detail/543838-2026",
+          "SLK": "https://ted.europa.eu/sk/notice/-/detail/543838-2026",
+          "SLV": "https://ted.europa.eu/sl/notice/-/detail/543838-2026",
+          "SPA": "https://ted.europa.eu/es/notice/-/detail/543838-2026",
+          "SWE": "https://ted.europa.eu/sv/notice/-/detail/543838-2026"
+        },
+        "htmlDirect": {
+          "BUL": "https://ted.europa.eu/bg/notice/543838-2026/html",
+          "CES": "https://ted.europa.eu/cs/notice/543838-2026/html",
+          "DAN": "https://ted.europa.eu/da/notice/543838-2026/html",
+          "DEU": "https://ted.europa.eu/de/notice/543838-2026/html",
+          "ELL": "https://ted.europa.eu/el/notice/543838-2026/html",
+          "ENG": "https://ted.europa.eu/en/notice/543838-2026/html",
+          "EST": "https://ted.europa.eu/et/notice/543838-2026/html",
+          "FIN": "https://ted.europa.eu/fi/notice/543838-2026/html",
+          "FRA": "https://ted.europa.eu/fr/notice/543838-2026/html",
+          "GLE": "https://ted.europa.eu/ga/notice/543838-2026/html",
+          "HRV": "https://ted.europa.eu/hr/notice/543838-2026/html",
+          "HUN": "https://ted.europa.eu/hu/notice/543838-2026/html",
+          "ITA": "https://ted.europa.eu/it/notice/543838-2026/html",
+          "LAV": "https://ted.europa.eu/lv/notice/543838-2026/html",
+          "LIT": "https://ted.europa.eu/lt/notice/543838-2026/html",
+          "MLT": "https://ted.europa.eu/mt/notice/543838-2026/html",
+          "NLD": "https://ted.europa.eu/nl/notice/543838-2026/html",
+          "POL": "https://ted.europa.eu/pl/notice/543838-2026/html",
+          "POR": "https://ted.europa.eu/pt/notice/543838-2026/html",
+          "RON": "https://ted.europa.eu/ro/notice/543838-2026/html",
+          "SLK": "https://ted.europa.eu/sk/notice/543838-2026/html",
+          "SLV": "https://ted.europa.eu/sl/notice/543838-2026/html",
+          "SPA": "https://ted.europa.eu/es/notice/543838-2026/html",
+          "SWE": "https://ted.europa.eu/sv/notice/543838-2026/html"
+        },
+        "pdf": {
+          "BUL": "https://ted.europa.eu/bg/notice/543838-2026/pdf",
+          "CES": "https://ted.europa.eu/cs/notice/543838-2026/pdf",
+          "DAN": "https://ted.europa.eu/da/notice/543838-2026/pdf",
+          "DEU": "https://ted.europa.eu/de/notice/543838-2026/pdf",
+          "ELL": "https://ted.europa.eu/el/notice/543838-2026/pdf",
+          "ENG": "https://ted.europa.eu/en/notice/543838-2026/pdf",
+          "EST": "https://ted.europa.eu/et/notice/543838-2026/pdf",
+          "FIN": "https://ted.europa.eu/fi/notice/543838-2026/pdf",
+          "FRA": "https://ted.europa.eu/fr/notice/543838-2026/pdf",
+          "GLE": "https://ted.europa.eu/ga/notice/543838-2026/pdf",
+          "HRV": "https://ted.europa.eu/hr/notice/543838-2026/pdf",
+          "HUN": "https://ted.europa.eu/hu/notice/543838-2026/pdf",
+          "ITA": "https://ted.europa.eu/it/notice/543838-2026/pdf",
+          "LAV": "https://ted.europa.eu/lv/notice/543838-2026/pdf",
+          "LIT": "https://ted.europa.eu/lt/notice/543838-2026/pdf",
+          "MLT": "https://ted.europa.eu/mt/notice/543838-2026/pdf",
+          "NLD": "https://ted.europa.eu/nl/notice/543838-2026/pdf",
+          "POL": "https://ted.europa.eu/pl/notice/543838-2026/pdf",
+          "POR": "https://ted.europa.eu/pt/notice/543838-2026/pdf",
+          "RON": "https://ted.europa.eu/ro/notice/543838-2026/pdf",
+          "SLK": "https://ted.europa.eu/sk/notice/543838-2026/pdf",
+          "SLV": "https://ted.europa.eu/sl/notice/543838-2026/pdf",
+          "SPA": "https://ted.europa.eu/es/notice/543838-2026/pdf",
+          "SWE": "https://ted.europa.eu/sv/notice/543838-2026/pdf"
+        },
+        "pdfs": {
+          "FRA": "https://ted.europa.eu/fr/notice/543838-2026/pdfs"
+        },
+        "xml": {
+          "MUL": "https://ted.europa.eu/en/notice/543838-2026/xml"
+        }
+      },
+      "notice-identifier": "74565eb0-d6c0-4ca9-876b-b55b78244984",
+      "notice-title": {
+        "bul": "Фpaнция – Услуги по почистване на канавки – Prestation de services de nettoyage des avaloirs",
+        "ces": "Francie – Čištění stok – Prestation de services de nettoyage des avaloirs",
+        "dan": "Frankrig – Rensning af nedløbsbrønde – Prestation de services de nettoyage des avaloirs",
+        "deu": "Frankreich – Reinigung von Einlaufschächten – Prestation de services de nettoyage des avaloirs",
+        "ell": "Γαλλία – Υπηρεσίες καθαρισμού φρεατίων υπονόμων – Prestation de services de nettoyage des avaloirs",
+        "eng": "France – Gully cleaning services – Prestation de services de nettoyage des avaloirs",
+        "est": "Prantsusmaa – Kanalisatsioonikaevude puhastamise teenused – Prestation de services de nettoyage des avaloirs",
+        "fin": "Ranska – Sadevesikaivojen puhdistamispalvelut – Prestation de services de nettoyage des avaloirs",
+        "fra": "France – Services de nettoyage des avaloirs – Prestation de services de nettoyage des avaloirs",
+        "gle": "An Fhrainc – Gully cleaning services – Prestation de services de nettoyage des avaloirs",
+        "hrv": "Francuska – Usluge čišćenja slivnika – Prestation de services de nettoyage des avaloirs",
+        "hun": "Franciaország – Aknatisztítási szolgáltatások – Prestation de services de nettoyage des avaloirs",
+        "ita": "Francia – Servizi di pulizia di canali – Prestation de services de nettoyage des avaloirs",
+        "lav": "Francija – Noteku tīrīšanas pakalpojumi – Prestation de services de nettoyage des avaloirs",
+        "lit": "Prancūzija – Nutekamojo vandens priimtuvų valymo paslaugos – Prestation de services de nettoyage des avaloirs",
+        "mlt": "Franza – Servizzi ta' tindif ta' kanali ta' l-ilma – Prestation de services de nettoyage des avaloirs",
+        "nld": "Frankrijk – Diensten voor het reinigen van kolken – Prestation de services de nettoyage des avaloirs",
+        "pol": "Francja – Usługi oczyszczania kanałów ściekowych – Prestation de services de nettoyage des avaloirs",
+        "por": "França – Serviços de limpeza de sarjetas – Prestation de services de nettoyage des avaloirs",
+        "ron": "Franţa – Servicii de curăţare a gurilor de canal – Prestation de services de nettoyage des avaloirs",
+        "slk": "Francúzsko – Služby na čistenie vpustov – Prestation de services de nettoyage des avaloirs",
+        "slv": "Francija – Storitve čiščenja odvodnih cestnih kanalov – Prestation de services de nettoyage des avaloirs",
+        "spa": "Francia – Servicios de limpieza de sumideros – Prestation de services de nettoyage des avaloirs",
+        "swe": "Frankrike – Renhållning av rännstenar – Prestation de services de nettoyage des avaloirs"
+      },
+      "notice-type": "can-standard",
+      "notice-version": 1,
+      "official-language": [
+        "FRA"
+      ],
+      "organisation-country-buyer": [
+        "FRA"
+      ],
+      "organisation-name-buyer": {
+        "fra": [
+          "Communauté de Communes Loire Layon Aubance"
+        ]
+      },
+      "place-of-performance": [
+        "FRG02",
+        "FRG02",
+        "FRG02",
+        "FRG02",
+        "FRG02",
+        "FRA",
+        "FRA",
+        "FRA",
+        "FRA",
+        "FRA",
+        "FRG02",
+        "FRA"
+      ],
+      "procedure-type": "open",
+      "publication-date": "2026-08-06+02:00",
+      "publication-number": "543838-2026",
+      "title-lot": {
+        "fra": [
+          "Prestation de services de nettoyage des avaloirs"
+        ]
+      }
+    },
+    {
+      "buyer-country": [
+        "FRA"
+      ],
+      "buyer-name": {
+        "fra": [
+          "SPL SLAM BERRY"
+        ]
+      },
+      "classification-cpv": [
+        "45200000",
+        "45112710",
+        "45200000",
+        "45200000",
+        "45200000",
+        "45200000",
+        "31527200",
+        "45112710"
+      ],
+      "contract-nature": [
+        "works",
+        "works",
+        "works",
+        "works",
+        "works"
+      ],
+      "description-lot": {
+        "fra": [
+          "Se référer au CCTP du lot 01",
+          "se référer au CCTP du lot 2",
+          "se référer au CCTP du lot 3",
+          "se référer au CCTP du lot 04"
+        ]
+      },
+      "description-proc": {
+        "fra": "Travaux de terrasements, voirie et réseaux divers, fourniture et pose de mobiliers courants, éclairage public, espaces verts et arrosage, fourniture et pose de mobiliers spécifiques"
+      },
+      "estimated-value-cur-lot": [
+        "EUR"
+      ],
+      "estimated-value-lot": [
+        "0.00",
+        "0.00",
+        "0.00",
+        "0.00"
+      ],
+      "form-type": "result",
+      "identifier-lot": [
+        "LOT-0001",
+        "LOT-0002",
+        "LOT-0003",
+        "LOT-0004"
+      ],
+      "links": {
+        "html": {
+          "BUL": "https://ted.europa.eu/bg/notice/-/detail/543862-2026",
+          "CES": "https://ted.europa.eu/cs/notice/-/detail/543862-2026",
+          "DAN": "https://ted.europa.eu/da/notice/-/detail/543862-2026",
+          "DEU": "https://ted.europa.eu/de/notice/-/detail/543862-2026",
+          "ELL": "https://ted.europa.eu/el/notice/-/detail/543862-2026",
+          "ENG": "https://ted.europa.eu/en/notice/-/detail/543862-2026",
+          "EST": "https://ted.europa.eu/et/notice/-/detail/543862-2026",
+          "FIN": "https://ted.europa.eu/fi/notice/-/detail/543862-2026",
+          "FRA": "https://ted.europa.eu/fr/notice/-/detail/543862-2026",
+          "GLE": "https://ted.europa.eu/ga/notice/-/detail/543862-2026",
+          "HRV": "https://ted.europa.eu/hr/notice/-/detail/543862-2026",
+          "HUN": "https://ted.europa.eu/hu/notice/-/detail/543862-2026",
+          "ITA": "https://ted.europa.eu/it/notice/-/detail/543862-2026",
+          "LAV": "https://ted.europa.eu/lv/notice/-/detail/543862-2026",
+          "LIT": "https://ted.europa.eu/lt/notice/-/detail/543862-2026",
+          "MLT": "https://ted.europa.eu/mt/notice/-/detail/543862-2026",
+          "NLD": "https://ted.europa.eu/nl/notice/-/detail/543862-2026",
+          "POL": "https://ted.europa.eu/pl/notice/-/detail/543862-2026",
+          "POR": "https://ted.europa.eu/pt/notice/-/detail/543862-2026",
+          "RON": "https://ted.europa.eu/ro/notice/-/detail/543862-2026",
+          "SLK": "https://ted.europa.eu/sk/notice/-/detail/543862-2026",
+          "SLV": "https://ted.europa.eu/sl/notice/-/detail/543862-2026",
+          "SPA": "https://ted.europa.eu/es/notice/-/detail/543862-2026",
+          "SWE": "https://ted.europa.eu/sv/notice/-/detail/543862-2026"
+        },
+        "htmlDirect": {
+          "BUL": "https://ted.europa.eu/bg/notice/543862-2026/html",
+          "CES": "https://ted.europa.eu/cs/notice/543862-2026/html",
+          "DAN": "https://ted.europa.eu/da/notice/543862-2026/html",
+          "DEU": "https://ted.europa.eu/de/notice/543862-2026/html",
+          "ELL": "https://ted.europa.eu/el/notice/543862-2026/html",
+          "ENG": "https://ted.europa.eu/en/notice/543862-2026/html",
+          "EST": "https://ted.europa.eu/et/notice/543862-2026/html",
+          "FIN": "https://ted.europa.eu/fi/notice/543862-2026/html",
+          "FRA": "https://ted.europa.eu/fr/notice/543862-2026/html",
+          "GLE": "https://ted.europa.eu/ga/notice/543862-2026/html",
+          "HRV": "https://ted.europa.eu/hr/notice/543862-2026/html",
+          "HUN": "https://ted.europa.eu/hu/notice/543862-2026/html",
+          "ITA": "https://ted.europa.eu/it/notice/543862-2026/html",
+          "LAV": "https://ted.europa.eu/lv/notice/543862-2026/html",
+          "LIT": "https://ted.europa.eu/lt/notice/543862-2026/html",
+          "MLT": "https://ted.europa.eu/mt/notice/543862-2026/html",
+          "NLD": "https://ted.europa.eu/nl/notice/543862-2026/html",
+          "POL": "https://ted.europa.eu/pl/notice/543862-2026/html",
+          "POR": "https://ted.europa.eu/pt/notice/543862-2026/html",
+          "RON": "https://ted.europa.eu/ro/notice/543862-2026/html",
+          "SLK": "https://ted.europa.eu/sk/notice/543862-2026/html",
+          "SLV": "https://ted.europa.eu/sl/notice/543862-2026/html",
+          "SPA": "https://ted.europa.eu/es/notice/543862-2026/html",
+          "SWE": "https://ted.europa.eu/sv/notice/543862-2026/html"
+        },
+        "pdf": {
+          "BUL": "https://ted.europa.eu/bg/notice/543862-2026/pdf",
+          "CES": "https://ted.europa.eu/cs/notice/543862-2026/pdf",
+          "DAN": "https://ted.europa.eu/da/notice/543862-2026/pdf",
+          "DEU": "https://ted.europa.eu/de/notice/543862-2026/pdf",
+          "ELL": "https://ted.europa.eu/el/notice/543862-2026/pdf",
+          "ENG": "https://ted.europa.eu/en/notice/543862-2026/pdf",
+          "EST": "https://ted.europa.eu/et/notice/543862-2026/pdf",
+          "FIN": "https://ted.europa.eu/fi/notice/543862-2026/pdf",
+          "FRA": "https://ted.europa.eu/fr/notice/543862-2026/pdf",
+          "GLE": "https://ted.europa.eu/ga/notice/543862-2026/pdf",
+          "HRV": "https://ted.europa.eu/hr/notice/543862-2026/pdf",
+          "HUN": "https://ted.europa.eu/hu/notice/543862-2026/pdf",
+          "ITA": "https://ted.europa.eu/it/notice/543862-2026/pdf",
+          "LAV": "https://ted.europa.eu/lv/notice/543862-2026/pdf",
+          "LIT": "https://ted.europa.eu/lt/notice/543862-2026/pdf",
+          "MLT": "https://ted.europa.eu/mt/notice/543862-2026/pdf",
+          "NLD": "https://ted.europa.eu/nl/notice/543862-2026/pdf",
+          "POL": "https://ted.europa.eu/pl/notice/543862-2026/pdf",
+          "POR": "https://ted.europa.eu/pt/notice/543862-2026/pdf",
+          "RON": "https://ted.europa.eu/ro/notice/543862-2026/pdf",
+          "SLK": "https://ted.europa.eu/sk/notice/543862-2026/pdf",
+          "SLV": "https://ted.europa.eu/sl/notice/543862-2026/pdf",
+          "SPA": "https://ted.europa.eu/es/notice/543862-2026/pdf",
+          "SWE": "https://ted.europa.eu/sv/notice/543862-2026/pdf"
+        },
+        "pdfs": {
+          "FRA": "https://ted.europa.eu/fr/notice/543862-2026/pdfs"
+        },
+        "xml": {
+          "MUL": "https://ted.europa.eu/en/notice/543862-2026/xml"
+        }
+      },
+      "notice-identifier": "99d5632c-6cc4-43f2-aeb3-80e98de5e179",
+      "notice-title": {
+        "bul": "Фpaнция – Строителни и монтажни работи на сгради и строителни съоръжения или на части от тях – Travaux de réalisation des espaces publics du Pôle d'Echanges Multimodal de la Gare de Bourges",
+        "ces": "Francie – Práce pro kompletní nebo částečnou výstavbu inženýrské stavitelství – Travaux de réalisation des espaces publics du Pôle d'Echanges Multimodal de la Gare de Bourges",
+        "dan": "Frankrig – Hoved- eller fagentrepriser i forbindelse med bygge- og anlægsarbejder – Travaux de réalisation des espaces publics du Pôle d'Echanges Multimodal de la Gare de Bourges",
+        "deu": "Frankreich – Komplett- oder Teilbauleistungen im Hochbau sowie Tiefbauarbeiten – Travaux de réalisation des espaces publics du Pôle d'Echanges Multimodal de la Gare de Bourges",
+        "ell": "Γαλλία – Εργασίες για ολόκληρες κατασκευές ή μέρη κατασκευών και έργα πολιτικού μηχανικού – Travaux de réalisation des espaces publics du Pôle d'Echanges Multimodal de la Gare de Bourges",
+        "eng": "France – Works for complete or part construction and civil engineering work – Travaux de réalisation des espaces publics du Pôle d'Echanges Multimodal de la Gare de Bourges",
+        "est": "Prantsusmaa – Ehitiste või nende osade ehitustööd ja tsiviilehitustööd – Travaux de réalisation des espaces publics du Pôle d'Echanges Multimodal de la Gare de Bourges",
+        "fin": "Ranska – Maa-, tie- ja vesirakennustöiden ja muiden rakennustöiden kokonais- tai osaurakat – Travaux de réalisation des espaces publics du Pôle d'Echanges Multimodal de la Gare de Bourges",
+        "fra": "France – Travaux de construction complète ou partielle et travaux de génie civil – Travaux de réalisation des espaces publics du Pôle d'Echanges Multimodal de la Gare de Bourges",
+        "gle": "An Fhrainc – Works for complete or part construction and civil engineering work – Travaux de réalisation des espaces publics du Pôle d'Echanges Multimodal de la Gare de Bourges",
+        "hrv": "Francuska – Radovi na objektima ili dijelovima objekata visokogradnje i niskogradnje – Travaux de réalisation des espaces publics du Pôle d'Echanges Multimodal de la Gare de Bourges",
+        "hun": "Franciaország – Teljes vagy részleges magas- és mélyépítési munka – Travaux de réalisation des espaces publics du Pôle d'Echanges Multimodal de la Gare de Bourges",
+        "ita": "Francia – Lavori per la costruzione completa o parziale e ingegneria civile – Travaux de réalisation des espaces publics du Pôle d'Echanges Multimodal de la Gare de Bourges",
+        "lav": "Francija – Pilnīgas vai daļējas izbūves darbi un inženiertehniskie darbi – Travaux de réalisation des espaces publics du Pôle d'Echanges Multimodal de la Gare de Bourges",
+        "lit": "Prancūzija – Visi ar daliniai statybos ir civilinės inžinerijos darbai – Travaux de réalisation des espaces publics du Pôle d'Echanges Multimodal de la Gare de Bourges",
+        "mlt": "Franza – Xogħlijiet għall-kostruzzjoni kompluta jew parzjali max-xogħol ta’ l-inġinerija ċivili – Travaux de réalisation des espaces publics du Pôle d'Echanges Multimodal de la Gare de Bourges",
+        "nld": "Frankrijk – Volledige of gedeeltelijke bouw- en civieltechnische werkzaamheden – Travaux de réalisation des espaces publics du Pôle d'Echanges Multimodal de la Gare de Bourges",
+        "pol": "Francja – Roboty budowlane w zakresie wznoszenia kompletnych obiektów budowlanych lub ich części oraz roboty w zakresie inżynierii lądowej i wodnej – Travaux de réalisation des espaces publics du Pôle d'Echanges Multimodal de la Gare de Bourges",
+        "por": "França – Obras de construção total ou parcial e de engenharia civil – Travaux de réalisation des espaces publics du Pôle d'Echanges Multimodal de la Gare de Bourges",
+        "ron": "Franţa – Lucrări de construcţii complete sau parţiale şi lucrări publice – Travaux de réalisation des espaces publics du Pôle d'Echanges Multimodal de la Gare de Bourges",
+        "slk": "Francúzsko – Práce na kompletnej alebo čiastočnej stavbe a práce inžinierskych stavieb – Travaux de réalisation des espaces publics du Pôle d'Echanges Multimodal de la Gare de Bourges",
+        "slv": "Francija – Dela na objektih ali delih objektov visoke in nizke gradnje – Travaux de réalisation des espaces publics du Pôle d'Echanges Multimodal de la Gare de Bourges",
+        "spa": "Francia – Trabajos generales de construcción de inmuebles y obras de ingeniería civil – Travaux de réalisation des espaces publics du Pôle d'Echanges Multimodal de la Gare de Bourges",
+        "swe": "Frankrike – Delar av eller kompletta bygg- och anläggningsarbeten samt väg- och vattenarbeten – Travaux de réalisation des espaces publics du Pôle d'Echanges Multimodal de la Gare de Bourges"
+      },
+      "notice-type": "can-standard",
+      "notice-version": 1,
+      "official-language": [
+        "FRA"
+      ],
+      "organisation-country-buyer": [
+        "FRA"
+      ],
+      "organisation-name-buyer": {
+        "fra": [
+          "SPL SLAM BERRY"
+        ]
+      },
+      "place-of-performance": [
+        "FRB01",
+        "FRA",
+        "FRB01",
+        "FRB01",
+        "FRB01",
+        "FRB01",
+        "FRA",
+        "FRA",
+        "FRA",
+        "FRA"
+      ],
+      "procedure-type": "open",
+      "publication-date": "2026-08-06+02:00",
+      "publication-number": "543862-2026",
+      "title-lot": {
+        "fra": [
+          "Lot n° 1 : Terrassement, Voirie Réseaux Divers, Mobilier courant",
+          "Lot n° 2 : Eclairage public",
+          "Lot n° 3 : Espaces Verts et Arrosage",
+          "Lot n° 4 : Mobilier spécifique"
+        ]
+      }
+    },
+    {
+      "buyer-country": [
+        "BEL"
+      ],
+      "buyer-name": {
+        "fra": [
+          "Infrabel sa"
+        ],
+        "nld": [
+          "Infrabel nv"
+        ]
+      },
+      "classification-cpv": [
+        "72000000",
+        "72000000"
+      ],
+      "contract-nature": [
+        "services",
+        "services"
+      ],
+      "description-lot": {
+        "fra": [
+          "e-Market 894 - Senior System Administrator MQ"
+        ],
+        "nld": [
+          "e-Market 894 - Senior System Administrator MQ"
+        ]
+      },
+      "description-proc": {
+        "fra": "e-Market 894 - Senior System Administrator MQ (basé sur l’existence d’un système de qualification Y15Bis, I-46 publié aux niveaux belge et européen: https://www.publicprocurement.be/publication-workspaces/d5aa281d-f0b8-4143-a93e-c9cfbc8b9759/general conformément aux articles 11, 15 – 3° et 18 de l’AR du 18 juin 2017)",
+        "nld": "e-Market 894 - Senior System Administrator MQ (op het bestaan van een kwalificatiestelsel Y15Bis, I-46 gebaseerd gepubliceerd op Europees en op Belgisch niveau: https://www.publicprocurement.be/publication-workspaces/d5aa281d-f0b8-4143-a93e-c9cfbc8b9759/general , in overeenstemming met de artikelen 11, 15 - 3° en 18 van het KB van 18 juni 2017)"
+      },
+      "form-type": "result",
+      "identifier-lot": [
+        "LOT-0001"
+      ],
+      "links": {
+        "html": {
+          "BUL": "https://ted.europa.eu/bg/notice/-/detail/543935-2026",
+          "CES": "https://ted.europa.eu/cs/notice/-/detail/543935-2026",
+          "DAN": "https://ted.europa.eu/da/notice/-/detail/543935-2026",
+          "DEU": "https://ted.europa.eu/de/notice/-/detail/543935-2026",
+          "ELL": "https://ted.europa.eu/el/notice/-/detail/543935-2026",
+          "ENG": "https://ted.europa.eu/en/notice/-/detail/543935-2026",
+          "EST": "https://ted.europa.eu/et/notice/-/detail/543935-2026",
+          "FIN": "https://ted.europa.eu/fi/notice/-/detail/543935-2026",
+          "FRA": "https://ted.europa.eu/fr/notice/-/detail/543935-2026",
+          "GLE": "https://ted.europa.eu/ga/notice/-/detail/543935-2026",
+          "HRV": "https://ted.europa.eu/hr/notice/-/detail/543935-2026",
+          "HUN": "https://ted.europa.eu/hu/notice/-/detail/543935-2026",
+          "ITA": "https://ted.europa.eu/it/notice/-/detail/543935-2026",
+          "LAV": "https://ted.europa.eu/lv/notice/-/detail/543935-2026",
+          "LIT": "https://ted.europa.eu/lt/notice/-/detail/543935-2026",
+          "MLT": "https://ted.europa.eu/mt/notice/-/detail/543935-2026",
+          "NLD": "https://ted.europa.eu/nl/notice/-/detail/543935-2026",
+          "POL": "https://ted.europa.eu/pl/notice/-/detail/543935-2026",
+          "POR": "https://ted.europa.eu/pt/notice/-/detail/543935-2026",
+          "RON": "https://ted.europa.eu/ro/notice/-/detail/543935-2026",
+          "SLK": "https://ted.europa.eu/sk/notice/-/detail/543935-2026",
+          "SLV": "https://ted.europa.eu/sl/notice/-/detail/543935-2026",
+          "SPA": "https://ted.europa.eu/es/notice/-/detail/543935-2026",
+          "SWE": "https://ted.europa.eu/sv/notice/-/detail/543935-2026"
+        },
+        "htmlDirect": {
+          "BUL": "https://ted.europa.eu/bg/notice/543935-2026/html",
+          "CES": "https://ted.europa.eu/cs/notice/543935-2026/html",
+          "DAN": "https://ted.europa.eu/da/notice/543935-2026/html",
+          "DEU": "https://ted.europa.eu/de/notice/543935-2026/html",
+          "ELL": "https://ted.europa.eu/el/notice/543935-2026/html",
+          "ENG": "https://ted.europa.eu/en/notice/543935-2026/html",
+          "EST": "https://ted.europa.eu/et/notice/543935-2026/html",
+          "FIN": "https://ted.europa.eu/fi/notice/543935-2026/html",
+          "FRA": "https://ted.europa.eu/fr/notice/543935-2026/html",
+          "GLE": "https://ted.europa.eu/ga/notice/543935-2026/html",
+          "HRV": "https://ted.europa.eu/hr/notice/543935-2026/html",
+          "HUN": "https://ted.europa.eu/hu/notice/543935-2026/html",
+          "ITA": "https://ted.europa.eu/it/notice/543935-2026/html",
+          "LAV": "https://ted.europa.eu/lv/notice/543935-2026/html",
+          "LIT": "https://ted.europa.eu/lt/notice/543935-2026/html",
+          "MLT": "https://ted.europa.eu/mt/notice/543935-2026/html",
+          "NLD": "https://ted.europa.eu/nl/notice/543935-2026/html",
+          "POL": "https://ted.europa.eu/pl/notice/543935-2026/html",
+          "POR": "https://ted.europa.eu/pt/notice/543935-2026/html",
+          "RON": "https://ted.europa.eu/ro/notice/543935-2026/html",
+          "SLK": "https://ted.europa.eu/sk/notice/543935-2026/html",
+          "SLV": "https://ted.europa.eu/sl/notice/543935-2026/html",
+          "SPA": "https://ted.europa.eu/es/notice/543935-2026/html",
+          "SWE": "https://ted.europa.eu/sv/notice/543935-2026/html"
+        },
+        "pdf": {
+          "BUL": "https://ted.europa.eu/bg/notice/543935-2026/pdf",
+          "CES": "https://ted.europa.eu/cs/notice/543935-2026/pdf",
+          "DAN": "https://ted.europa.eu/da/notice/543935-2026/pdf",
+          "DEU": "https://ted.europa.eu/de/notice/543935-2026/pdf",
+          "ELL": "https://ted.europa.eu/el/notice/543935-2026/pdf",
+          "ENG": "https://ted.europa.eu/en/notice/543935-2026/pdf",
+          "EST": "https://ted.europa.eu/et/notice/543935-2026/pdf",
+          "FIN": "https://ted.europa.eu/fi/notice/543935-2026/pdf",
+          "FRA": "https://ted.europa.eu/fr/notice/543935-2026/pdf",
+          "GLE": "https://ted.europa.eu/ga/notice/543935-2026/pdf",
+          "HRV": "https://ted.europa.eu/hr/notice/543935-2026/pdf",
+          "HUN": "https://ted.europa.eu/hu/notice/543935-2026/pdf",
+          "ITA": "https://ted.europa.eu/it/notice/543935-2026/pdf",
+          "LAV": "https://ted.europa.eu/lv/notice/543935-2026/pdf",
+          "LIT": "https://ted.europa.eu/lt/notice/543935-2026/pdf",
+          "MLT": "https://ted.europa.eu/mt/notice/543935-2026/pdf",
+          "NLD": "https://ted.europa.eu/nl/notice/543935-2026/pdf",
+          "POL": "https://ted.europa.eu/pl/notice/543935-2026/pdf",
+          "POR": "https://ted.europa.eu/pt/notice/543935-2026/pdf",
+          "RON": "https://ted.europa.eu/ro/notice/543935-2026/pdf",
+          "SLK": "https://ted.europa.eu/sk/notice/543935-2026/pdf",
+          "SLV": "https://ted.europa.eu/sl/notice/543935-2026/pdf",
+          "SPA": "https://ted.europa.eu/es/notice/543935-2026/pdf",
+          "SWE": "https://ted.europa.eu/sv/notice/543935-2026/pdf"
+        },
+        "pdfs": {
+          "FRA": "https://ted.europa.eu/fr/notice/543935-2026/pdfs",
+          "NLD": "https://ted.europa.eu/nl/notice/543935-2026/pdfs"
+        },
+        "xml": {
+          "MUL": "https://ted.europa.eu/en/notice/543935-2026/xml"
+        }
+      },
+      "notice-identifier": "1f4bac5c-b507-415f-8c30-4698a1f4d852",
+      "notice-title": {
+        "bul": "Бeлгия – ИТ услуги: консултации, разработване на софтуер, Интернет и поддръжка – e-Market 894 - Senior System Administrator MQ",
+        "ces": "Belgie – Informační technologie: poradenství, vývoj programového vybavení, internet a podpora – e-Market 894 - Senior System Administrator MQ",
+        "dan": "Belgien – It-tjenester: rådgivning, programmeludvikling, internet og support – e-Market 894 - Senior System Administrator MQ",
+        "deu": "Belgien – IT-Dienste: Beratung, Software-Entwicklung, Internet und Hilfestellung – e-Market 894 - Senior System Administrator MQ",
+        "ell": "Βέλγιο – Υπηρεσίες τεχνολογίας των πληροφοριών: παροχή συμβουλών, ανάπτυξη λογισμικού, Διαδίκτυο και υποστήριξη – e-Market 894 - Senior System Administrator MQ",
+        "eng": "Belgium – IT services: consulting, software development, Internet and support – e-Market 894 - Senior System Administrator MQ",
+        "est": "Belgia – IT-teenused: nõuande-, tarkvaraarendus-, Interneti- ja tugiteenused – e-Market 894 - Senior System Administrator MQ",
+        "fin": "Belgia – Tietotekniset palvelut: neuvonta, ohjelmistojen kehittäminen, Internet ja tuki – e-Market 894 - Senior System Administrator MQ",
+        "fra": "Belgique – Services de technologies de l'information, conseil, développement de logiciels, internet et appui – e-Market 894 - Senior System Administrator MQ",
+        "gle": "An Bheilg – IT services: consulting, software development, Internet and support – e-Market 894 - Senior System Administrator MQ",
+        "hrv": "Belgija – Usluge informacijske tehnologije: savjetovanje, razvoj programske podrške, internet i podrška – e-Market 894 - Senior System Administrator MQ",
+        "hun": "Belgium – IT-szolgáltatások: tanácsadás, szoftverfejlesztés, internet és támogatás – e-Market 894 - Senior System Administrator MQ",
+        "ita": "Belgio – Servizi informatici: consulenza, sviluppo di software, Internet e supporto – e-Market 894 - Senior System Administrator MQ",
+        "lav": "Beļģija – IT pakalpojumi konsultēšana, programmatūras izstrāde, internets un atbalsts – e-Market 894 - Senior System Administrator MQ",
+        "lit": "Belgija – IT paslaugos: konsultavimas, programinės įrangos kūrimas, internetas ir aptarnavimo paslaugos – e-Market 894 - Senior System Administrator MQ",
+        "mlt": "Il-Belġju – Servizzi ta' IT: konsulenza, żvilupp ta' softwer, Internet u appoġġ – e-Market 894 - Senior System Administrator MQ",
+        "nld": "België – IT-diensten: adviezen, softwareontwikkeling, internet en ondersteuning – e-Market 894 - Senior System Administrator MQ",
+        "pol": "Belgia – Usługi informatyczne: konsultacyjne, opracowywania oprogramowania, internetowe i wsparcia – e-Market 894 - Senior System Administrator MQ",
+        "por": "Bélgica – Serviços de TI: consultoria, desenvolvimento de software, Internet e apoio – e-Market 894 - Senior System Administrator MQ",
+        "ron": "Belgia – Servicii IT: consultanţă, dezvoltare de software, internet şi asistenţă – e-Market 894 - Senior System Administrator MQ",
+        "slk": "Belgicko – Služby informačných technológií: konzultácie, vývoj softvéru, internet a podpora – e-Market 894 - Senior System Administrator MQ",
+        "slv": "Belgija – Storitve informacijske tehnologije: svetovanje, razvoj programske opreme, internet in podpora – e-Market 894 - Senior System Administrator MQ",
+        "spa": "Bélgica – Servicios TI: consultoría, desarrollo de software, Internet y apoyo – e-Market 894 - Senior System Administrator MQ",
+        "swe": "Belgien – IT-tjänster: konsultverksamhet, programvaruutveckling, Internet och stöd – e-Market 894 - Senior System Administrator MQ"
+      },
+      "notice-type": "can-standard",
+      "notice-version": 1,
+      "official-language": [
+        "NLD",
+        "FRA"
+      ],
+      "organisation-country-buyer": [
+        "BEL"
+      ],
+      "organisation-name-buyer": {
+        "fra": [
+          "Infrabel sa"
+        ],
+        "nld": [
+          "Infrabel nv"
+        ]
+      },
+      "place-of-performance": [
+        "BE100",
+        "BEL",
+        "BE100",
+        "BEL"
+      ],
+      "procedure-type": "neg-w-call",
+      "publication-date": "2026-08-06+02:00",
+      "publication-number": "543935-2026",
+      "title-lot": {
+        "fra": [
+          "0000812211_VIB-Q - 1"
+        ],
+        "nld": [
+          "0000812211_VIB-Q - 1"
+        ]
+      }
+    },
+    {
+      "buyer-country": [
+        "FRA"
+      ],
+      "buyer-name": {
+        "fra": [
+          "Mairie d'Orly"
+        ]
+      },
+      "classification-cpv": [
+        "33138000",
+        "33141800",
+        "85131100",
+        "33138000",
+        "33138000",
+        "33138000",
+        "33141800",
+        "33141800",
+        "85131100"
+      ],
+      "contract-nature": [
+        "supplies",
+        "services",
+        "supplies",
+        "supplies",
+        "supplies",
+        "services"
+      ],
+      "description-lot": {
+        "fra": [
+          "Lot 1-Fourniture et réparation de prothèses dentaires fixes",
+          "Lot 2-Fourniture et réparation de prothèses dentaires amovibles",
+          "Lot 3-Réalisation d'appareils d'orthopédie dentofaciale fixes ou mobiles"
+        ]
+      },
+      "description-proc": {
+        "fra": "La ville d'Orly représentée par Madame la Maire, procède à une consultation en vue de conclure un accord-cadre à bons de commandes relatif à la fourniture, la livraison et la réparation de prothèses dentaires fixes et amovibles ainsi qu'à la réalisation d'appareils d'orthodontie."
+      },
+      "estimated-value-cur-lot": [
+        "EUR"
+      ],
+      "estimated-value-lot": [
+        "0.00"
+      ],
+      "form-type": "result",
+      "identifier-lot": [
+        "LOT-0001",
+        "LOT-0002",
+        "LOT-0003"
+      ],
+      "links": {
+        "html": {
+          "BUL": "https://ted.europa.eu/bg/notice/-/detail/543965-2026",
+          "CES": "https://ted.europa.eu/cs/notice/-/detail/543965-2026",
+          "DAN": "https://ted.europa.eu/da/notice/-/detail/543965-2026",
+          "DEU": "https://ted.europa.eu/de/notice/-/detail/543965-2026",
+          "ELL": "https://ted.europa.eu/el/notice/-/detail/543965-2026",
+          "ENG": "https://ted.europa.eu/en/notice/-/detail/543965-2026",
+          "EST": "https://ted.europa.eu/et/notice/-/detail/543965-2026",
+          "FIN": "https://ted.europa.eu/fi/notice/-/detail/543965-2026",
+          "FRA": "https://ted.europa.eu/fr/notice/-/detail/543965-2026",
+          "GLE": "https://ted.europa.eu/ga/notice/-/detail/543965-2026",
+          "HRV": "https://ted.europa.eu/hr/notice/-/detail/543965-2026",
+          "HUN": "https://ted.europa.eu/hu/notice/-/detail/543965-2026",
+          "ITA": "https://ted.europa.eu/it/notice/-/detail/543965-2026",
+          "LAV": "https://ted.europa.eu/lv/notice/-/detail/543965-2026",
+          "LIT": "https://ted.europa.eu/lt/notice/-/detail/543965-2026",
+          "MLT": "https://ted.europa.eu/mt/notice/-/detail/543965-2026",
+          "NLD": "https://ted.europa.eu/nl/notice/-/detail/543965-2026",
+          "POL": "https://ted.europa.eu/pl/notice/-/detail/543965-2026",
+          "POR": "https://ted.europa.eu/pt/notice/-/detail/543965-2026",
+          "RON": "https://ted.europa.eu/ro/notice/-/detail/543965-2026",
+          "SLK": "https://ted.europa.eu/sk/notice/-/detail/543965-2026",
+          "SLV": "https://ted.europa.eu/sl/notice/-/detail/543965-2026",
+          "SPA": "https://ted.europa.eu/es/notice/-/detail/543965-2026",
+          "SWE": "https://ted.europa.eu/sv/notice/-/detail/543965-2026"
+        },
+        "htmlDirect": {
+          "BUL": "https://ted.europa.eu/bg/notice/543965-2026/html",
+          "CES": "https://ted.europa.eu/cs/notice/543965-2026/html",
+          "DAN": "https://ted.europa.eu/da/notice/543965-2026/html",
+          "DEU": "https://ted.europa.eu/de/notice/543965-2026/html",
+          "ELL": "https://ted.europa.eu/el/notice/543965-2026/html",
+          "ENG": "https://ted.europa.eu/en/notice/543965-2026/html",
+          "EST": "https://ted.europa.eu/et/notice/543965-2026/html",
+          "FIN": "https://ted.europa.eu/fi/notice/543965-2026/html",
+          "FRA": "https://ted.europa.eu/fr/notice/543965-2026/html",
+          "GLE": "https://ted.europa.eu/ga/notice/543965-2026/html",
+          "HRV": "https://ted.europa.eu/hr/notice/543965-2026/html",
+          "HUN": "https://ted.europa.eu/hu/notice/543965-2026/html",
+          "ITA": "https://ted.europa.eu/it/notice/543965-2026/html",
+          "LAV": "https://ted.europa.eu/lv/notice/543965-2026/html",
+          "LIT": "https://ted.europa.eu/lt/notice/543965-2026/html",
+          "MLT": "https://ted.europa.eu/mt/notice/543965-2026/html",
+          "NLD": "https://ted.europa.eu/nl/notice/543965-2026/html",
+          "POL": "https://ted.europa.eu/pl/notice/543965-2026/html",
+          "POR": "https://ted.europa.eu/pt/notice/543965-2026/html",
+          "RON": "https://ted.europa.eu/ro/notice/543965-2026/html",
+          "SLK": "https://ted.europa.eu/sk/notice/543965-2026/html",
+          "SLV": "https://ted.europa.eu/sl/notice/543965-2026/html",
+          "SPA": "https://ted.europa.eu/es/notice/543965-2026/html",
+          "SWE": "https://ted.europa.eu/sv/notice/543965-2026/html"
+        },
+        "pdf": {
+          "BUL": "https://ted.europa.eu/bg/notice/543965-2026/pdf",
+          "CES": "https://ted.europa.eu/cs/notice/543965-2026/pdf",
+          "DAN": "https://ted.europa.eu/da/notice/543965-2026/pdf",
+          "DEU": "https://ted.europa.eu/de/notice/543965-2026/pdf",
+          "ELL": "https://ted.europa.eu/el/notice/543965-2026/pdf",
+          "ENG": "https://ted.europa.eu/en/notice/543965-2026/pdf",
+          "EST": "https://ted.europa.eu/et/notice/543965-2026/pdf",
+          "FIN": "https://ted.europa.eu/fi/notice/543965-2026/pdf",
+          "FRA": "https://ted.europa.eu/fr/notice/543965-2026/pdf",
+          "GLE": "https://ted.europa.eu/ga/notice/543965-2026/pdf",
+          "HRV": "https://ted.europa.eu/hr/notice/543965-2026/pdf",
+          "HUN": "https://ted.europa.eu/hu/notice/543965-2026/pdf",
+          "ITA": "https://ted.europa.eu/it/notice/543965-2026/pdf",
+          "LAV": "https://ted.europa.eu/lv/notice/543965-2026/pdf",
+          "LIT": "https://ted.europa.eu/lt/notice/543965-2026/pdf",
+          "MLT": "https://ted.europa.eu/mt/notice/543965-2026/pdf",
+          "NLD": "https://ted.europa.eu/nl/notice/543965-2026/pdf",
+          "POL": "https://ted.europa.eu/pl/notice/543965-2026/pdf",
+          "POR": "https://ted.europa.eu/pt/notice/543965-2026/pdf",
+          "RON": "https://ted.europa.eu/ro/notice/543965-2026/pdf",
+          "SLK": "https://ted.europa.eu/sk/notice/543965-2026/pdf",
+          "SLV": "https://ted.europa.eu/sl/notice/543965-2026/pdf",
+          "SPA": "https://ted.europa.eu/es/notice/543965-2026/pdf",
+          "SWE": "https://ted.europa.eu/sv/notice/543965-2026/pdf"
+        },
+        "pdfs": {
+          "FRA": "https://ted.europa.eu/fr/notice/543965-2026/pdfs"
+        },
+        "xml": {
+          "MUL": "https://ted.europa.eu/en/notice/543965-2026/xml"
+        }
+      },
+      "notice-identifier": "1afe283d-7e36-451c-81ba-823c171a8608",
+      "notice-title": {
+        "bul": "Фpaнция – Продукти за протези и ребазация – FOURNITURE ET REPARATION DE PROTHESES DENTAIRES ET D'APPAREILS D'ORTHODONTIE",
+        "ces": "Francie – Pomůcky a přístroje pro zubní náhrady – FOURNITURE ET REPARATION DE PROTHESES DENTAIRES ET D'APPAREILS D'ORTHODONTIE",
+        "dan": "Frankrig – Produkter til tandproteser og tandregulering – FOURNITURE ET REPARATION DE PROTHESES DENTAIRES ET D'APPAREILS D'ORTHODONTIE",
+        "deu": "Frankreich – Produkte für Zahnprothesen und Zahnregulierung – FOURNITURE ET REPARATION DE PROTHESES DENTAIRES ET D'APPAREILS D'ORTHODONTIE",
+        "ell": "Γαλλία – Προϊόντα προσθετικής και επένδυσης δοντιών – FOURNITURE ET REPARATION DE PROTHESES DENTAIRES ET D'APPAREILS D'ORTHODONTIE",
+        "eng": "France – Prosthodontic and relining products – FOURNITURE ET REPARATION DE PROTHESES DENTAIRES ET D'APPAREILS D'ORTHODONTIE",
+        "est": "Prantsusmaa – Hammaste proteeside ja ümberbaseerimise tooted – FOURNITURE ET REPARATION DE PROTHESES DENTAIRES ET D'APPAREILS D'ORTHODONTIE",
+        "fin": "Ranska – Proteesi- ja pinnoitustuotteet – FOURNITURE ET REPARATION DE PROTHESES DENTAIRES ET D'APPAREILS D'ORTHODONTIE",
+        "fra": "France – Produits pour prothèses et rebasage – FOURNITURE ET REPARATION DE PROTHESES DENTAIRES ET D'APPAREILS D'ORTHODONTIE",
+        "gle": "An Fhrainc – Prosthodontic and relining products – FOURNITURE ET REPARATION DE PROTHESES DENTAIRES ET D'APPAREILS D'ORTHODONTIE",
+        "hrv": "Francuska – Pribor za zubnu protetiku i ravnanje zubi – FOURNITURE ET REPARATION DE PROTHESES DENTAIRES ET D'APPAREILS D'ORTHODONTIE",
+        "hun": "Franciaország – Fogpótlási és fogszabályozó eszközök – FOURNITURE ET REPARATION DE PROTHESES DENTAIRES ET D'APPAREILS D'ORTHODONTIE",
+        "ita": "Francia – Prodotti per protesi dentarie e ortodonzia – FOURNITURE ET REPARATION DE PROTHESES DENTAIRES ET D'APPAREILS D'ORTHODONTIE",
+        "lav": "Francija – Zobu protezēšanas un zobu rindu iztaisnošanas produkti – FOURNITURE ET REPARATION DE PROTHESES DENTAIRES ET D'APPAREILS D'ORTHODONTIE",
+        "lit": "Prancūzija – Dantų protezavimo gaminiai – FOURNITURE ET REPARATION DE PROTHESES DENTAIRES ET D'APPAREILS D'ORTHODONTIE",
+        "mlt": "Franza – Prodotti prostodontiċi u tal-kisi – FOURNITURE ET REPARATION DE PROTHESES DENTAIRES ET D'APPAREILS D'ORTHODONTIE",
+        "nld": "Frankrijk – Producten voor gebitsprothesen en gebitsregulatie – FOURNITURE ET REPARATION DE PROTHESES DENTAIRES ET D'APPAREILS D'ORTHODONTIE",
+        "pol": "Francja – Aparaty korekcyjne – FOURNITURE ET REPARATION DE PROTHESES DENTAIRES ET D'APPAREILS D'ORTHODONTIE",
+        "por": "França – Produtos para próteses e rebasagem – FOURNITURE ET REPARATION DE PROTHESES DENTAIRES ET D'APPAREILS D'ORTHODONTIE",
+        "ron": "Franţa – Produse pentru proteze dentare şi rebazare – FOURNITURE ET REPARATION DE PROTHESES DENTAIRES ET D'APPAREILS D'ORTHODONTIE",
+        "slk": "Francúzsko – Prostodontické a podkladové (rebáziové) produkty – FOURNITURE ET REPARATION DE PROTHESES DENTAIRES ET D'APPAREILS D'ORTHODONTIE",
+        "slv": "Francija – Proizvodi za zobno protetiko in naravnavanje zob – FOURNITURE ET REPARATION DE PROTHESES DENTAIRES ET D'APPAREILS D'ORTHODONTIE",
+        "spa": "Francia – Productos para prótesis y rebase – FOURNITURE ET REPARATION DE PROTHESES DENTAIRES ET D'APPAREILS D'ORTHODONTIE",
+        "swe": "Frankrike – Produkter för tandproteser och tandreglering – FOURNITURE ET REPARATION DE PROTHESES DENTAIRES ET D'APPAREILS D'ORTHODONTIE"
+      },
+      "notice-type": "can-standard",
+      "notice-version": 1,
+      "official-language": [
+        "FRA"
+      ],
+      "organisation-country-buyer": [
+        "FRA"
+      ],
+      "organisation-name-buyer": {
+        "fra": [
+          "Mairie d'Orly"
+        ]
+      },
+      "place-of-performance": [
+        "FR107",
+        "FRA",
+        "FR107",
+        "FR107",
+        "FR107",
+        "FRA",
+        "FRA",
+        "FRA"
+      ],
+      "procedure-type": "open",
+      "publication-date": "2026-08-06+02:00",
+      "publication-number": "543965-2026",
+      "title-lot": {
+        "fra": [
+          "Lot 1-Fourniture et réparation de prothèses dentaires fixes",
+          "Lot 2-Fourniture et réparation de prothèses dentaires amovibles",
+          "Lot 3-Réalisation d'appareils d'orthopédie dentofaciale fixes ou mobiles"
+        ]
+      }
+    }
+  ],
+  "timedOut": false,
+  "totalNoticeCount": 625
+}

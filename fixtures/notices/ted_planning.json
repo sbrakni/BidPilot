@@ -1,0 +1,669 @@
+{
+  "iterationNextToken": null,
+  "notices": [
+    {
+      "buyer-country": [
+        "FRA"
+      ],
+      "buyer-name": {
+        "fra": [
+          "SNCF Gares & Connexions"
+        ]
+      },
+      "classification-cpv": [
+        "48000000",
+        "48422000",
+        "72000000",
+        "72200000",
+        "72268000",
+        "48000000",
+        "48422000",
+        "72000000",
+        "72200000",
+        "72268000"
+      ],
+      "contract-nature": [
+        "supplies",
+        "services",
+        "supplies",
+        "services"
+      ],
+      "description-proc": {
+        "fra": "L'objectif de cet AMI (Appel à Manifestation d'Intérêt) ou RFI est d'étudier le marché autour d'une solution de gestion des subventions. SNCF Gares & Connexions (G&C) souhaite identifier des solutions logicielles ou technologiques capables d’optimiser la gestion des subventions."
+      },
+      "form-type": "planning",
+      "links": {
+        "html": {
+          "BUL": "https://ted.europa.eu/bg/notice/-/detail/546177-2026",
+          "CES": "https://ted.europa.eu/cs/notice/-/detail/546177-2026",
+          "DAN": "https://ted.europa.eu/da/notice/-/detail/546177-2026",
+          "DEU": "https://ted.europa.eu/de/notice/-/detail/546177-2026",
+          "ELL": "https://ted.europa.eu/el/notice/-/detail/546177-2026",
+          "ENG": "https://ted.europa.eu/en/notice/-/detail/546177-2026",
+          "EST": "https://ted.europa.eu/et/notice/-/detail/546177-2026",
+          "FIN": "https://ted.europa.eu/fi/notice/-/detail/546177-2026",
+          "FRA": "https://ted.europa.eu/fr/notice/-/detail/546177-2026",
+          "GLE": "https://ted.europa.eu/ga/notice/-/detail/546177-2026",
+          "HRV": "https://ted.europa.eu/hr/notice/-/detail/546177-2026",
+          "HUN": "https://ted.europa.eu/hu/notice/-/detail/546177-2026",
+          "ITA": "https://ted.europa.eu/it/notice/-/detail/546177-2026",
+          "LAV": "https://ted.europa.eu/lv/notice/-/detail/546177-2026",
+          "LIT": "https://ted.europa.eu/lt/notice/-/detail/546177-2026",
+          "MLT": "https://ted.europa.eu/mt/notice/-/detail/546177-2026",
+          "NLD": "https://ted.europa.eu/nl/notice/-/detail/546177-2026",
+          "POL": "https://ted.europa.eu/pl/notice/-/detail/546177-2026",
+          "POR": "https://ted.europa.eu/pt/notice/-/detail/546177-2026",
+          "RON": "https://ted.europa.eu/ro/notice/-/detail/546177-2026",
+          "SLK": "https://ted.europa.eu/sk/notice/-/detail/546177-2026",
+          "SLV": "https://ted.europa.eu/sl/notice/-/detail/546177-2026",
+          "SPA": "https://ted.europa.eu/es/notice/-/detail/546177-2026",
+          "SWE": "https://ted.europa.eu/sv/notice/-/detail/546177-2026"
+        },
+        "htmlDirect": {
+          "BUL": "https://ted.europa.eu/bg/notice/546177-2026/html",
+          "CES": "https://ted.europa.eu/cs/notice/546177-2026/html",
+          "DAN": "https://ted.europa.eu/da/notice/546177-2026/html",
+          "DEU": "https://ted.europa.eu/de/notice/546177-2026/html",
+          "ELL": "https://ted.europa.eu/el/notice/546177-2026/html",
+          "ENG": "https://ted.europa.eu/en/notice/546177-2026/html",
+          "EST": "https://ted.europa.eu/et/notice/546177-2026/html",
+          "FIN": "https://ted.europa.eu/fi/notice/546177-2026/html",
+          "FRA": "https://ted.europa.eu/fr/notice/546177-2026/html",
+          "GLE": "https://ted.europa.eu/ga/notice/546177-2026/html",
+          "HRV": "https://ted.europa.eu/hr/notice/546177-2026/html",
+          "HUN": "https://ted.europa.eu/hu/notice/546177-2026/html",
+          "ITA": "https://ted.europa.eu/it/notice/546177-2026/html",
+          "LAV": "https://ted.europa.eu/lv/notice/546177-2026/html",
+          "LIT": "https://ted.europa.eu/lt/notice/546177-2026/html",
+          "MLT": "https://ted.europa.eu/mt/notice/546177-2026/html",
+          "NLD": "https://ted.europa.eu/nl/notice/546177-2026/html",
+          "POL": "https://ted.europa.eu/pl/notice/546177-2026/html",
+          "POR": "https://ted.europa.eu/pt/notice/546177-2026/html",
+          "RON": "https://ted.europa.eu/ro/notice/546177-2026/html",
+          "SLK": "https://ted.europa.eu/sk/notice/546177-2026/html",
+          "SLV": "https://ted.europa.eu/sl/notice/546177-2026/html",
+          "SPA": "https://ted.europa.eu/es/notice/546177-2026/html",
+          "SWE": "https://ted.europa.eu/sv/notice/546177-2026/html"
+        },
+        "pdf": {
+          "BUL": "https://ted.europa.eu/bg/notice/546177-2026/pdf",
+          "CES": "https://ted.europa.eu/cs/notice/546177-2026/pdf",
+          "DAN": "https://ted.europa.eu/da/notice/546177-2026/pdf",
+          "DEU": "https://ted.europa.eu/de/notice/546177-2026/pdf",
+          "ELL": "https://ted.europa.eu/el/notice/546177-2026/pdf",
+          "ENG": "https://ted.europa.eu/en/notice/546177-2026/pdf",
+          "EST": "https://ted.europa.eu/et/notice/546177-2026/pdf",
+          "FIN": "https://ted.europa.eu/fi/notice/546177-2026/pdf",
+          "FRA": "https://ted.europa.eu/fr/notice/546177-2026/pdf",
+          "GLE": "https://ted.europa.eu/ga/notice/546177-2026/pdf",
+          "HRV": "https://ted.europa.eu/hr/notice/546177-2026/pdf",
+          "HUN": "https://ted.europa.eu/hu/notice/546177-2026/pdf",
+          "ITA": "https://ted.europa.eu/it/notice/546177-2026/pdf",
+          "LAV": "https://ted.europa.eu/lv/notice/546177-2026/pdf",
+          "LIT": "https://ted.europa.eu/lt/notice/546177-2026/pdf",
+          "MLT": "https://ted.europa.eu/mt/notice/546177-2026/pdf",
+          "NLD": "https://ted.europa.eu/nl/notice/546177-2026/pdf",
+          "POL": "https://ted.europa.eu/pl/notice/546177-2026/pdf",
+          "POR": "https://ted.europa.eu/pt/notice/546177-2026/pdf",
+          "RON": "https://ted.europa.eu/ro/notice/546177-2026/pdf",
+          "SLK": "https://ted.europa.eu/sk/notice/546177-2026/pdf",
+          "SLV": "https://ted.europa.eu/sl/notice/546177-2026/pdf",
+          "SPA": "https://ted.europa.eu/es/notice/546177-2026/pdf",
+          "SWE": "https://ted.europa.eu/sv/notice/546177-2026/pdf"
+        },
+        "pdfs": {
+          "FRA": "https://ted.europa.eu/fr/notice/546177-2026/pdfs"
+        },
+        "xml": {
+          "MUL": "https://ted.europa.eu/en/notice/546177-2026/xml"
+        }
+      },
+      "notice-identifier": "5665d8f0-18f5-42ea-974c-f3861e175c8f",
+      "notice-title": {
+        "bul": "Фpaнция – Софтуерни пакети и информационни системи – RFI Solution de gestion des subventions",
+        "ces": "Francie – Balíky programů a informační systémy – RFI Solution de gestion des subventions",
+        "dan": "Frankrig – Programpakker og informationssystemer – RFI Solution de gestion des subventions",
+        "deu": "Frankreich – Softwarepaket und Informationssysteme – RFI Solution de gestion des subventions",
+        "ell": "Γαλλία – Πακέτα λογισμικού και συστήματα πληροφορικής – RFI Solution de gestion des subventions",
+        "eng": "France – Software package and information systems – RFI Solution de gestion des subventions",
+        "est": "Prantsusmaa – Tarkvarapaketid ja infosüsteemid – RFI Solution de gestion des subventions",
+        "fin": "Ranska – Ohjelmatuotteet ja tietojärjestelmät – RFI Solution de gestion des subventions",
+        "fra": "France – Logiciels et systèmes d'information – RFI Solution de gestion des subventions",
+        "gle": "An Fhrainc – Software package and information systems – RFI Solution de gestion des subventions",
+        "hrv": "Francuska – Programski paketi i informacijski sustavi – RFI Solution de gestion des subventions",
+        "hun": "Franciaország – Szoftvercsomag és információs rendszerek – RFI Solution de gestion des subventions",
+        "ita": "Francia – Pacchetti software e sistemi di informazione – RFI Solution de gestion des subventions",
+        "lav": "Francija – Programmatūras pakotne un informācijas sistēmas – RFI Solution de gestion des subventions",
+        "lit": "Prancūzija – Programinės įrangos paketai ir informacinės sistemos – RFI Solution de gestion des subventions",
+        "mlt": "Franza – Pakketti tas-softwer u sistemi ta' informazzjoni – RFI Solution de gestion des subventions",
+        "nld": "Frankrijk – Software en informatiesystemen – RFI Solution de gestion des subventions",
+        "pol": "Francja – Pakiety oprogramowania i systemy informatyczne – RFI Solution de gestion des subventions",
+        "por": "França – Pacotes de software e sistemas de informação – RFI Solution de gestion des subventions",
+        "ron": "Franţa – Pachete software şi sisteme informatice – RFI Solution de gestion des subventions",
+        "slk": "Francúzsko – Softvérové balíky a informačné systémy – RFI Solution de gestion des subventions",
+        "slv": "Francija – Programski paketi in informacijski sistemi – RFI Solution de gestion des subventions",
+        "spa": "Francia – Paquetes de software y sistemas de información – RFI Solution de gestion des subventions",
+        "swe": "Frankrike – Programvara och informationssystem – RFI Solution de gestion des subventions"
+      },
+      "notice-type": "pin-only",
+      "notice-version": 1,
+      "official-language": [
+        "FRA"
+      ],
+      "organisation-country-buyer": [
+        "FRA"
+      ],
+      "organisation-name-buyer": {
+        "fra": [
+          "SNCF Gares & Connexions"
+        ]
+      },
+      "place-of-performance": [
+        "FRA",
+        "FRA"
+      ],
+      "publication-date": "2026-08-06+02:00",
+      "publication-number": "546177-2026"
+    },
+    {
+      "buyer-country": [
+        "BEL"
+      ],
+      "buyer-name": {
+        "eng": [
+          "skeyes"
+        ],
+        "fra": [
+          "skeyes"
+        ],
+        "nld": [
+          "skeyes"
+        ]
+      },
+      "classification-cpv": [
+        "34962210",
+        "34962210"
+      ],
+      "contract-nature": [
+        "supplies",
+        "supplies"
+      ],
+      "description-proc": {
+        "eng": "As skeyes is required to demonstrate to the Belgian Supervisory Authority for Air Navigation Services (BSA-ANS) that its simulator is adequate for the training provided, in accordance with EU Regulation 2015/340, skeyes is planning to launch a project for the acquisition of a tower simulator. The main objective of this project is to acquire a skeyes-owned high-fidelity Tower Simulator (TWR) for unit training purposes. This market consultation is intended to support the preparation and launch of the tower simulator project.",
+        "fra": "Étant donné que skeyes est tenu de démontrer à l'Autorité Nationale de Surveillance pour la Belgique (BSA-ANS) que son Tower Simulator est adapté aux formations dispensées, conformément au règlement (UE) 2015/340, skeyes prévoit de lancer un projet d'acquisition d'un Tower Simulator. L'objectif principal de ce projet est d'acquérir un high-fidelity tower simulator (TWR) appartenant à skeyes, destiné à la formation au sein de l'unité. Cette consultation du marché vise à soutenir la préparation et le lancement du projet Tower Simulator.",
+        "nld": "Aangezien skeyes overeenkomstig Verordening (EU) 2015/340 aan de Belgische toezichthoudende autoriteit voor luchtnavigatiediensten (BSA-ANS) moet aantonen dat zijn Tower Simulator geschikt is voor de aangeboden opleiding, is skeyes van plan een project op te starten voor de verwerving van een Tower Simulator. De belangrijkste doelstelling van dit project is de verwerving van een door skeyes beheerde high-fidelity tower simulator (TWR) voor opleidingsdoeleinden binnen de operationele eenheid. Deze marktconsultatie heeft tot doel de voorbereiding en de opstart van het Tower Simulator-project te ondersteunen."
+      },
+      "form-type": "planning",
+      "links": {
+        "html": {
+          "BUL": "https://ted.europa.eu/bg/notice/-/detail/551114-2026",
+          "CES": "https://ted.europa.eu/cs/notice/-/detail/551114-2026",
+          "DAN": "https://ted.europa.eu/da/notice/-/detail/551114-2026",
+          "DEU": "https://ted.europa.eu/de/notice/-/detail/551114-2026",
+          "ELL": "https://ted.europa.eu/el/notice/-/detail/551114-2026",
+          "ENG": "https://ted.europa.eu/en/notice/-/detail/551114-2026",
+          "EST": "https://ted.europa.eu/et/notice/-/detail/551114-2026",
+          "FIN": "https://ted.europa.eu/fi/notice/-/detail/551114-2026",
+          "FRA": "https://ted.europa.eu/fr/notice/-/detail/551114-2026",
+          "GLE": "https://ted.europa.eu/ga/notice/-/detail/551114-2026",
+          "HRV": "https://ted.europa.eu/hr/notice/-/detail/551114-2026",
+          "HUN": "https://ted.europa.eu/hu/notice/-/detail/551114-2026",
+          "ITA": "https://ted.europa.eu/it/notice/-/detail/551114-2026",
+          "LAV": "https://ted.europa.eu/lv/notice/-/detail/551114-2026",
+          "LIT": "https://ted.europa.eu/lt/notice/-/detail/551114-2026",
+          "MLT": "https://ted.europa.eu/mt/notice/-/detail/551114-2026",
+          "NLD": "https://ted.europa.eu/nl/notice/-/detail/551114-2026",
+          "POL": "https://ted.europa.eu/pl/notice/-/detail/551114-2026",
+          "POR": "https://ted.europa.eu/pt/notice/-/detail/551114-2026",
+          "RON": "https://ted.europa.eu/ro/notice/-/detail/551114-2026",
+          "SLK": "https://ted.europa.eu/sk/notice/-/detail/551114-2026",
+          "SLV": "https://ted.europa.eu/sl/notice/-/detail/551114-2026",
+          "SPA": "https://ted.europa.eu/es/notice/-/detail/551114-2026",
+          "SWE": "https://ted.europa.eu/sv/notice/-/detail/551114-2026"
+        },
+        "htmlDirect": {
+          "BUL": "https://ted.europa.eu/bg/notice/551114-2026/html",
+          "CES": "https://ted.europa.eu/cs/notice/551114-2026/html",
+          "DAN": "https://ted.europa.eu/da/notice/551114-2026/html",
+          "DEU": "https://ted.europa.eu/de/notice/551114-2026/html",
+          "ELL": "https://ted.europa.eu/el/notice/551114-2026/html",
+          "ENG": "https://ted.europa.eu/en/notice/551114-2026/html",
+          "EST": "https://ted.europa.eu/et/notice/551114-2026/html",
+          "FIN": "https://ted.europa.eu/fi/notice/551114-2026/html",
+          "FRA": "https://ted.europa.eu/fr/notice/551114-2026/html",
+          "GLE": "https://ted.europa.eu/ga/notice/551114-2026/html",
+          "HRV": "https://ted.europa.eu/hr/notice/551114-2026/html",
+          "HUN": "https://ted.europa.eu/hu/notice/551114-2026/html",
+          "ITA": "https://ted.europa.eu/it/notice/551114-2026/html",
+          "LAV": "https://ted.europa.eu/lv/notice/551114-2026/html",
+          "LIT": "https://ted.europa.eu/lt/notice/551114-2026/html",
+          "MLT": "https://ted.europa.eu/mt/notice/551114-2026/html",
+          "NLD": "https://ted.europa.eu/nl/notice/551114-2026/html",
+          "POL": "https://ted.europa.eu/pl/notice/551114-2026/html",
+          "POR": "https://ted.europa.eu/pt/notice/551114-2026/html",
+          "RON": "https://ted.europa.eu/ro/notice/551114-2026/html",
+          "SLK": "https://ted.europa.eu/sk/notice/551114-2026/html",
+          "SLV": "https://ted.europa.eu/sl/notice/551114-2026/html",
+          "SPA": "https://ted.europa.eu/es/notice/551114-2026/html",
+          "SWE": "https://ted.europa.eu/sv/notice/551114-2026/html"
+        },
+        "pdf": {
+          "BUL": "https://ted.europa.eu/bg/notice/551114-2026/pdf",
+          "CES": "https://ted.europa.eu/cs/notice/551114-2026/pdf",
+          "DAN": "https://ted.europa.eu/da/notice/551114-2026/pdf",
+          "DEU": "https://ted.europa.eu/de/notice/551114-2026/pdf",
+          "ELL": "https://ted.europa.eu/el/notice/551114-2026/pdf",
+          "ENG": "https://ted.europa.eu/en/notice/551114-2026/pdf",
+          "EST": "https://ted.europa.eu/et/notice/551114-2026/pdf",
+          "FIN": "https://ted.europa.eu/fi/notice/551114-2026/pdf",
+          "FRA": "https://ted.europa.eu/fr/notice/551114-2026/pdf",
+          "GLE": "https://ted.europa.eu/ga/notice/551114-2026/pdf",
+          "HRV": "https://ted.europa.eu/hr/notice/551114-2026/pdf",
+          "HUN": "https://ted.europa.eu/hu/notice/551114-2026/pdf",
+          "ITA": "https://ted.europa.eu/it/notice/551114-2026/pdf",
+          "LAV": "https://ted.europa.eu/lv/notice/551114-2026/pdf",
+          "LIT": "https://ted.europa.eu/lt/notice/551114-2026/pdf",
+          "MLT": "https://ted.europa.eu/mt/notice/551114-2026/pdf",
+          "NLD": "https://ted.europa.eu/nl/notice/551114-2026/pdf",
+          "POL": "https://ted.europa.eu/pl/notice/551114-2026/pdf",
+          "POR": "https://ted.europa.eu/pt/notice/551114-2026/pdf",
+          "RON": "https://ted.europa.eu/ro/notice/551114-2026/pdf",
+          "SLK": "https://ted.europa.eu/sk/notice/551114-2026/pdf",
+          "SLV": "https://ted.europa.eu/sl/notice/551114-2026/pdf",
+          "SPA": "https://ted.europa.eu/es/notice/551114-2026/pdf",
+          "SWE": "https://ted.europa.eu/sv/notice/551114-2026/pdf"
+        },
+        "pdfs": {
+          "ENG": "https://ted.europa.eu/en/notice/551114-2026/pdfs",
+          "FRA": "https://ted.europa.eu/fr/notice/551114-2026/pdfs",
+          "NLD": "https://ted.europa.eu/nl/notice/551114-2026/pdfs"
+        },
+        "xml": {
+          "MUL": "https://ted.europa.eu/en/notice/551114-2026/xml"
+        }
+      },
+      "notice-identifier": "b4dbcafa-1c05-4844-b988-09013cabc2b0",
+      "notice-title": {
+        "bul": "Бeлгия – Симулиране на РВД – Marktconsultatie Tower Simulator",
+        "ces": "Belgie – Simulace řízení letového provozu – Marktconsultatie Tower Simulator",
+        "dan": "Belgien – Flyvekontrolsimulering – Marktconsultatie Tower Simulator",
+        "deu": "Belgien – Flugsicherungssimulation – Marktconsultatie Tower Simulator",
+        "ell": "Βέλγιο – Προσομοίωση ελέγχου εναέριας κυκλοφορίας – Marktconsultatie Tower Simulator",
+        "eng": "Belgium – Air-traffic control simulation – Market consultation Tower Simulator",
+        "est": "Belgia – Lennujuhtimise simulatsioonid – Marktconsultatie Tower Simulator",
+        "fin": "Belgia – Lennonjohdon simulointilaitteistot – Marktconsultatie Tower Simulator",
+        "fra": "Belgique – Simulation du contrôle du trafic aérien – Consultation du marché Tower Simulator",
+        "gle": "An Bheilg – Air-traffic control simulation – Marktconsultatie Tower Simulator",
+        "hrv": "Belgija – Simulacija kontrole zračnog prometa – Marktconsultatie Tower Simulator",
+        "hun": "Belgium – Légiforgalom-irányítási szimuláció – Marktconsultatie Tower Simulator",
+        "ita": "Belgio – Simulazioni del controllo del traffico aereo – Marktconsultatie Tower Simulator",
+        "lav": "Beļģija – Gaisa satiksmes vadības simulācija – Marktconsultatie Tower Simulator",
+        "lit": "Belgija – Skrydžių valdymo imitavimas – Marktconsultatie Tower Simulator",
+        "mlt": "Il-Belġju – Simulazzjoni tal-kontroll tat-traffiku ta' l-ajru – Marktconsultatie Tower Simulator",
+        "nld": "België – Simulatie voor luchtverkeersbegeleiding – Marktconsultatie Tower Simulator",
+        "pol": "Belgia – Symulacja kontroli ruchu lotniczego – Marktconsultatie Tower Simulator",
+        "por": "Bélgica – Simulação do controlo do tráfego aéreo – Marktconsultatie Tower Simulator",
+        "ron": "Belgia – Simulare de control al traficului aerian – Marktconsultatie Tower Simulator",
+        "slk": "Belgicko – Simulácia riadenia leteckej dopravy – Marktconsultatie Tower Simulator",
+        "slv": "Belgija – Simulacija nadzora in upravljanja zračnega prometa – Marktconsultatie Tower Simulator",
+        "spa": "Bélgica – Simulación de control del tráfico aéreo – Marktconsultatie Tower Simulator",
+        "swe": "Belgien – Flygledningssimulering – Marktconsultatie Tower Simulator"
+      },
+      "notice-type": "pin-only",
+      "notice-version": 1,
+      "official-language": [
+        "NLD",
+        "ENG",
+        "FRA"
+      ],
+      "organisation-country-buyer": [
+        "BEL"
+      ],
+      "organisation-name-buyer": {
+        "eng": [
+          "skeyes"
+        ],
+        "fra": [
+          "skeyes"
+        ],
+        "nld": [
+          "skeyes"
+        ]
+      },
+      "place-of-performance": [
+        "BE241",
+        "BEL",
+        "BE241",
+        "BEL"
+      ],
+      "publication-date": "2026-08-10+02:00",
+      "publication-number": "551114-2026"
+    },
+    {
+      "buyer-country": [
+        "LUX"
+      ],
+      "buyer-name": {
+        "eng": [
+          "Court of Justice of the European Union"
+        ]
+      },
+      "classification-cpv": [
+        "37440000",
+        "37440000",
+        "37440000",
+        "37441000",
+        "37442000"
+      ],
+      "contract-nature": [
+        "supplies",
+        "supplies",
+        "supplies"
+      ],
+      "description-proc": {
+        "eng": "Supply, maintenance and leasing of fitness equipment Lot 1 : Supply and maintenance of musculation equipment Lot 2 : Leasing of cardio equipment"
+      },
+      "form-type": "planning",
+      "links": {
+        "html": {
+          "BUL": "https://ted.europa.eu/bg/notice/-/detail/554226-2026",
+          "CES": "https://ted.europa.eu/cs/notice/-/detail/554226-2026",
+          "DAN": "https://ted.europa.eu/da/notice/-/detail/554226-2026",
+          "DEU": "https://ted.europa.eu/de/notice/-/detail/554226-2026",
+          "ELL": "https://ted.europa.eu/el/notice/-/detail/554226-2026",
+          "ENG": "https://ted.europa.eu/en/notice/-/detail/554226-2026",
+          "EST": "https://ted.europa.eu/et/notice/-/detail/554226-2026",
+          "FIN": "https://ted.europa.eu/fi/notice/-/detail/554226-2026",
+          "FRA": "https://ted.europa.eu/fr/notice/-/detail/554226-2026",
+          "GLE": "https://ted.europa.eu/ga/notice/-/detail/554226-2026",
+          "HRV": "https://ted.europa.eu/hr/notice/-/detail/554226-2026",
+          "HUN": "https://ted.europa.eu/hu/notice/-/detail/554226-2026",
+          "ITA": "https://ted.europa.eu/it/notice/-/detail/554226-2026",
+          "LAV": "https://ted.europa.eu/lv/notice/-/detail/554226-2026",
+          "LIT": "https://ted.europa.eu/lt/notice/-/detail/554226-2026",
+          "MLT": "https://ted.europa.eu/mt/notice/-/detail/554226-2026",
+          "NLD": "https://ted.europa.eu/nl/notice/-/detail/554226-2026",
+          "POL": "https://ted.europa.eu/pl/notice/-/detail/554226-2026",
+          "POR": "https://ted.europa.eu/pt/notice/-/detail/554226-2026",
+          "RON": "https://ted.europa.eu/ro/notice/-/detail/554226-2026",
+          "SLK": "https://ted.europa.eu/sk/notice/-/detail/554226-2026",
+          "SLV": "https://ted.europa.eu/sl/notice/-/detail/554226-2026",
+          "SPA": "https://ted.europa.eu/es/notice/-/detail/554226-2026",
+          "SWE": "https://ted.europa.eu/sv/notice/-/detail/554226-2026"
+        },
+        "htmlDirect": {
+          "BUL": "https://ted.europa.eu/bg/notice/554226-2026/html",
+          "CES": "https://ted.europa.eu/cs/notice/554226-2026/html",
+          "DAN": "https://ted.europa.eu/da/notice/554226-2026/html",
+          "DEU": "https://ted.europa.eu/de/notice/554226-2026/html",
+          "ELL": "https://ted.europa.eu/el/notice/554226-2026/html",
+          "ENG": "https://ted.europa.eu/en/notice/554226-2026/html",
+          "EST": "https://ted.europa.eu/et/notice/554226-2026/html",
+          "FIN": "https://ted.europa.eu/fi/notice/554226-2026/html",
+          "FRA": "https://ted.europa.eu/fr/notice/554226-2026/html",
+          "GLE": "https://ted.europa.eu/ga/notice/554226-2026/html",
+          "HRV": "https://ted.europa.eu/hr/notice/554226-2026/html",
+          "HUN": "https://ted.europa.eu/hu/notice/554226-2026/html",
+          "ITA": "https://ted.europa.eu/it/notice/554226-2026/html",
+          "LAV": "https://ted.europa.eu/lv/notice/554226-2026/html",
+          "LIT": "https://ted.europa.eu/lt/notice/554226-2026/html",
+          "MLT": "https://ted.europa.eu/mt/notice/554226-2026/html",
+          "NLD": "https://ted.europa.eu/nl/notice/554226-2026/html",
+          "POL": "https://ted.europa.eu/pl/notice/554226-2026/html",
+          "POR": "https://ted.europa.eu/pt/notice/554226-2026/html",
+          "RON": "https://ted.europa.eu/ro/notice/554226-2026/html",
+          "SLK": "https://ted.europa.eu/sk/notice/554226-2026/html",
+          "SLV": "https://ted.europa.eu/sl/notice/554226-2026/html",
+          "SPA": "https://ted.europa.eu/es/notice/554226-2026/html",
+          "SWE": "https://ted.europa.eu/sv/notice/554226-2026/html"
+        },
+        "pdf": {
+          "BUL": "https://ted.europa.eu/bg/notice/554226-2026/pdf",
+          "CES": "https://ted.europa.eu/cs/notice/554226-2026/pdf",
+          "DAN": "https://ted.europa.eu/da/notice/554226-2026/pdf",
+          "DEU": "https://ted.europa.eu/de/notice/554226-2026/pdf",
+          "ELL": "https://ted.europa.eu/el/notice/554226-2026/pdf",
+          "ENG": "https://ted.europa.eu/en/notice/554226-2026/pdf",
+          "EST": "https://ted.europa.eu/et/notice/554226-2026/pdf",
+          "FIN": "https://ted.europa.eu/fi/notice/554226-2026/pdf",
+          "FRA": "https://ted.europa.eu/fr/notice/554226-2026/pdf",
+          "GLE": "https://ted.europa.eu/ga/notice/554226-2026/pdf",
+          "HRV": "https://ted.europa.eu/hr/notice/554226-2026/pdf",
+          "HUN": "https://ted.europa.eu/hu/notice/554226-2026/pdf",
+          "ITA": "https://ted.europa.eu/it/notice/554226-2026/pdf",
+          "LAV": "https://ted.europa.eu/lv/notice/554226-2026/pdf",
+          "LIT": "https://ted.europa.eu/lt/notice/554226-2026/pdf",
+          "MLT": "https://ted.europa.eu/mt/notice/554226-2026/pdf",
+          "NLD": "https://ted.europa.eu/nl/notice/554226-2026/pdf",
+          "POL": "https://ted.europa.eu/pl/notice/554226-2026/pdf",
+          "POR": "https://ted.europa.eu/pt/notice/554226-2026/pdf",
+          "RON": "https://ted.europa.eu/ro/notice/554226-2026/pdf",
+          "SLK": "https://ted.europa.eu/sk/notice/554226-2026/pdf",
+          "SLV": "https://ted.europa.eu/sl/notice/554226-2026/pdf",
+          "SPA": "https://ted.europa.eu/es/notice/554226-2026/pdf",
+          "SWE": "https://ted.europa.eu/sv/notice/554226-2026/pdf"
+        },
+        "pdfs": {
+          "ENG": "https://ted.europa.eu/en/notice/554226-2026/pdfs"
+        },
+        "xml": {
+          "MUL": "https://ted.europa.eu/en/notice/554226-2026/xml"
+        }
+      },
+      "notice-identifier": "66a879d2-8dc6-4608-9676-7d881046b734",
+      "notice-title": {
+        "bul": "Люксембург – Фитнес екипировка – « Supply, maintenance and leasing of fitness equipment for the Court of Justice of the European Union in Luxembourg Lot 1: Supply and maintenance of musculation equipment Lot 2 : Leasing of cardio equipment",
+        "ces": "Lucembursko – Vybavení pro fitness – « Supply, maintenance and leasing of fitness equipment for the Court of Justice of the European Union in Luxembourg Lot 1: Supply and maintenance of musculation equipment Lot 2 : Leasing of cardio equipment",
+        "dan": "Luxembourg – Motionsudstyr – « Supply, maintenance and leasing of fitness equipment for the Court of Justice of the European Union in Luxembourg Lot 1: Supply and maintenance of musculation equipment Lot 2 : Leasing of cardio equipment",
+        "deu": "Luxemburg – Fitnessgeräte – « Supply, maintenance and leasing of fitness equipment for the Court of Justice of the European Union in Luxembourg Lot 1: Supply and maintenance of musculation equipment Lot 2 : Leasing of cardio equipment",
+        "ell": "Λουξεμβούργο – Εξοπλισμός γυμναστικής – « Supply, maintenance and leasing of fitness equipment for the Court of Justice of the European Union in Luxembourg Lot 1: Supply and maintenance of musculation equipment Lot 2 : Leasing of cardio equipment",
+        "eng": "Luxembourg – Fitness equipments – « Supply, maintenance and leasing of fitness equipment for the Court of Justice of the European Union in Luxembourg Lot 1: Supply and maintenance of musculation equipment Lot 2 : Leasing of cardio equipment",
+        "est": "Luksemburg – Jõusaalivarustus – « Supply, maintenance and leasing of fitness equipment for the Court of Justice of the European Union in Luxembourg Lot 1: Supply and maintenance of musculation equipment Lot 2 : Leasing of cardio equipment",
+        "fin": "Luxemburg – Kuntolaitteet – « Supply, maintenance and leasing of fitness equipment for the Court of Justice of the European Union in Luxembourg Lot 1: Supply and maintenance of musculation equipment Lot 2 : Leasing of cardio equipment",
+        "fra": "Luxembourg – Équipement de culture physique – « Supply, maintenance and leasing of fitness equipment for the Court of Justice of the European Union in Luxembourg Lot 1: Supply and maintenance of musculation equipment Lot 2 : Leasing of cardio equipment",
+        "gle": "Lucsamburg – Fitness equipments – « Supply, maintenance and leasing of fitness equipment for the Court of Justice of the European Union in Luxembourg Lot 1: Supply and maintenance of musculation equipment Lot 2 : Leasing of cardio equipment",
+        "hrv": "Luksemburg – Oprema za fitness – « Supply, maintenance and leasing of fitness equipment for the Court of Justice of the European Union in Luxembourg Lot 1: Supply and maintenance of musculation equipment Lot 2 : Leasing of cardio equipment",
+        "hun": "Luxemburg – Fitneszfelszerelések – « Supply, maintenance and leasing of fitness equipment for the Court of Justice of the European Union in Luxembourg Lot 1: Supply and maintenance of musculation equipment Lot 2 : Leasing of cardio equipment",
+        "ita": "Lussemburgo – Attrezzature per ginnastica – « Supply, maintenance and leasing of fitness equipment for the Court of Justice of the European Union in Luxembourg Lot 1: Supply and maintenance of musculation equipment Lot 2 : Leasing of cardio equipment",
+        "lav": "Luksemburga – Inventārs fiziskās sagatavotības [vingruma] trenēšanai – « Supply, maintenance and leasing of fitness equipment for the Court of Justice of the European Union in Luxembourg Lot 1: Supply and maintenance of musculation equipment Lot 2 : Leasing of cardio equipment",
+        "lit": "Liuksemburgas – Lengvojo kultūrizmo reikmenys – « Supply, maintenance and leasing of fitness equipment for the Court of Justice of the European Union in Luxembourg Lot 1: Supply and maintenance of musculation equipment Lot 2 : Leasing of cardio equipment",
+        "mlt": "Il-Lussemburgu – Tagħmir għall-fitness – « Supply, maintenance and leasing of fitness equipment for the Court of Justice of the European Union in Luxembourg Lot 1: Supply and maintenance of musculation equipment Lot 2 : Leasing of cardio equipment",
+        "nld": "Luxemburg – Fitnessuitrusting – « Supply, maintenance and leasing of fitness equipment for the Court of Justice of the European Union in Luxembourg Lot 1: Supply and maintenance of musculation equipment Lot 2 : Leasing of cardio equipment",
+        "pol": "Luksemburg – Sprzęt do ćwiczeń fizycznych – « Supply, maintenance and leasing of fitness equipment for the Court of Justice of the European Union in Luxembourg Lot 1: Supply and maintenance of musculation equipment Lot 2 : Leasing of cardio equipment",
+        "por": "Luxemburgo – Equipamentos para preparação física (fitness) – « Supply, maintenance and leasing of fitness equipment for the Court of Justice of the European Union in Luxembourg Lot 1: Supply and maintenance of musculation equipment Lot 2 : Leasing of cardio equipment",
+        "ron": "Luxemburg – Echipament de fitness – « Supply, maintenance and leasing of fitness equipment for the Court of Justice of the European Union in Luxembourg Lot 1: Supply and maintenance of musculation equipment Lot 2 : Leasing of cardio equipment",
+        "slk": "Luxembursko – Výstroj na fitnes – « Supply, maintenance and leasing of fitness equipment for the Court of Justice of the European Union in Luxembourg Lot 1: Supply and maintenance of musculation equipment Lot 2 : Leasing of cardio equipment",
+        "slv": "Luksemburg – Fitnes oprema – « Supply, maintenance and leasing of fitness equipment for the Court of Justice of the European Union in Luxembourg Lot 1: Supply and maintenance of musculation equipment Lot 2 : Leasing of cardio equipment",
+        "spa": "Luxemburgo – Equipo para el ejercicio físico – « Supply, maintenance and leasing of fitness equipment for the Court of Justice of the European Union in Luxembourg Lot 1: Supply and maintenance of musculation equipment Lot 2 : Leasing of cardio equipment",
+        "swe": "Luxemburg – Träningsutrustning – « Supply, maintenance and leasing of fitness equipment for the Court of Justice of the European Union in Luxembourg Lot 1: Supply and maintenance of musculation equipment Lot 2 : Leasing of cardio equipment"
+      },
+      "notice-type": "pin-only",
+      "notice-version": 1,
+      "official-language": [
+        "ENG"
+      ],
+      "organisation-country-buyer": [
+        "LUX"
+      ],
+      "organisation-name-buyer": {
+        "eng": [
+          "Court of Justice of the European Union"
+        ]
+      },
+      "place-of-performance": [
+        "LUX",
+        "LUX",
+        "LUX"
+      ],
+      "publication-date": "2026-08-11+02:00",
+      "publication-number": "554226-2026"
+    },
+    {
+      "buyer-country": [
+        "BEL"
+      ],
+      "buyer-name": {
+        "eng": [
+          "Havenbedrijf Antwerpen NV van publiek recht"
+        ],
+        "nld": [
+          "Havenbedrijf Antwerpen NV van publiek recht"
+        ]
+      },
+      "classification-cpv": [
+        "45243600",
+        "45243600"
+      ],
+      "contract-nature": [
+        "works",
+        "works"
+      ],
+      "description-proc": {
+        "eng": "Application of caisson-type quay walls in the Port of Antwerp-Bruges",
+        "nld": "Toepassing van caissonkademuren in de haven van Antwerpen-Brugge"
+      },
+      "form-type": "planning",
+      "links": {
+        "html": {
+          "BUL": "https://ted.europa.eu/bg/notice/-/detail/557412-2026",
+          "CES": "https://ted.europa.eu/cs/notice/-/detail/557412-2026",
+          "DAN": "https://ted.europa.eu/da/notice/-/detail/557412-2026",
+          "DEU": "https://ted.europa.eu/de/notice/-/detail/557412-2026",
+          "ELL": "https://ted.europa.eu/el/notice/-/detail/557412-2026",
+          "ENG": "https://ted.europa.eu/en/notice/-/detail/557412-2026",
+          "EST": "https://ted.europa.eu/et/notice/-/detail/557412-2026",
+          "FIN": "https://ted.europa.eu/fi/notice/-/detail/557412-2026",
+          "FRA": "https://ted.europa.eu/fr/notice/-/detail/557412-2026",
+          "GLE": "https://ted.europa.eu/ga/notice/-/detail/557412-2026",
+          "HRV": "https://ted.europa.eu/hr/notice/-/detail/557412-2026",
+          "HUN": "https://ted.europa.eu/hu/notice/-/detail/557412-2026",
+          "ITA": "https://ted.europa.eu/it/notice/-/detail/557412-2026",
+          "LAV": "https://ted.europa.eu/lv/notice/-/detail/557412-2026",
+          "LIT": "https://ted.europa.eu/lt/notice/-/detail/557412-2026",
+          "MLT": "https://ted.europa.eu/mt/notice/-/detail/557412-2026",
+          "NLD": "https://ted.europa.eu/nl/notice/-/detail/557412-2026",
+          "POL": "https://ted.europa.eu/pl/notice/-/detail/557412-2026",
+          "POR": "https://ted.europa.eu/pt/notice/-/detail/557412-2026",
+          "RON": "https://ted.europa.eu/ro/notice/-/detail/557412-2026",
+          "SLK": "https://ted.europa.eu/sk/notice/-/detail/557412-2026",
+          "SLV": "https://ted.europa.eu/sl/notice/-/detail/557412-2026",
+          "SPA": "https://ted.europa.eu/es/notice/-/detail/557412-2026",
+          "SWE": "https://ted.europa.eu/sv/notice/-/detail/557412-2026"
+        },
+        "htmlDirect": {
+          "BUL": "https://ted.europa.eu/bg/notice/557412-2026/html",
+          "CES": "https://ted.europa.eu/cs/notice/557412-2026/html",
+          "DAN": "https://ted.europa.eu/da/notice/557412-2026/html",
+          "DEU": "https://ted.europa.eu/de/notice/557412-2026/html",
+          "ELL": "https://ted.europa.eu/el/notice/557412-2026/html",
+          "ENG": "https://ted.europa.eu/en/notice/557412-2026/html",
+          "EST": "https://ted.europa.eu/et/notice/557412-2026/html",
+          "FIN": "https://ted.europa.eu/fi/notice/557412-2026/html",
+          "FRA": "https://ted.europa.eu/fr/notice/557412-2026/html",
+          "GLE": "https://ted.europa.eu/ga/notice/557412-2026/html",
+          "HRV": "https://ted.europa.eu/hr/notice/557412-2026/html",
+          "HUN": "https://ted.europa.eu/hu/notice/557412-2026/html",
+          "ITA": "https://ted.europa.eu/it/notice/557412-2026/html",
+          "LAV": "https://ted.europa.eu/lv/notice/557412-2026/html",
+          "LIT": "https://ted.europa.eu/lt/notice/557412-2026/html",
+          "MLT": "https://ted.europa.eu/mt/notice/557412-2026/html",
+          "NLD": "https://ted.europa.eu/nl/notice/557412-2026/html",
+          "POL": "https://ted.europa.eu/pl/notice/557412-2026/html",
+          "POR": "https://ted.europa.eu/pt/notice/557412-2026/html",
+          "RON": "https://ted.europa.eu/ro/notice/557412-2026/html",
+          "SLK": "https://ted.europa.eu/sk/notice/557412-2026/html",
+          "SLV": "https://ted.europa.eu/sl/notice/557412-2026/html",
+          "SPA": "https://ted.europa.eu/es/notice/557412-2026/html",
+          "SWE": "https://ted.europa.eu/sv/notice/557412-2026/html"
+        },
+        "pdf": {
+          "BUL": "https://ted.europa.eu/bg/notice/557412-2026/pdf",
+          "CES": "https://ted.europa.eu/cs/notice/557412-2026/pdf",
+          "DAN": "https://ted.europa.eu/da/notice/557412-2026/pdf",
+          "DEU": "https://ted.europa.eu/de/notice/557412-2026/pdf",
+          "ELL": "https://ted.europa.eu/el/notice/557412-2026/pdf",
+          "ENG": "https://ted.europa.eu/en/notice/557412-2026/pdf",
+          "EST": "https://ted.europa.eu/et/notice/557412-2026/pdf",
+          "FIN": "https://ted.europa.eu/fi/notice/557412-2026/pdf",
+          "FRA": "https://ted.europa.eu/fr/notice/557412-2026/pdf",
+          "GLE": "https://ted.europa.eu/ga/notice/557412-2026/pdf",
+          "HRV": "https://ted.europa.eu/hr/notice/557412-2026/pdf",
+          "HUN": "https://ted.europa.eu/hu/notice/557412-2026/pdf",
+          "ITA": "https://ted.europa.eu/it/notice/557412-2026/pdf",
+          "LAV": "https://ted.europa.eu/lv/notice/557412-2026/pdf",
+          "LIT": "https://ted.europa.eu/lt/notice/557412-2026/pdf",
+          "MLT": "https://ted.europa.eu/mt/notice/557412-2026/pdf",
+          "NLD": "https://ted.europa.eu/nl/notice/557412-2026/pdf",
+          "POL": "https://ted.europa.eu/pl/notice/557412-2026/pdf",
+          "POR": "https://ted.europa.eu/pt/notice/557412-2026/pdf",
+          "RON": "https://ted.europa.eu/ro/notice/557412-2026/pdf",
+          "SLK": "https://ted.europa.eu/sk/notice/557412-2026/pdf",
+          "SLV": "https://ted.europa.eu/sl/notice/557412-2026/pdf",
+          "SPA": "https://ted.europa.eu/es/notice/557412-2026/pdf",
+          "SWE": "https://ted.europa.eu/sv/notice/557412-2026/pdf"
+        },
+        "pdfs": {
+          "ENG": "https://ted.europa.eu/en/notice/557412-2026/pdfs",
+          "NLD": "https://ted.europa.eu/nl/notice/557412-2026/pdfs"
+        },
+        "xml": {
+          "MUL": "https://ted.europa.eu/en/notice/557412-2026/xml"
+        }
+      },
+      "notice-identifier": "f66594a5-2ace-411f-bad6-08299ba10d90",
+      "notice-title": {
+        "bul": "Бeлгия – Строителни и монтажни работи на кейови стени – Toepassing van caissonkademuren in de haven van Antwerpen-Brugge",
+        "ces": "Belgie – Výstavba nábřežních zdí – Toepassing van caissonkademuren in de haven van Antwerpen-Brugge",
+        "dan": "Belgien – Anlægsarbejde: kajmure – Toepassing van caissonkademuren in de haven van Antwerpen-Brugge",
+        "deu": "Belgien – Bau von Kaimauern – Toepassing van caissonkademuren in de haven van Antwerpen-Brugge",
+        "ell": "Βέλγιο – Κατασκευαστικές εργασίες για κρηπιδότοιχους – Toepassing van caissonkademuren in de haven van Antwerpen-Brugge",
+        "eng": "Belgium – Quay wall construction work – Application of caisson-type quay walls in the Port of Antwerp-Bruges",
+        "est": "Belgia – Kaiseinade ehitustööd – Toepassing van caissonkademuren in de haven van Antwerpen-Brugge",
+        "fin": "Belgia – Laiturin muurien rakennustyöt – Toepassing van caissonkademuren in de haven van Antwerpen-Brugge",
+        "fra": "Belgique – Travaux de construction de murs de quai – Toepassing van caissonkademuren in de haven van Antwerpen-Brugge",
+        "gle": "An Bheilg – Quay wall construction work – Toepassing van caissonkademuren in de haven van Antwerpen-Brugge",
+        "hrv": "Belgija – Građevinski radovi na pristanišnom zidu – Toepassing van caissonkademuren in de haven van Antwerpen-Brugge",
+        "hun": "Belgium – Rakparti fal építése – Toepassing van caissonkademuren in de haven van Antwerpen-Brugge",
+        "ita": "Belgio – Lavori di costruzione di muri di sponda – Toepassing van caissonkademuren in de haven van Antwerpen-Brugge",
+        "lav": "Beļģija – Krasta nostiprinājuma būvdarbi – Toepassing van caissonkademuren in de haven van Antwerpen-Brugge",
+        "lit": "Belgija – Krantinės pylimų statybos darbai – Toepassing van caissonkademuren in de haven van Antwerpen-Brugge",
+        "mlt": "Il-Belġju – Xogħol ta' kostruzzjoni ta' ħajt għall-moll – Toepassing van caissonkademuren in de haven van Antwerpen-Brugge",
+        "nld": "België – Bouwen van kademuren – Toepassing van caissonkademuren in de haven van Antwerpen-Brugge",
+        "pol": "Belgia – Roboty budowlane w zakresie ścianek szczelnych – Toepassing van caissonkademuren in de haven van Antwerpen-Brugge",
+        "por": "Bélgica – Construção de muro-cais – Toepassing van caissonkademuren in de haven van Antwerpen-Brugge",
+        "ron": "Belgia – Lucrări de construcţii de pereţi de chei – Toepassing van caissonkademuren in de haven van Antwerpen-Brugge",
+        "slk": "Belgicko – Stavebné práce na múroch mól – Toepassing van caissonkademuren in de haven van Antwerpen-Brugge",
+        "slv": "Belgija – Gradbena dela na nabrežnem zidu – Toepassing van caissonkademuren in de haven van Antwerpen-Brugge",
+        "spa": "Bélgica – Trabajos de construcción de muros de muelles – Toepassing van caissonkademuren in de haven van Antwerpen-Brugge",
+        "swe": "Belgien – Anläggningsarbete för kajmur – Toepassing van caissonkademuren in de haven van Antwerpen-Brugge"
+      },
+      "notice-type": "pin-only",
+      "notice-version": 1,
+      "official-language": [
+        "NLD",
+        "ENG"
+      ],
+      "organisation-country-buyer": [
+        "BEL"
+      ],
+      "organisation-name-buyer": {
+        "eng": [
+          "Havenbedrijf Antwerpen NV van publiek recht"
+        ],
+        "nld": [
+          "Havenbedrijf Antwerpen NV van publiek recht"
+        ]
+      },
+      "place-of-performance": [
+        "BE211",
+        "BEL",
+        "BE211",
+        "BEL"
+      ],
+      "publication-date": "2026-08-12+02:00",
+      "publication-number": "557412-2026"
+    }
+  ],
+  "timedOut": false,
+  "totalNoticeCount": 4
+}

@@ -1,0 +1,218 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "bidpilot.notice.v1",
+  "title": "CanonicalNotice",
+  "description": "The single shape every adapter must produce (SPEC Annex B.1). Everything downstream - matching, decision, generation - consumes only this. Absent means absent: adapters MUST NOT invent values (SPEC §6.2).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "source_refs",
+    "notice_type",
+    "status",
+    "country",
+    "title",
+    "cpv",
+    "nuts",
+    "dates",
+    "provenance",
+    "version"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "uid": {
+      "type": ["string", "null"],
+      "description": "ULID assigned on persistence; null before the notice is stored."
+    },
+    "cluster_id": { "type": ["string", "null"] },
+    "source_refs": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Every place this notice was seen. Preserved after clustering so the UI can show 'Published on: BOAMP, TED' (SPEC §6.7).",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source", "external_id"],
+        "properties": {
+          "source": { "type": "string", "description": "sources.code, e.g. fr-boamp" },
+          "external_id": { "type": "string" },
+          "url": { "type": ["string", "null"] },
+          "fetched_at": { "type": ["string", "null"], "format": "date-time" }
+        }
+      }
+    },
+    "notice_type": { "enum": ["planning", "competition", "result"] },
+    "status": { "enum": ["active", "amended", "closed", "awarded", "cancelled"] },
+    "country": { "type": "string", "pattern": "^[A-Z]{2}$", "description": "ISO-3166 alpha-2." },
+    "language": { "type": ["string", "null"], "pattern": "^[a-z]{2}$" },
+    "buyer": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": ["string", "null"] },
+        "siren": { "type": ["string", "null"], "pattern": "^[0-9]{9}$" },
+        "siret": { "type": ["string", "null"], "pattern": "^[0-9]{14}$" },
+        "national_id": { "type": ["string", "null"], "description": "Non-FR registration id (KBO/BCE, RCS...)." },
+        "contact": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "email": { "type": ["string", "null"] },
+            "phone": { "type": ["string", "null"] },
+            "website": { "type": ["string", "null"] }
+          }
+        },
+        "address": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "street": { "type": ["string", "null"] },
+            "postcode": { "type": ["string", "null"] },
+            "city": { "type": ["string", "null"] },
+            "nuts": { "type": ["string", "null"] },
+            "country": { "type": ["string", "null"] }
+          }
+        }
+      }
+    },
+    "title": { "type": "string", "minLength": 1 },
+    "description": { "type": ["string", "null"] },
+    "cpv": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[0-9]{8}$" },
+      "description": "8-digit CPV codes, deduplicated, order preserved. Never translated (SPEC §5)."
+    },
+    "nuts": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[A-Z]{2}[0-9A-Z]{0,3}$" }
+    },
+    "procedure": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "open",
+            "restricted",
+            "negotiated",
+            "competitive-dialogue",
+            "innovation-partnership",
+            "direct-award",
+            "adapted",
+            "other",
+            null
+          ]
+        },
+        "national_label": { "type": ["string", "null"], "description": "e.g. AOO, MAPA - kept verbatim." },
+        "framework": { "type": ["boolean", "null"] },
+        "reserved_sme": { "type": ["boolean", "null"] },
+        "contract_nature": {
+          "type": "array",
+          "items": { "enum": ["works", "supplies", "services"] }
+        }
+      }
+    },
+    "lots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["lot_id"],
+        "properties": {
+          "lot_id": { "type": "string" },
+          "title": { "type": ["string", "null"] },
+          "description": { "type": ["string", "null"] },
+          "cpv": { "type": "array", "items": { "type": "string" } },
+          "amount_est": { "type": ["number", "null"] },
+          "currency": { "type": ["string", "null"] },
+          "place_nuts": { "type": "array", "items": { "type": "string" } },
+          "deadline_at": { "type": ["string", "null"], "format": "date-time" }
+        }
+      }
+    },
+    "amounts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "estimated_total": { "type": ["number", "null"] },
+        "currency": { "type": ["string", "null"], "pattern": "^[A-Z]{3}$" },
+        "vat": { "enum": ["HT", "TTC", null], "description": "Excluding / including VAT. Unknown stays null." }
+      }
+    },
+    "dates": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "All instants are UTC ISO-8601. `tz` carries the buyer's clock, which is the one that governs a submission deadline (SPEC §5).",
+      "properties": {
+        "published_at": { "type": ["string", "null"], "format": "date-time" },
+        "deadline_at": { "type": ["string", "null"], "format": "date-time" },
+        "questions_deadline_at": { "type": ["string", "null"], "format": "date-time" },
+        "visit": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "mandatory": { "type": ["boolean", "null"] },
+            "dates": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "tz": { "type": ["string", "null"], "description": "IANA zone, e.g. Europe/Paris." }
+      }
+    },
+    "documents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind"],
+        "properties": {
+          "kind": {
+            "enum": ["rc", "ccap", "cctp", "ae", "price", "dume", "annex", "amendment", "other"]
+          },
+          "title": { "type": ["string", "null"] },
+          "url": { "type": ["string", "null"] },
+          "file_key": { "type": ["string", "null"] },
+          "pages": { "type": ["integer", "null"] }
+        }
+      }
+    },
+    "urls": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "notice": { "type": ["string", "null"] },
+        "documents": { "type": ["string", "null"] },
+        "submission": { "type": ["string", "null"] }
+      }
+    },
+    "requires_account_for_docs": { "type": ["boolean", "null"] },
+    "award": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "description": "Populated on notice_type=result only. Feeds the renewal radar (SPEC §14.2).",
+      "properties": {
+        "supplier_name": { "type": ["string", "null"] },
+        "supplier_siren": { "type": ["string", "null"], "pattern": "^[0-9]{9}$" },
+        "amount": { "type": ["number", "null"] },
+        "currency": { "type": ["string", "null"] },
+        "signed_at": { "type": ["string", "null"] },
+        "duration_months": { "type": ["integer", "null"] }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["adapter", "normalized_at"],
+      "properties": {
+        "adapter": { "type": "string", "description": "name@semver, e.g. boamp@1.0.0" },
+        "normalized_at": { "type": "string", "format": "date-time" },
+        "raw_content_hash": { "type": ["string", "null"] },
+        "unmapped_fields": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Source keys the adapter saw but did not map - the signal that a source changed shape."
+        }
+      }
+    },
+    "version": { "type": "integer", "minimum": 1 }
+  }
+}

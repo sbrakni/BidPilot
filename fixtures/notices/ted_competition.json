@@ -1,0 +1,1539 @@
+{
+  "iterationNextToken": null,
+  "notices": [
+    {
+      "buyer-country": [
+        "FRA"
+      ],
+      "buyer-name": {
+        "fra": [
+          "Commune d'Hyères"
+        ]
+      },
+      "classification-cpv": [
+        "31600000",
+        "51110000",
+        "71318100",
+        "31600000",
+        "51100000",
+        "71318100"
+      ],
+      "contract-nature": [
+        "supplies",
+        "services",
+        "supplies",
+        "services"
+      ],
+      "deadline-receipt-request": [
+        "2026-09-16T16:30:00+02:00"
+      ],
+      "deadline-receipt-tender-date-lot": [
+        "2026-09-16+02:00"
+      ],
+      "deadline-receipt-tender-time-lot": [
+        "16:30:00+02:00"
+      ],
+      "description-lot": {
+        "fra": [
+          "La présente consultation a pour objet la fourniture par location de matériel d'alimentation électrique et d'éclairage destiné à l'organisation et au déroulement de manifestations et de spectacles sur la commune d'Hyères, avec des prestations accessoires de montage et de démontage. Ces manifestations peuvent être de natures différentes (marché de noël, spectacles de variété, de danse, de théâtre, de jazz et autres) et pourront se dérouler en intérieur et/ou en extérieur."
+        ]
+      },
+      "description-proc": {
+        "fra": "La présente consultation a pour objet la fourniture par location de matériel d'alimentation électrique et d'éclairage destiné à l'organisation et au déroulement de manifestations et de spectacles sur la commune d'Hyères, avec des prestations accessoires de montage et de démontage. Ces manifestations peuvent être de natures différentes (marché de noël, spectacles de variété, de danse, de théâtre, de jazz et autres) et pourront se dérouler en intérieur et/ou en extérieur."
+      },
+      "form-type": "competition",
+      "identifier-lot": [
+        "LOT-0001"
+      ],
+      "links": {
+        "html": {
+          "BUL": "https://ted.europa.eu/bg/notice/-/detail/543742-2026",
+          "CES": "https://ted.europa.eu/cs/notice/-/detail/543742-2026",
+          "DAN": "https://ted.europa.eu/da/notice/-/detail/543742-2026",
+          "DEU": "https://ted.europa.eu/de/notice/-/detail/543742-2026",
+          "ELL": "https://ted.europa.eu/el/notice/-/detail/543742-2026",
+          "ENG": "https://ted.europa.eu/en/notice/-/detail/543742-2026",
+          "EST": "https://ted.europa.eu/et/notice/-/detail/543742-2026",
+          "FIN": "https://ted.europa.eu/fi/notice/-/detail/543742-2026",
+          "FRA": "https://ted.europa.eu/fr/notice/-/detail/543742-2026",
+          "GLE": "https://ted.europa.eu/ga/notice/-/detail/543742-2026",
+          "HRV": "https://ted.europa.eu/hr/notice/-/detail/543742-2026",
+          "HUN": "https://ted.europa.eu/hu/notice/-/detail/543742-2026",
+          "ITA": "https://ted.europa.eu/it/notice/-/detail/543742-2026",
+          "LAV": "https://ted.europa.eu/lv/notice/-/detail/543742-2026",
+          "LIT": "https://ted.europa.eu/lt/notice/-/detail/543742-2026",
+          "MLT": "https://ted.europa.eu/mt/notice/-/detail/543742-2026",
+          "NLD": "https://ted.europa.eu/nl/notice/-/detail/543742-2026",
+          "POL": "https://ted.europa.eu/pl/notice/-/detail/543742-2026",
+          "POR": "https://ted.europa.eu/pt/notice/-/detail/543742-2026",
+          "RON": "https://ted.europa.eu/ro/notice/-/detail/543742-2026",
+          "SLK": "https://ted.europa.eu/sk/notice/-/detail/543742-2026",
+          "SLV": "https://ted.europa.eu/sl/notice/-/detail/543742-2026",
+          "SPA": "https://ted.europa.eu/es/notice/-/detail/543742-2026",
+          "SWE": "https://ted.europa.eu/sv/notice/-/detail/543742-2026"
+        },
+        "htmlDirect": {
+          "BUL": "https://ted.europa.eu/bg/notice/543742-2026/html",
+          "CES": "https://ted.europa.eu/cs/notice/543742-2026/html",
+          "DAN": "https://ted.europa.eu/da/notice/543742-2026/html",
+          "DEU": "https://ted.europa.eu/de/notice/543742-2026/html",
+          "ELL": "https://ted.europa.eu/el/notice/543742-2026/html",
+          "ENG": "https://ted.europa.eu/en/notice/543742-2026/html",
+          "EST": "https://ted.europa.eu/et/notice/543742-2026/html",
+          "FIN": "https://ted.europa.eu/fi/notice/543742-2026/html",
+          "FRA": "https://ted.europa.eu/fr/notice/543742-2026/html",
+          "GLE": "https://ted.europa.eu/ga/notice/543742-2026/html",
+          "HRV": "https://ted.europa.eu/hr/notice/543742-2026/html",
+          "HUN": "https://ted.europa.eu/hu/notice/543742-2026/html",
+          "ITA": "https://ted.europa.eu/it/notice/543742-2026/html",
+          "LAV": "https://ted.europa.eu/lv/notice/543742-2026/html",
+          "LIT": "https://ted.europa.eu/lt/notice/543742-2026/html",
+          "MLT": "https://ted.europa.eu/mt/notice/543742-2026/html",
+          "NLD": "https://ted.europa.eu/nl/notice/543742-2026/html",
+          "POL": "https://ted.europa.eu/pl/notice/543742-2026/html",
+          "POR": "https://ted.europa.eu/pt/notice/543742-2026/html",
+          "RON": "https://ted.europa.eu/ro/notice/543742-2026/html",
+          "SLK": "https://ted.europa.eu/sk/notice/543742-2026/html",
+          "SLV": "https://ted.europa.eu/sl/notice/543742-2026/html",
+          "SPA": "https://ted.europa.eu/es/notice/543742-2026/html",
+          "SWE": "https://ted.europa.eu/sv/notice/543742-2026/html"
+        },
+        "pdf": {
+          "BUL": "https://ted.europa.eu/bg/notice/543742-2026/pdf",
+          "CES": "https://ted.europa.eu/cs/notice/543742-2026/pdf",
+          "DAN": "https://ted.europa.eu/da/notice/543742-2026/pdf",
+          "DEU": "https://ted.europa.eu/de/notice/543742-2026/pdf",
+          "ELL": "https://ted.europa.eu/el/notice/543742-2026/pdf",
+          "ENG": "https://ted.europa.eu/en/notice/543742-2026/pdf",
+          "EST": "https://ted.europa.eu/et/notice/543742-2026/pdf",
+          "FIN": "https://ted.europa.eu/fi/notice/543742-2026/pdf",
+          "FRA": "https://ted.europa.eu/fr/notice/543742-2026/pdf",
+          "GLE": "https://ted.europa.eu/ga/notice/543742-2026/pdf",
+          "HRV": "https://ted.europa.eu/hr/notice/543742-2026/pdf",
+          "HUN": "https://ted.europa.eu/hu/notice/543742-2026/pdf",
+          "ITA": "https://ted.europa.eu/it/notice/543742-2026/pdf",
+          "LAV": "https://ted.europa.eu/lv/notice/543742-2026/pdf",
+          "LIT": "https://ted.europa.eu/lt/notice/543742-2026/pdf",
+          "MLT": "https://ted.europa.eu/mt/notice/543742-2026/pdf",
+          "NLD": "https://ted.europa.eu/nl/notice/543742-2026/pdf",
+          "POL": "https://ted.europa.eu/pl/notice/543742-2026/pdf",
+          "POR": "https://ted.europa.eu/pt/notice/543742-2026/pdf",
+          "RON": "https://ted.europa.eu/ro/notice/543742-2026/pdf",
+          "SLK": "https://ted.europa.eu/sk/notice/543742-2026/pdf",
+          "SLV": "https://ted.europa.eu/sl/notice/543742-2026/pdf",
+          "SPA": "https://ted.europa.eu/es/notice/543742-2026/pdf",
+          "SWE": "https://ted.europa.eu/sv/notice/543742-2026/pdf"
+        },
+        "pdfs": {
+          "FRA": "https://ted.europa.eu/fr/notice/543742-2026/pdfs"
+        },
+        "xml": {
+          "MUL": "https://ted.europa.eu/en/notice/543742-2026/xml"
+        }
+      },
+      "notice-identifier": "ec9e5460-c6fc-47b9-ad73-d7bdd1d9f4b9",
+      "notice-title": {
+        "bul": "Фpaнция – Електрическо оборудване – EVENEMENTIEL- Location, montage et démontage de matériel pour l'alimentation électrique et l'éclairage de spectacles et manifestations - Accord-cadre à bons de commande - Relance",
+        "ces": "Francie – Elektrické zařízení a přístroje – EVENEMENTIEL- Location, montage et démontage de matériel pour l'alimentation électrique et l'éclairage de spectacles et manifestations - Accord-cadre à bons de commande - Relance",
+        "dan": "Frankrig – Eludstyr – EVENEMENTIEL- Location, montage et démontage de matériel pour l'alimentation électrique et l'éclairage de spectacles et manifestations - Accord-cadre à bons de commande - Relance",
+        "deu": "Frankreich – Elektrische Ausrüstung – EVENEMENTIEL- Location, montage et démontage de matériel pour l'alimentation électrique et l'éclairage de spectacles et manifestations - Accord-cadre à bons de commande - Relance",
+        "ell": "Γαλλία – Ηλεκτρολογικός εξοπλισμός – EVENEMENTIEL- Location, montage et démontage de matériel pour l'alimentation électrique et l'éclairage de spectacles et manifestations - Accord-cadre à bons de commande - Relance",
+        "eng": "France – Electrical equipment and apparatus – EVENEMENTIEL- Location, montage et démontage de matériel pour l'alimentation électrique et l'éclairage de spectacles et manifestations - Accord-cadre à bons de commande - Relance",
+        "est": "Prantsusmaa – Elektriseadmed ja aparaadid – EVENEMENTIEL- Location, montage et démontage de matériel pour l'alimentation électrique et l'éclairage de spectacles et manifestations - Accord-cadre à bons de commande - Relance",
+        "fin": "Ranska – Sähkölaitteet ja -kojeet – EVENEMENTIEL- Location, montage et démontage de matériel pour l'alimentation électrique et l'éclairage de spectacles et manifestations - Accord-cadre à bons de commande - Relance",
+        "fra": "France – Matériel électrique – EVENEMENTIEL- Location, montage et démontage de matériel pour l'alimentation électrique et l'éclairage de spectacles et manifestations - Accord-cadre à bons de commande - Relance",
+        "gle": "An Fhrainc – Electrical equipment and apparatus – EVENEMENTIEL- Location, montage et démontage de matériel pour l'alimentation électrique et l'éclairage de spectacles et manifestations - Accord-cadre à bons de commande - Relance",
+        "hrv": "Francuska – Električna oprema i aparati – EVENEMENTIEL- Location, montage et démontage de matériel pour l'alimentation électrique et l'éclairage de spectacles et manifestations - Accord-cadre à bons de commande - Relance",
+        "hun": "Franciaország – Villamos berendezések és készülékek – EVENEMENTIEL- Location, montage et démontage de matériel pour l'alimentation électrique et l'éclairage de spectacles et manifestations - Accord-cadre à bons de commande - Relance",
+        "ita": "Francia – Attrezzature e apparecchiature elettriche – EVENEMENTIEL- Location, montage et démontage de matériel pour l'alimentation électrique et l'éclairage de spectacles et manifestations - Accord-cadre à bons de commande - Relance",
+        "lav": "Francija – Elektriskās iekārtas un aparāti – EVENEMENTIEL- Location, montage et démontage de matériel pour l'alimentation électrique et l'éclairage de spectacles et manifestations - Accord-cadre à bons de commande - Relance",
+        "lit": "Prancūzija – Elektros įrenginiai ir aparatai – EVENEMENTIEL- Location, montage et démontage de matériel pour l'alimentation électrique et l'éclairage de spectacles et manifestations - Accord-cadre à bons de commande - Relance",
+        "mlt": "Franza – Tagħmir u apparat tad-dwal – EVENEMENTIEL- Location, montage et démontage de matériel pour l'alimentation électrique et l'éclairage de spectacles et manifestations - Accord-cadre à bons de commande - Relance",
+        "nld": "Frankrijk – Elektrische uitrusting – EVENEMENTIEL- Location, montage et démontage de matériel pour l'alimentation électrique et l'éclairage de spectacles et manifestations - Accord-cadre à bons de commande - Relance",
+        "pol": "Francja – Sprzęt i aparatura elektryczna – EVENEMENTIEL- Location, montage et démontage de matériel pour l'alimentation électrique et l'éclairage de spectacles et manifestations - Accord-cadre à bons de commande - Relance",
+        "por": "França – Equipamento e aparelhos eléctricos – EVENEMENTIEL- Location, montage et démontage de matériel pour l'alimentation électrique et l'éclairage de spectacles et manifestations - Accord-cadre à bons de commande - Relance",
+        "ron": "Franţa – Echipament electric – EVENEMENTIEL- Location, montage et démontage de matériel pour l'alimentation électrique et l'éclairage de spectacles et manifestations - Accord-cadre à bons de commande - Relance",
+        "slk": "Francúzsko – Elektrické zariadenia a prístroje – EVENEMENTIEL- Location, montage et démontage de matériel pour l'alimentation électrique et l'éclairage de spectacles et manifestations - Accord-cadre à bons de commande - Relance",
+        "slv": "Francija – Električna oprema in aparati – EVENEMENTIEL- Location, montage et démontage de matériel pour l'alimentation électrique et l'éclairage de spectacles et manifestations - Accord-cadre à bons de commande - Relance",
+        "spa": "Francia – Equipo y aparatos eléctricos – EVENEMENTIEL- Location, montage et démontage de matériel pour l'alimentation électrique et l'éclairage de spectacles et manifestations - Accord-cadre à bons de commande - Relance",
+        "swe": "Frankrike – Elektrisk utrustning – EVENEMENTIEL- Location, montage et démontage de matériel pour l'alimentation électrique et l'éclairage de spectacles et manifestations - Accord-cadre à bons de commande - Relance"
+      },
+      "notice-type": "cn-standard",
+      "notice-version": 1,
+      "official-language": [
+        "FRA"
+      ],
+      "organisation-country-buyer": [
+        "FRA"
+      ],
+      "organisation-name-buyer": {
+        "fra": [
+          "Commune d'Hyères"
+        ]
+      },
+      "place-of-performance": [
+        "FRL05",
+        "FRA",
+        "FRL05",
+        "FRA"
+      ],
+      "procedure-type": "open",
+      "publication-date": "2026-08-06+02:00",
+      "publication-number": "543742-2026",
+      "title-lot": {
+        "fra": [
+          "EVENEMENTIEL- Location, montage et démontage de matériel pour l'alimentation électrique et l'éclairage de spectacles et manifestations - Accord-cadre à bons de commande - Relance"
+        ]
+      }
+    },
+    {
+      "buyer-country": [
+        "BEL"
+      ],
+      "buyer-name": {
+        "nld": [
+          "Vlaamse Overheid"
+        ]
+      },
+      "classification-cpv": [
+        "71300000",
+        "71351611",
+        "71354500",
+        "71350000",
+        "71300000",
+        "71351611",
+        "71354500",
+        "71350000"
+      ],
+      "contract-nature": [
+        "services",
+        "services"
+      ],
+      "deadline-receipt-request": [
+        "2026-09-29T10:00:00+02:00"
+      ],
+      "deadline-receipt-tender-date-lot": [
+        "2026-09-29+02:00"
+      ],
+      "deadline-receipt-tender-time-lot": [
+        "10:00:00+02:00"
+      ],
+      "description-lot": {
+        "nld": [
+          "Deze opdracht voorziet in ondersteuning volgens het model van Capaciteit-als-een-Dienst (CAAS – capacity as a service) voor een periode van twee jaar met mogelijks een verlenging met nog eens twee jaar. Dit model biedt een flexibele inzet van gespecialiseerde capaciteit, waarbij ondersteuning geleverd wordt op het moment dat deze nodig is, zonder vooraf exact te moeten inschatten hoeveel werk of inzet vereist zal zijn. Het is bijzonder geschikt voor taken waarvan de omvang en timing moeilijk voorspelbaar zijn, en waarbij het essentieel is dat technische tools, databanken en modellen permanent up-to-date gehouden of voorbereid worden om snel inzetbaar te zijn."
+        ]
+      },
+      "description-proc": {
+        "nld": "Deze opdracht voorziet in ondersteuning volgens het model van Capaciteit-als-een-Dienst (CAAS – capacity as a service) voor een periode van twee jaar met mogelijks een verlenging met nog eens twee jaar. Dit model biedt een flexibele inzet van gespecialiseerde capaciteit, waarbij ondersteuning geleverd wordt op het moment dat deze nodig is, zonder vooraf exact te moeten inschatten hoeveel werk of inzet vereist zal zijn. Het is bijzonder geschikt voor taken waarvan de omvang en timing moeilijk voorspelbaar zijn, en waarbij het essentieel is dat technische tools, databanken en modellen permanent up-to-date gehouden of voorbereid worden om snel inzetbaar te zijn."
+      },
+      "form-type": "competition",
+      "identifier-lot": [
+        "LOT-0001"
+      ],
+      "links": {
+        "html": {
+          "BUL": "https://ted.europa.eu/bg/notice/-/detail/543748-2026",
+          "CES": "https://ted.europa.eu/cs/notice/-/detail/543748-2026",
+          "DAN": "https://ted.europa.eu/da/notice/-/detail/543748-2026",
+          "DEU": "https://ted.europa.eu/de/notice/-/detail/543748-2026",
+          "ELL": "https://ted.europa.eu/el/notice/-/detail/543748-2026",
+          "ENG": "https://ted.europa.eu/en/notice/-/detail/543748-2026",
+          "EST": "https://ted.europa.eu/et/notice/-/detail/543748-2026",
+          "FIN": "https://ted.europa.eu/fi/notice/-/detail/543748-2026",
+          "FRA": "https://ted.europa.eu/fr/notice/-/detail/543748-2026",
+          "GLE": "https://ted.europa.eu/ga/notice/-/detail/543748-2026",
+          "HRV": "https://ted.europa.eu/hr/notice/-/detail/543748-2026",
+          "HUN": "https://ted.europa.eu/hu/notice/-/detail/543748-2026",
+          "ITA": "https://ted.europa.eu/it/notice/-/detail/543748-2026",
+          "LAV": "https://ted.europa.eu/lv/notice/-/detail/543748-2026",
+          "LIT": "https://ted.europa.eu/lt/notice/-/detail/543748-2026",
+          "MLT": "https://ted.europa.eu/mt/notice/-/detail/543748-2026",
+          "NLD": "https://ted.europa.eu/nl/notice/-/detail/543748-2026",
+          "POL": "https://ted.europa.eu/pl/notice/-/detail/543748-2026",
+          "POR": "https://ted.europa.eu/pt/notice/-/detail/543748-2026",
+          "RON": "https://ted.europa.eu/ro/notice/-/detail/543748-2026",
+          "SLK": "https://ted.europa.eu/sk/notice/-/detail/543748-2026",
+          "SLV": "https://ted.europa.eu/sl/notice/-/detail/543748-2026",
+          "SPA": "https://ted.europa.eu/es/notice/-/detail/543748-2026",
+          "SWE": "https://ted.europa.eu/sv/notice/-/detail/543748-2026"
+        },
+        "htmlDirect": {
+          "BUL": "https://ted.europa.eu/bg/notice/543748-2026/html",
+          "CES": "https://ted.europa.eu/cs/notice/543748-2026/html",
+          "DAN": "https://ted.europa.eu/da/notice/543748-2026/html",
+          "DEU": "https://ted.europa.eu/de/notice/543748-2026/html",
+          "ELL": "https://ted.europa.eu/el/notice/543748-2026/html",
+          "ENG": "https://ted.europa.eu/en/notice/543748-2026/html",
+          "EST": "https://ted.europa.eu/et/notice/543748-2026/html",
+          "FIN": "https://ted.europa.eu/fi/notice/543748-2026/html",
+          "FRA": "https://ted.europa.eu/fr/notice/543748-2026/html",
+          "GLE": "https://ted.europa.eu/ga/notice/543748-2026/html",
+          "HRV": "https://ted.europa.eu/hr/notice/543748-2026/html",
+          "HUN": "https://ted.europa.eu/hu/notice/543748-2026/html",
+          "ITA": "https://ted.europa.eu/it/notice/543748-2026/html",
+          "LAV": "https://ted.europa.eu/lv/notice/543748-2026/html",
+          "LIT": "https://ted.europa.eu/lt/notice/543748-2026/html",
+          "MLT": "https://ted.europa.eu/mt/notice/543748-2026/html",
+          "NLD": "https://ted.europa.eu/nl/notice/543748-2026/html",
+          "POL": "https://ted.europa.eu/pl/notice/543748-2026/html",
+          "POR": "https://ted.europa.eu/pt/notice/543748-2026/html",
+          "RON": "https://ted.europa.eu/ro/notice/543748-2026/html",
+          "SLK": "https://ted.europa.eu/sk/notice/543748-2026/html",
+          "SLV": "https://ted.europa.eu/sl/notice/543748-2026/html",
+          "SPA": "https://ted.europa.eu/es/notice/543748-2026/html",
+          "SWE": "https://ted.europa.eu/sv/notice/543748-2026/html"
+        },
+        "pdf": {
+          "BUL": "https://ted.europa.eu/bg/notice/543748-2026/pdf",
+          "CES": "https://ted.europa.eu/cs/notice/543748-2026/pdf",
+          "DAN": "https://ted.europa.eu/da/notice/543748-2026/pdf",
+          "DEU": "https://ted.europa.eu/de/notice/543748-2026/pdf",
+          "ELL": "https://ted.europa.eu/el/notice/543748-2026/pdf",
+          "ENG": "https://ted.europa.eu/en/notice/543748-2026/pdf",
+          "EST": "https://ted.europa.eu/et/notice/543748-2026/pdf",
+          "FIN": "https://ted.europa.eu/fi/notice/543748-2026/pdf",
+          "FRA": "https://ted.europa.eu/fr/notice/543748-2026/pdf",
+          "GLE": "https://ted.europa.eu/ga/notice/543748-2026/pdf",
+          "HRV": "https://ted.europa.eu/hr/notice/543748-2026/pdf",
+          "HUN": "https://ted.europa.eu/hu/notice/543748-2026/pdf",
+          "ITA": "https://ted.europa.eu/it/notice/543748-2026/pdf",
+          "LAV": "https://ted.europa.eu/lv/notice/543748-2026/pdf",
+          "LIT": "https://ted.europa.eu/lt/notice/543748-2026/pdf",
+          "MLT": "https://ted.europa.eu/mt/notice/543748-2026/pdf",
+          "NLD": "https://ted.europa.eu/nl/notice/543748-2026/pdf",
+          "POL": "https://ted.europa.eu/pl/notice/543748-2026/pdf",
+          "POR": "https://ted.europa.eu/pt/notice/543748-2026/pdf",
+          "RON": "https://ted.europa.eu/ro/notice/543748-2026/pdf",
+          "SLK": "https://ted.europa.eu/sk/notice/543748-2026/pdf",
+          "SLV": "https://ted.europa.eu/sl/notice/543748-2026/pdf",
+          "SPA": "https://ted.europa.eu/es/notice/543748-2026/pdf",
+          "SWE": "https://ted.europa.eu/sv/notice/543748-2026/pdf"
+        },
+        "pdfs": {
+          "NLD": "https://ted.europa.eu/nl/notice/543748-2026/pdfs"
+        },
+        "xml": {
+          "MUL": "https://ted.europa.eu/en/notice/543748-2026/xml"
+        }
+      },
+      "notice-identifier": "5c633cd9-b1ba-4ee4-9cb7-6927cefde785",
+      "notice-title": {
+        "bul": "Бeлгия – Инженерни услуги в строителството – Voorbereidende analyses en modelleringen voor procedures vaarwegbeheer",
+        "ces": "Belgie – Technicko-inženýrské služby – Voorbereidende analyses en modelleringen voor procedures vaarwegbeheer",
+        "dan": "Belgien – Ingeniørvirksomhed – Voorbereidende analyses en modelleringen voor procedures vaarwegbeheer",
+        "deu": "Belgien – Dienstleistungen von Ingenieurbüros – Voorbereidende analyses en modelleringen voor procedures vaarwegbeheer",
+        "ell": "Βέλγιο – Υπηρεσίες μηχανικού – Voorbereidende analyses en modelleringen voor procedures vaarwegbeheer",
+        "eng": "Belgium – Engineering services – Voorbereidende analyses en modelleringen voor procedures vaarwegbeheer",
+        "est": "Belgia – Insener-tehnilised teenused – Voorbereidende analyses en modelleringen voor procedures vaarwegbeheer",
+        "fin": "Belgia – Insinööripalvelut – Voorbereidende analyses en modelleringen voor procedures vaarwegbeheer",
+        "fra": "Belgique – Services d'ingénierie – Voorbereidende analyses en modelleringen voor procedures vaarwegbeheer",
+        "gle": "An Bheilg – Engineering services – Voorbereidende analyses en modelleringen voor procedures vaarwegbeheer",
+        "hrv": "Belgija – Tehničke usluge – Voorbereidende analyses en modelleringen voor procedures vaarwegbeheer",
+        "hun": "Belgium – Mérnöki szolgáltatások – Voorbereidende analyses en modelleringen voor procedures vaarwegbeheer",
+        "ita": "Belgio – Servizi di ingegneria – Voorbereidende analyses en modelleringen voor procedures vaarwegbeheer",
+        "lav": "Beļģija – Inženiertehniskie pakalpojumi – Voorbereidende analyses en modelleringen voor procedures vaarwegbeheer",
+        "lit": "Belgija – Inžinerijos paslaugos – Voorbereidende analyses en modelleringen voor procedures vaarwegbeheer",
+        "mlt": "Il-Belġju – Servizzi ta' l-inġinerija – Voorbereidende analyses en modelleringen voor procedures vaarwegbeheer",
+        "nld": "België – Dienstverlening door ingenieurs – Voorbereidende analyses en modelleringen voor procedures vaarwegbeheer",
+        "pol": "Belgia – Usługi inżynieryjne – Voorbereidende analyses en modelleringen voor procedures vaarwegbeheer",
+        "por": "Bélgica – Serviços de engenharia – Voorbereidende analyses en modelleringen voor procedures vaarwegbeheer",
+        "ron": "Belgia – Servicii de inginerie – Voorbereidende analyses en modelleringen voor procedures vaarwegbeheer",
+        "slk": "Belgicko – Inžinierske služby – Voorbereidende analyses en modelleringen voor procedures vaarwegbeheer",
+        "slv": "Belgija – Inženirske storitve – Voorbereidende analyses en modelleringen voor procedures vaarwegbeheer",
+        "spa": "Bélgica – Servicios de ingeniería – Voorbereidende analyses en modelleringen voor procedures vaarwegbeheer",
+        "swe": "Belgien – Ingenjörstjänster – Voorbereidende analyses en modelleringen voor procedures vaarwegbeheer"
+      },
+      "notice-type": "cn-standard",
+      "notice-version": 1,
+      "official-language": [
+        "NLD"
+      ],
+      "organisation-country-buyer": [
+        "BEL"
+      ],
+      "organisation-name-buyer": {
+        "nld": [
+          "Vlaamse Overheid"
+        ]
+      },
+      "place-of-performance": [
+        "BE211",
+        "BEL",
+        "BE211",
+        "BEL"
+      ],
+      "procedure-type": "open",
+      "publication-date": "2026-08-06+02:00",
+      "publication-number": "543748-2026",
+      "title-lot": {
+        "nld": [
+          "DMOW/MT/03110 - 1"
+        ]
+      }
+    },
+    {
+      "buyer-country": [
+        "FRA"
+      ],
+      "buyer-name": {
+        "fra": [
+          "Département de la Vendée"
+        ]
+      },
+      "classification-cpv": [
+        "42415200",
+        "39713410",
+        "42415200",
+        "39713410"
+      ],
+      "contract-nature": [
+        "supplies",
+        "supplies"
+      ],
+      "deadline-receipt-request": [
+        "2026-09-18T17:00:00+02:00"
+      ],
+      "deadline-receipt-tender-date-lot": [
+        "2026-09-18+02:00"
+      ],
+      "deadline-receipt-tender-time-lot": [
+        "17:00:00+02:00"
+      ],
+      "description-lot": {
+        "fra": [
+          "Le marché porte sur l'achat de chariots par pré imprégnation pour les collèges et l'hôtel du Département de la Vendée ainsi que des accessoires de nettoyage. Il sera commandé deux modèles de chariots : un pour le nettoyage général des locaux et un pour l'entretien de la restauration scolaire. Il s'agit d'un accord-cadre mono-attributaire à bons de commande d'une durée ferme de 2 ans avec un minimum de 100 000 euro(s) HT et avec un montant maximum de 450 000 euro(s) HT. Date prévisionnelle de début d'exécution : novembre 2026"
+        ]
+      },
+      "description-proc": {
+        "fra": "Le marché porte sur l'achat de chariots par pré imprégnation pour les collèges et l'hôtel du Département de la Vendée ainsi que des accessoires de nettoyage. Il sera commandé deux modèles de chariots : un pour le nettoyage général des locaux et un pour l'entretien de la restauration scolaire. Il s'agit d'un accord-cadre mono-attributaire à bons de commande d'une durée ferme de 2 ans avec un minimum de 100 000 euro(s) HT et avec un montant maximum de 450 000 euro(s) HT. Date prévisionnelle de début d'exécution : novembre 2026"
+      },
+      "form-type": "competition",
+      "identifier-lot": [
+        "LOT-0000"
+      ],
+      "links": {
+        "html": {
+          "BUL": "https://ted.europa.eu/bg/notice/-/detail/543777-2026",
+          "CES": "https://ted.europa.eu/cs/notice/-/detail/543777-2026",
+          "DAN": "https://ted.europa.eu/da/notice/-/detail/543777-2026",
+          "DEU": "https://ted.europa.eu/de/notice/-/detail/543777-2026",
+          "ELL": "https://ted.europa.eu/el/notice/-/detail/543777-2026",
+          "ENG": "https://ted.europa.eu/en/notice/-/detail/543777-2026",
+          "EST": "https://ted.europa.eu/et/notice/-/detail/543777-2026",
+          "FIN": "https://ted.europa.eu/fi/notice/-/detail/543777-2026",
+          "FRA": "https://ted.europa.eu/fr/notice/-/detail/543777-2026",
+          "GLE": "https://ted.europa.eu/ga/notice/-/detail/543777-2026",
+          "HRV": "https://ted.europa.eu/hr/notice/-/detail/543777-2026",
+          "HUN": "https://ted.europa.eu/hu/notice/-/detail/543777-2026",
+          "ITA": "https://ted.europa.eu/it/notice/-/detail/543777-2026",
+          "LAV": "https://ted.europa.eu/lv/notice/-/detail/543777-2026",
+          "LIT": "https://ted.europa.eu/lt/notice/-/detail/543777-2026",
+          "MLT": "https://ted.europa.eu/mt/notice/-/detail/543777-2026",
+          "NLD": "https://ted.europa.eu/nl/notice/-/detail/543777-2026",
+          "POL": "https://ted.europa.eu/pl/notice/-/detail/543777-2026",
+          "POR": "https://ted.europa.eu/pt/notice/-/detail/543777-2026",
+          "RON": "https://ted.europa.eu/ro/notice/-/detail/543777-2026",
+          "SLK": "https://ted.europa.eu/sk/notice/-/detail/543777-2026",
+          "SLV": "https://ted.europa.eu/sl/notice/-/detail/543777-2026",
+          "SPA": "https://ted.europa.eu/es/notice/-/detail/543777-2026",
+          "SWE": "https://ted.europa.eu/sv/notice/-/detail/543777-2026"
+        },
+        "htmlDirect": {
+          "BUL": "https://ted.europa.eu/bg/notice/543777-2026/html",
+          "CES": "https://ted.europa.eu/cs/notice/543777-2026/html",
+          "DAN": "https://ted.europa.eu/da/notice/543777-2026/html",
+          "DEU": "https://ted.europa.eu/de/notice/543777-2026/html",
+          "ELL": "https://ted.europa.eu/el/notice/543777-2026/html",
+          "ENG": "https://ted.europa.eu/en/notice/543777-2026/html",
+          "EST": "https://ted.europa.eu/et/notice/543777-2026/html",
+          "FIN": "https://ted.europa.eu/fi/notice/543777-2026/html",
+          "FRA": "https://ted.europa.eu/fr/notice/543777-2026/html",
+          "GLE": "https://ted.europa.eu/ga/notice/543777-2026/html",
+          "HRV": "https://ted.europa.eu/hr/notice/543777-2026/html",
+          "HUN": "https://ted.europa.eu/hu/notice/543777-2026/html",
+          "ITA": "https://ted.europa.eu/it/notice/543777-2026/html",
+          "LAV": "https://ted.europa.eu/lv/notice/543777-2026/html",
+          "LIT": "https://ted.europa.eu/lt/notice/543777-2026/html",
+          "MLT": "https://ted.europa.eu/mt/notice/543777-2026/html",
+          "NLD": "https://ted.europa.eu/nl/notice/543777-2026/html",
+          "POL": "https://ted.europa.eu/pl/notice/543777-2026/html",
+          "POR": "https://ted.europa.eu/pt/notice/543777-2026/html",
+          "RON": "https://ted.europa.eu/ro/notice/543777-2026/html",
+          "SLK": "https://ted.europa.eu/sk/notice/543777-2026/html",
+          "SLV": "https://ted.europa.eu/sl/notice/543777-2026/html",
+          "SPA": "https://ted.europa.eu/es/notice/543777-2026/html",
+          "SWE": "https://ted.europa.eu/sv/notice/543777-2026/html"
+        },
+        "pdf": {
+          "BUL": "https://ted.europa.eu/bg/notice/543777-2026/pdf",
+          "CES": "https://ted.europa.eu/cs/notice/543777-2026/pdf",
+          "DAN": "https://ted.europa.eu/da/notice/543777-2026/pdf",
+          "DEU": "https://ted.europa.eu/de/notice/543777-2026/pdf",
+          "ELL": "https://ted.europa.eu/el/notice/543777-2026/pdf",
+          "ENG": "https://ted.europa.eu/en/notice/543777-2026/pdf",
+          "EST": "https://ted.europa.eu/et/notice/543777-2026/pdf",
+          "FIN": "https://ted.europa.eu/fi/notice/543777-2026/pdf",
+          "FRA": "https://ted.europa.eu/fr/notice/543777-2026/pdf",
+          "GLE": "https://ted.europa.eu/ga/notice/543777-2026/pdf",
+          "HRV": "https://ted.europa.eu/hr/notice/543777-2026/pdf",
+          "HUN": "https://ted.europa.eu/hu/notice/543777-2026/pdf",
+          "ITA": "https://ted.europa.eu/it/notice/543777-2026/pdf",
+          "LAV": "https://ted.europa.eu/lv/notice/543777-2026/pdf",
+          "LIT": "https://ted.europa.eu/lt/notice/543777-2026/pdf",
+          "MLT": "https://ted.europa.eu/mt/notice/543777-2026/pdf",
+          "NLD": "https://ted.europa.eu/nl/notice/543777-2026/pdf",
+          "POL": "https://ted.europa.eu/pl/notice/543777-2026/pdf",
+          "POR": "https://ted.europa.eu/pt/notice/543777-2026/pdf",
+          "RON": "https://ted.europa.eu/ro/notice/543777-2026/pdf",
+          "SLK": "https://ted.europa.eu/sk/notice/543777-2026/pdf",
+          "SLV": "https://ted.europa.eu/sl/notice/543777-2026/pdf",
+          "SPA": "https://ted.europa.eu/es/notice/543777-2026/pdf",
+          "SWE": "https://ted.europa.eu/sv/notice/543777-2026/pdf"
+        },
+        "pdfs": {
+          "FRA": "https://ted.europa.eu/fr/notice/543777-2026/pdfs"
+        },
+        "xml": {
+          "MUL": "https://ted.europa.eu/en/notice/543777-2026/xml"
+        }
+      },
+      "notice-identifier": "300b8153-a09e-4ff0-a029-90b24eb73e4b",
+      "notice-title": {
+        "bul": "Фpaнция – Платформи за преместване на товари – Achat de chariots de pré imprégnation pour les collèges et la Direction des Moyens Généraux du Département de la Vendée",
+        "ces": "Francie – Pracovní nákladní vozidla – Achat de chariots de pré imprégnation pour les collèges et la Direction des Moyens Généraux du Département de la Vendée",
+        "dan": "Frankrig – Trucker – Achat de chariots de pré imprégnation pour les collèges et la Direction des Moyens Généraux du Département de la Vendée",
+        "deu": "Frankreich – Kraftkarren – Achat de chariots de pré imprégnation pour les collèges et la Direction des Moyens Généraux du Département de la Vendée",
+        "ell": "Γαλλία – Οχήματα κατασκευαστικών έργων – Achat de chariots de pré imprégnation pour les collèges et la Direction des Moyens Généraux du Département de la Vendée",
+        "eng": "France – Works trucks – Achat de chariots de pré imprégnation pour les collèges et la Direction des Moyens Généraux du Département de la Vendée",
+        "est": "Prantsusmaa – Tööveokid – Achat de chariots de pré imprégnation pour les collèges et la Direction des Moyens Généraux du Département de la Vendée",
+        "fin": "Ranska – Tehdastrukit – Achat de chariots de pré imprégnation pour les collèges et la Direction des Moyens Généraux du Département de la Vendée",
+        "fra": "France – Chariots de manutention – Achat de chariots de pré imprégnation pour les collèges et la Direction des Moyens Généraux du Département de la Vendée",
+        "gle": "An Fhrainc – Works trucks – Achat de chariots de pré imprégnation pour les collèges et la Direction des Moyens Généraux du Département de la Vendée",
+        "hrv": "Francuska – Radna vozila – Achat de chariots de pré imprégnation pour les collèges et la Direction des Moyens Généraux du Département de la Vendée",
+        "hun": "Franciaország – Üzemi targonca – Achat de chariots de pré imprégnation pour les collèges et la Direction des Moyens Généraux du Département de la Vendée",
+        "ita": "Francia – Carrelli operatori – Achat de chariots de pré imprégnation pour les collèges et la Direction des Moyens Généraux du Département de la Vendée",
+        "lav": "Francija – Kravu transportētāji – Achat de chariots de pré imprégnation pour les collèges et la Direction des Moyens Généraux du Département de la Vendée",
+        "lit": "Prancūzija – Gamyklose naudojamos važiuoklės – Achat de chariots de pré imprégnation pour les collèges et la Direction des Moyens Généraux du Département de la Vendée",
+        "mlt": "Franza – Trakkijiet tax-xogħol – Achat de chariots de pré imprégnation pour les collèges et la Direction des Moyens Généraux du Département de la Vendée",
+        "nld": "Frankrijk – Voertuigen voor intern transport – Achat de chariots de pré imprégnation pour les collèges et la Direction des Moyens Généraux du Département de la Vendée",
+        "pol": "Francja – Pojazdy techniczne – Achat de chariots de pré imprégnation pour les collèges et la Direction des Moyens Généraux du Département de la Vendée",
+        "por": "França – Veículos para movimentação de cargas – Achat de chariots de pré imprégnation pour les collèges et la Direction des Moyens Généraux du Département de la Vendée",
+        "ron": "Franţa – Camioane de manipulare – Achat de chariots de pré imprégnation pour les collèges et la Direction des Moyens Généraux du Département de la Vendée",
+        "slk": "Francúzsko – Pracovné vozíky – Achat de chariots de pré imprégnation pour les collèges et la Direction des Moyens Généraux du Département de la Vendée",
+        "slv": "Francija – Delovni vozički – Achat de chariots de pré imprégnation pour les collèges et la Direction des Moyens Généraux du Département de la Vendée",
+        "spa": "Francia – Carretillas-automóviles – Achat de chariots de pré imprégnation pour les collèges et la Direction des Moyens Généraux du Département de la Vendée",
+        "swe": "Frankrike – Truckar – Achat de chariots de pré imprégnation pour les collèges et la Direction des Moyens Généraux du Département de la Vendée"
+      },
+      "notice-type": "cn-standard",
+      "notice-version": 1,
+      "official-language": [
+        "FRA"
+      ],
+      "organisation-country-buyer": [
+        "FRA"
+      ],
+      "organisation-name-buyer": {
+        "fra": [
+          "Département de la Vendée"
+        ]
+      },
+      "place-of-performance": [
+        "FRG05",
+        "FRA",
+        "FRG05",
+        "FRA"
+      ],
+      "procedure-type": "open",
+      "publication-date": "2026-08-06+02:00",
+      "publication-number": "543777-2026",
+      "title-lot": {
+        "fra": [
+          "Achat de chariots de pré imprégnation pour les collèges et la Direction des Moyens Généraux du Département de la Vendée"
+        ]
+      }
+    },
+    {
+      "buyer-country": [
+        "FRA"
+      ],
+      "buyer-name": {
+        "fra": [
+          "Mairie MONT-SAINT-AIGNAN"
+        ]
+      },
+      "classification-cpv": [
+        "37524000",
+        "37520000",
+        "37532000",
+        "37524000",
+        "37524000",
+        "37524000",
+        "37520000",
+        "37532000",
+        "37532000",
+        "37520000",
+        "37532000"
+      ],
+      "contract-nature": [
+        "supplies",
+        "supplies",
+        "supplies"
+      ],
+      "deadline-receipt-request": [
+        "2026-09-25T12:00:00+02:00",
+        "2026-09-25T12:00:00+02:00"
+      ],
+      "deadline-receipt-tender-date-lot": [
+        "2026-09-25+02:00",
+        "2026-09-25+02:00"
+      ],
+      "deadline-receipt-tender-time-lot": [
+        "12:00:00+02:00",
+        "12:00:00+02:00"
+      ],
+      "description-lot": {
+        "fra": [
+          "Jeux éducatifs et jeux de société",
+          "Jeux vidéo"
+        ]
+      },
+      "description-proc": {
+        "fra": "La procédure de passation utilisée est : l'appel d'offres ouvert. Elle est soumise aux dispositions des articles L.2124-2, R.2124-2 1° et R.2161-2 à R.2161-5 du Code de la commande publique. L'accord-cadre avec maximum est passé en application des articles L2125-1 1°, R. 2162-1 à R. 2162-6, R. 2162-13 et R. 2162-14 du Code de la commande publique. Il donnera lieu à l'émission de bons de commande. Chaque lot sera attribué à un maximum de 2 opérateurs économiques (sous réserve d'un nombre suffisant d'offres)"
+      },
+      "estimated-value-cur-lot": [
+        "EUR"
+      ],
+      "estimated-value-lot": [
+        "48000",
+        "24000"
+      ],
+      "form-type": "competition",
+      "identifier-lot": [
+        "LOT-0001",
+        "LOT-0002"
+      ],
+      "links": {
+        "html": {
+          "BUL": "https://ted.europa.eu/bg/notice/-/detail/543780-2026",
+          "CES": "https://ted.europa.eu/cs/notice/-/detail/543780-2026",
+          "DAN": "https://ted.europa.eu/da/notice/-/detail/543780-2026",
+          "DEU": "https://ted.europa.eu/de/notice/-/detail/543780-2026",
+          "ELL": "https://ted.europa.eu/el/notice/-/detail/543780-2026",
+          "ENG": "https://ted.europa.eu/en/notice/-/detail/543780-2026",
+          "EST": "https://ted.europa.eu/et/notice/-/detail/543780-2026",
+          "FIN": "https://ted.europa.eu/fi/notice/-/detail/543780-2026",
+          "FRA": "https://ted.europa.eu/fr/notice/-/detail/543780-2026",
+          "GLE": "https://ted.europa.eu/ga/notice/-/detail/543780-2026",
+          "HRV": "https://ted.europa.eu/hr/notice/-/detail/543780-2026",
+          "HUN": "https://ted.europa.eu/hu/notice/-/detail/543780-2026",
+          "ITA": "https://ted.europa.eu/it/notice/-/detail/543780-2026",
+          "LAV": "https://ted.europa.eu/lv/notice/-/detail/543780-2026",
+          "LIT": "https://ted.europa.eu/lt/notice/-/detail/543780-2026",
+          "MLT": "https://ted.europa.eu/mt/notice/-/detail/543780-2026",
+          "NLD": "https://ted.europa.eu/nl/notice/-/detail/543780-2026",
+          "POL": "https://ted.europa.eu/pl/notice/-/detail/543780-2026",
+          "POR": "https://ted.europa.eu/pt/notice/-/detail/543780-2026",
+          "RON": "https://ted.europa.eu/ro/notice/-/detail/543780-2026",
+          "SLK": "https://ted.europa.eu/sk/notice/-/detail/543780-2026",
+          "SLV": "https://ted.europa.eu/sl/notice/-/detail/543780-2026",
+          "SPA": "https://ted.europa.eu/es/notice/-/detail/543780-2026",
+          "SWE": "https://ted.europa.eu/sv/notice/-/detail/543780-2026"
+        },
+        "htmlDirect": {
+          "BUL": "https://ted.europa.eu/bg/notice/543780-2026/html",
+          "CES": "https://ted.europa.eu/cs/notice/543780-2026/html",
+          "DAN": "https://ted.europa.eu/da/notice/543780-2026/html",
+          "DEU": "https://ted.europa.eu/de/notice/543780-2026/html",
+          "ELL": "https://ted.europa.eu/el/notice/543780-2026/html",
+          "ENG": "https://ted.europa.eu/en/notice/543780-2026/html",
+          "EST": "https://ted.europa.eu/et/notice/543780-2026/html",
+          "FIN": "https://ted.europa.eu/fi/notice/543780-2026/html",
+          "FRA": "https://ted.europa.eu/fr/notice/543780-2026/html",
+          "GLE": "https://ted.europa.eu/ga/notice/543780-2026/html",
+          "HRV": "https://ted.europa.eu/hr/notice/543780-2026/html",
+          "HUN": "https://ted.europa.eu/hu/notice/543780-2026/html",
+          "ITA": "https://ted.europa.eu/it/notice/543780-2026/html",
+          "LAV": "https://ted.europa.eu/lv/notice/543780-2026/html",
+          "LIT": "https://ted.europa.eu/lt/notice/543780-2026/html",
+          "MLT": "https://ted.europa.eu/mt/notice/543780-2026/html",
+          "NLD": "https://ted.europa.eu/nl/notice/543780-2026/html",
+          "POL": "https://ted.europa.eu/pl/notice/543780-2026/html",
+          "POR": "https://ted.europa.eu/pt/notice/543780-2026/html",
+          "RON": "https://ted.europa.eu/ro/notice/543780-2026/html",
+          "SLK": "https://ted.europa.eu/sk/notice/543780-2026/html",
+          "SLV": "https://ted.europa.eu/sl/notice/543780-2026/html",
+          "SPA": "https://ted.europa.eu/es/notice/543780-2026/html",
+          "SWE": "https://ted.europa.eu/sv/notice/543780-2026/html"
+        },
+        "pdf": {
+          "BUL": "https://ted.europa.eu/bg/notice/543780-2026/pdf",
+          "CES": "https://ted.europa.eu/cs/notice/543780-2026/pdf",
+          "DAN": "https://ted.europa.eu/da/notice/543780-2026/pdf",
+          "DEU": "https://ted.europa.eu/de/notice/543780-2026/pdf",
+          "ELL": "https://ted.europa.eu/el/notice/543780-2026/pdf",
+          "ENG": "https://ted.europa.eu/en/notice/543780-2026/pdf",
+          "EST": "https://ted.europa.eu/et/notice/543780-2026/pdf",
+          "FIN": "https://ted.europa.eu/fi/notice/543780-2026/pdf",
+          "FRA": "https://ted.europa.eu/fr/notice/543780-2026/pdf",
+          "GLE": "https://ted.europa.eu/ga/notice/543780-2026/pdf",
+          "HRV": "https://ted.europa.eu/hr/notice/543780-2026/pdf",
+          "HUN": "https://ted.europa.eu/hu/notice/543780-2026/pdf",
+          "ITA": "https://ted.europa.eu/it/notice/543780-2026/pdf",
+          "LAV": "https://ted.europa.eu/lv/notice/543780-2026/pdf",
+          "LIT": "https://ted.europa.eu/lt/notice/543780-2026/pdf",
+          "MLT": "https://ted.europa.eu/mt/notice/543780-2026/pdf",
+          "NLD": "https://ted.europa.eu/nl/notice/543780-2026/pdf",
+          "POL": "https://ted.europa.eu/pl/notice/543780-2026/pdf",
+          "POR": "https://ted.europa.eu/pt/notice/543780-2026/pdf",
+          "RON": "https://ted.europa.eu/ro/notice/543780-2026/pdf",
+          "SLK": "https://ted.europa.eu/sk/notice/543780-2026/pdf",
+          "SLV": "https://ted.europa.eu/sl/notice/543780-2026/pdf",
+          "SPA": "https://ted.europa.eu/es/notice/543780-2026/pdf",
+          "SWE": "https://ted.europa.eu/sv/notice/543780-2026/pdf"
+        },
+        "pdfs": {
+          "FRA": "https://ted.europa.eu/fr/notice/543780-2026/pdfs"
+        },
+        "xml": {
+          "MUL": "https://ted.europa.eu/en/notice/543780-2026/xml"
+        }
+      },
+      "notice-identifier": "3a014eda-e6c4-4f0e-b134-344d613467e0",
+      "notice-title": {
+        "bul": "Фpaнция – Игри – ACHAT ET LIVRAISON DE JEUX ET JOUETS - relance des lots n°4 et 5",
+        "ces": "Francie – Hry – ACHAT ET LIVRAISON DE JEUX ET JOUETS - relance des lots n°4 et 5",
+        "dan": "Frankrig – Spil (til leg, underholdning) – ACHAT ET LIVRAISON DE JEUX ET JOUETS - relance des lots n°4 et 5",
+        "deu": "Frankreich – Spiele – ACHAT ET LIVRAISON DE JEUX ET JOUETS - relance des lots n°4 et 5",
+        "ell": "Γαλλία – Παιχνίδια – ACHAT ET LIVRAISON DE JEUX ET JOUETS - relance des lots n°4 et 5",
+        "eng": "France – Games – ACHAT ET LIVRAISON DE JEUX ET JOUETS - relance des lots n°4 et 5",
+        "est": "Prantsusmaa – Mängud – ACHAT ET LIVRAISON DE JEUX ET JOUETS - relance des lots n°4 et 5",
+        "fin": "Ranska – Pelit – ACHAT ET LIVRAISON DE JEUX ET JOUETS - relance des lots n°4 et 5",
+        "fra": "France – Jeux – ACHAT ET LIVRAISON DE JEUX ET JOUETS - relance des lots n°4 et 5",
+        "gle": "An Fhrainc – Games – ACHAT ET LIVRAISON DE JEUX ET JOUETS - relance des lots n°4 et 5",
+        "hrv": "Francuska – Igre – ACHAT ET LIVRAISON DE JEUX ET JOUETS - relance des lots n°4 et 5",
+        "hun": "Franciaország – Játékok – ACHAT ET LIVRAISON DE JEUX ET JOUETS - relance des lots n°4 et 5",
+        "ita": "Francia – Giochi – ACHAT ET LIVRAISON DE JEUX ET JOUETS - relance des lots n°4 et 5",
+        "lav": "Francija – Spēles – ACHAT ET LIVRAISON DE JEUX ET JOUETS - relance des lots n°4 et 5",
+        "lit": "Prancūzija – Žaidimai – ACHAT ET LIVRAISON DE JEUX ET JOUETS - relance des lots n°4 et 5",
+        "mlt": "Franza – Logħob – ACHAT ET LIVRAISON DE JEUX ET JOUETS - relance des lots n°4 et 5",
+        "nld": "Frankrijk – Spellen – ACHAT ET LIVRAISON DE JEUX ET JOUETS - relance des lots n°4 et 5",
+        "pol": "Francja – Gry – ACHAT ET LIVRAISON DE JEUX ET JOUETS - relance des lots n°4 et 5",
+        "por": "França – Jogos – ACHAT ET LIVRAISON DE JEUX ET JOUETS - relance des lots n°4 et 5",
+        "ron": "Franţa – Jocuri – ACHAT ET LIVRAISON DE JEUX ET JOUETS - relance des lots n°4 et 5",
+        "slk": "Francúzsko – Hry – ACHAT ET LIVRAISON DE JEUX ET JOUETS - relance des lots n°4 et 5",
+        "slv": "Francija – Igre – ACHAT ET LIVRAISON DE JEUX ET JOUETS - relance des lots n°4 et 5",
+        "spa": "Francia – Juegos – ACHAT ET LIVRAISON DE JEUX ET JOUETS - relance des lots n°4 et 5",
+        "swe": "Frankrike – Spel – ACHAT ET LIVRAISON DE JEUX ET JOUETS - relance des lots n°4 et 5"
+      },
+      "notice-type": "cn-standard",
+      "notice-version": 1,
+      "official-language": [
+        "FRA"
+      ],
+      "organisation-country-buyer": [
+        "FRA"
+      ],
+      "organisation-name-buyer": {
+        "fra": [
+          "Mairie MONT-SAINT-AIGNAN"
+        ]
+      },
+      "place-of-performance": [
+        "FRD22",
+        "FRA",
+        "FRD22",
+        "FRD22",
+        "FRA",
+        "FRA"
+      ],
+      "procedure-type": "open",
+      "publication-date": "2026-08-06+02:00",
+      "publication-number": "543780-2026",
+      "title-lot": {
+        "fra": [
+          "Jeux éducatifs et jeux de société",
+          "Jeux vidéo"
+        ]
+      }
+    },
+    {
+      "buyer-country": [
+        "FRA"
+      ],
+      "buyer-name": {
+        "fra": [
+          "METROPOLE NICE CÔTE D'AZUR"
+        ]
+      },
+      "classification-cpv": [
+        "71351810",
+        "71352000"
+      ],
+      "contract-nature": [
+        "services",
+        "services"
+      ],
+      "deadline-receipt-request": [
+        "2026-10-01T14:00:00+02:00"
+      ],
+      "deadline-receipt-tender-date-lot": [
+        "2026-10-01+02:00"
+      ],
+      "deadline-receipt-tender-time-lot": [
+        "14:00:00+02:00"
+      ],
+      "description-lot": {
+        "fra": [
+          "Accord cadre à bons de commande Mini : 50 000,00 Euros Maxi : 250 000,00 Euros En valeur en Euros H.T. Estimation de l'administration HT : 216 360.00 Euros (établie sur une durée de 12 mois) Durée (hors reconduction) : 12 mois Nombre de reconductions éventuelles : 3 Début du marché : À la notification du contrat. Le délai d'exécution de chaque prestation est indiqué dans le bon de commande ou le cas échéant dans le C.C.T.P."
+        ]
+      },
+      "description-proc": {
+        "fra": "La présente consultation est lancée suivant la procédure : Appel d'offres ouvert - articles R.2124-2 1° et R.2161-2 à 5 du Code de la commande publique. La consultation a pour objet : Détection et géoréférencement des réseaux exploités par la Métropole Nice Côte d'Azur (MNCA) et d'autres concessionnaires en classe de précision cartographique A. Il s'inscrit dans le cadre : - De projets de travaux (investigations complémentaires) ; - De l'amélioration de la classe de précision cartographique des réseaux exploités par MNCA (relevés patrimoniaux) ; - Et dans une moindre mesure dans le cadre du récolement de réseaux."
+      },
+      "estimated-value-cur-lot": [
+        "EUR"
+      ],
+      "estimated-value-lot": [
+        "216360"
+      ],
+      "form-type": "competition",
+      "identifier-lot": [
+        "LOT-0001"
+      ],
+      "links": {
+        "html": {
+          "BUL": "https://ted.europa.eu/bg/notice/-/detail/543786-2026",
+          "CES": "https://ted.europa.eu/cs/notice/-/detail/543786-2026",
+          "DAN": "https://ted.europa.eu/da/notice/-/detail/543786-2026",
+          "DEU": "https://ted.europa.eu/de/notice/-/detail/543786-2026",
+          "ELL": "https://ted.europa.eu/el/notice/-/detail/543786-2026",
+          "ENG": "https://ted.europa.eu/en/notice/-/detail/543786-2026",
+          "EST": "https://ted.europa.eu/et/notice/-/detail/543786-2026",
+          "FIN": "https://ted.europa.eu/fi/notice/-/detail/543786-2026",
+          "FRA": "https://ted.europa.eu/fr/notice/-/detail/543786-2026",
+          "GLE": "https://ted.europa.eu/ga/notice/-/detail/543786-2026",
+          "HRV": "https://ted.europa.eu/hr/notice/-/detail/543786-2026",
+          "HUN": "https://ted.europa.eu/hu/notice/-/detail/543786-2026",
+          "ITA": "https://ted.europa.eu/it/notice/-/detail/543786-2026",
+          "LAV": "https://ted.europa.eu/lv/notice/-/detail/543786-2026",
+          "LIT": "https://ted.europa.eu/lt/notice/-/detail/543786-2026",
+          "MLT": "https://ted.europa.eu/mt/notice/-/detail/543786-2026",
+          "NLD": "https://ted.europa.eu/nl/notice/-/detail/543786-2026",
+          "POL": "https://ted.europa.eu/pl/notice/-/detail/543786-2026",
+          "POR": "https://ted.europa.eu/pt/notice/-/detail/543786-2026",
+          "RON": "https://ted.europa.eu/ro/notice/-/detail/543786-2026",
+          "SLK": "https://ted.europa.eu/sk/notice/-/detail/543786-2026",
+          "SLV": "https://ted.europa.eu/sl/notice/-/detail/543786-2026",
+          "SPA": "https://ted.europa.eu/es/notice/-/detail/543786-2026",
+          "SWE": "https://ted.europa.eu/sv/notice/-/detail/543786-2026"
+        },
+        "htmlDirect": {
+          "BUL": "https://ted.europa.eu/bg/notice/543786-2026/html",
+          "CES": "https://ted.europa.eu/cs/notice/543786-2026/html",
+          "DAN": "https://ted.europa.eu/da/notice/543786-2026/html",
+          "DEU": "https://ted.europa.eu/de/notice/543786-2026/html",
+          "ELL": "https://ted.europa.eu/el/notice/543786-2026/html",
+          "ENG": "https://ted.europa.eu/en/notice/543786-2026/html",
+          "EST": "https://ted.europa.eu/et/notice/543786-2026/html",
+          "FIN": "https://ted.europa.eu/fi/notice/543786-2026/html",
+          "FRA": "https://ted.europa.eu/fr/notice/543786-2026/html",
+          "GLE": "https://ted.europa.eu/ga/notice/543786-2026/html",
+          "HRV": "https://ted.europa.eu/hr/notice/543786-2026/html",
+          "HUN": "https://ted.europa.eu/hu/notice/543786-2026/html",
+          "ITA": "https://ted.europa.eu/it/notice/543786-2026/html",
+          "LAV": "https://ted.europa.eu/lv/notice/543786-2026/html",
+          "LIT": "https://ted.europa.eu/lt/notice/543786-2026/html",
+          "MLT": "https://ted.europa.eu/mt/notice/543786-2026/html",
+          "NLD": "https://ted.europa.eu/nl/notice/543786-2026/html",
+          "POL": "https://ted.europa.eu/pl/notice/543786-2026/html",
+          "POR": "https://ted.europa.eu/pt/notice/543786-2026/html",
+          "RON": "https://ted.europa.eu/ro/notice/543786-2026/html",
+          "SLK": "https://ted.europa.eu/sk/notice/543786-2026/html",
+          "SLV": "https://ted.europa.eu/sl/notice/543786-2026/html",
+          "SPA": "https://ted.europa.eu/es/notice/543786-2026/html",
+          "SWE": "https://ted.europa.eu/sv/notice/543786-2026/html"
+        },
+        "pdf": {
+          "BUL": "https://ted.europa.eu/bg/notice/543786-2026/pdf",
+          "CES": "https://ted.europa.eu/cs/notice/543786-2026/pdf",
+          "DAN": "https://ted.europa.eu/da/notice/543786-2026/pdf",
+          "DEU": "https://ted.europa.eu/de/notice/543786-2026/pdf",
+          "ELL": "https://ted.europa.eu/el/notice/543786-2026/pdf",
+          "ENG": "https://ted.europa.eu/en/notice/543786-2026/pdf",
+          "EST": "https://ted.europa.eu/et/notice/543786-2026/pdf",
+          "FIN": "https://ted.europa.eu/fi/notice/543786-2026/pdf",
+          "FRA": "https://ted.europa.eu/fr/notice/543786-2026/pdf",
+          "GLE": "https://ted.europa.eu/ga/notice/543786-2026/pdf",
+          "HRV": "https://ted.europa.eu/hr/notice/543786-2026/pdf",
+          "HUN": "https://ted.europa.eu/hu/notice/543786-2026/pdf",
+          "ITA": "https://ted.europa.eu/it/notice/543786-2026/pdf",
+          "LAV": "https://ted.europa.eu/lv/notice/543786-2026/pdf",
+          "LIT": "https://ted.europa.eu/lt/notice/543786-2026/pdf",
+          "MLT": "https://ted.europa.eu/mt/notice/543786-2026/pdf",
+          "NLD": "https://ted.europa.eu/nl/notice/543786-2026/pdf",
+          "POL": "https://ted.europa.eu/pl/notice/543786-2026/pdf",
+          "POR": "https://ted.europa.eu/pt/notice/543786-2026/pdf",
+          "RON": "https://ted.europa.eu/ro/notice/543786-2026/pdf",
+          "SLK": "https://ted.europa.eu/sk/notice/543786-2026/pdf",
+          "SLV": "https://ted.europa.eu/sl/notice/543786-2026/pdf",
+          "SPA": "https://ted.europa.eu/es/notice/543786-2026/pdf",
+          "SWE": "https://ted.europa.eu/sv/notice/543786-2026/pdf"
+        },
+        "pdfs": {
+          "FRA": "https://ted.europa.eu/fr/notice/543786-2026/pdfs"
+        },
+        "xml": {
+          "MUL": "https://ted.europa.eu/en/notice/543786-2026/xml"
+        }
+      },
+      "notice-identifier": "9e6f3061-15fe-4036-8f2e-d762a55cc28d",
+      "notice-title": {
+        "bul": "Фpaнция – Топографски услуги – 26N0331 - Détection et géoréférencement de réseaux",
+        "ces": "Francie – Topografické služby – 26N0331 - Détection et géoréférencement de réseaux",
+        "dan": "Frankrig – Topografiske tjenesteydelser – 26N0331 - Détection et géoréférencement de réseaux",
+        "deu": "Frankreich – Topografische Dienste – 26N0331 - Détection et géoréférencement de réseaux",
+        "ell": "Γαλλία – Τοπογραφικές υπηρεσίες – 26N0331 - Détection et géoréférencement de réseaux",
+        "eng": "France – Topographical services – 26N0331 - Détection et géoréférencement de réseaux",
+        "est": "Prantsusmaa – Topograafilised teenused – 26N0331 - Détection et géoréférencement de réseaux",
+        "fin": "Ranska – Topografiset palvelut – 26N0331 - Détection et géoréférencement de réseaux",
+        "fra": "France – Services topographiques – 26N0331 - Détection et géoréférencement de réseaux",
+        "gle": "An Fhrainc – Topographical services – 26N0331 - Détection et géoréférencement de réseaux",
+        "hrv": "Francuska – Topografske usluge – 26N0331 - Détection et géoréférencement de réseaux",
+        "hun": "Franciaország – Térképészeti szolgáltatások – 26N0331 - Détection et géoréférencement de réseaux",
+        "ita": "Francia – Servizi topografici – 26N0331 - Détection et géoréférencement de réseaux",
+        "lav": "Francija – Topogrāfiskie pakalpojumi – 26N0331 - Détection et géoréférencement de réseaux",
+        "lit": "Prancūzija – Topografinės paslaugos – 26N0331 - Détection et géoréférencement de réseaux",
+        "mlt": "Franza – Servizzi topografiċi – 26N0331 - Détection et géoréférencement de réseaux",
+        "nld": "Frankrijk – Topografische diensten – 26N0331 - Détection et géoréférencement de réseaux",
+        "pol": "Francja – Usługi topograficzne – 26N0331 - Détection et géoréférencement de réseaux",
+        "por": "França – Serviços de topografia – 26N0331 - Détection et géoréférencement de réseaux",
+        "ron": "Franţa – Servicii de topografie – 26N0331 - Détection et géoréférencement de réseaux",
+        "slk": "Francúzsko – Topografické služby – 26N0331 - Détection et géoréférencement de réseaux",
+        "slv": "Francija – Topografske storitve – 26N0331 - Détection et géoréférencement de réseaux",
+        "spa": "Francia – Servicios topográficos – 26N0331 - Détection et géoréférencement de réseaux",
+        "swe": "Frankrike – Topografiska tjänster – 26N0331 - Détection et géoréférencement de réseaux"
+      },
+      "notice-type": "cn-standard",
+      "notice-version": 1,
+      "official-language": [
+        "FRA"
+      ],
+      "organisation-country-buyer": [
+        "FRA"
+      ],
+      "organisation-name-buyer": {
+        "fra": [
+          "METROPOLE NICE CÔTE D'AZUR"
+        ]
+      },
+      "place-of-performance": [
+        "FRL03",
+        "FRA",
+        "FRL03",
+        "FRA"
+      ],
+      "procedure-type": "open",
+      "publication-date": "2026-08-06+02:00",
+      "publication-number": "543786-2026",
+      "title-lot": {
+        "fra": [
+          "Détection et géoréférencement de réseaux"
+        ]
+      }
+    },
+    {
+      "buyer-country": [
+        "FRA"
+      ],
+      "buyer-name": {
+        "fra": [
+          "COMMUNE DE BOURG-BLANC"
+        ]
+      },
+      "classification-cpv": [
+        "66515200",
+        "66512000",
+        "66513100",
+        "66514110",
+        "66510000",
+        "66516000",
+        "66515200",
+        "66516000",
+        "66514110",
+        "66513100",
+        "66512000"
+      ],
+      "contract-nature": [
+        "services",
+        "services",
+        "services",
+        "services",
+        "services",
+        "services"
+      ],
+      "deadline-receipt-request": [
+        "2026-10-05T17:00:00+02:00",
+        "2026-10-05T17:00:00+02:00",
+        "2026-10-05T17:00:00+02:00",
+        "2026-10-05T17:00:00+02:00",
+        "2026-10-05T17:00:00+02:00"
+      ],
+      "deadline-receipt-tender-date-lot": [
+        "2026-10-05+02:00",
+        "2026-10-05+02:00",
+        "2026-10-05+02:00",
+        "2026-10-05+02:00",
+        "2026-10-05+02:00"
+      ],
+      "deadline-receipt-tender-time-lot": [
+        "17:00:00+02:00",
+        "17:00:00+02:00",
+        "17:00:00+02:00",
+        "17:00:00+02:00",
+        "17:00:00+02:00"
+      ],
+      "description-lot": {
+        "fra": [
+          "Dommages aux biens et Risques annexes",
+          "Responsabilité civile et Risques annexes",
+          "Flotte automobile et Risques annexes",
+          "Protection juridique",
+          "Risques statutaires"
+        ]
+      },
+      "description-proc": {
+        "fra": "La présente consultation de la Commune de BOURG-BLANC est organisée en vue de choisir le ou les intermédiaires(s) d’assurance et le ou les assureur(s), dans le cadre de l’application des dispositions du code de la Commande Publique et pour ce qui concerne les prestations d’assurance du secteur public."
+      },
+      "form-type": "competition",
+      "identifier-lot": [
+        "LOT-0001",
+        "LOT-0002",
+        "LOT-0003",
+        "LOT-0004",
+        "LOT-0005"
+      ],
+      "links": {
+        "html": {
+          "BUL": "https://ted.europa.eu/bg/notice/-/detail/543802-2026",
+          "CES": "https://ted.europa.eu/cs/notice/-/detail/543802-2026",
+          "DAN": "https://ted.europa.eu/da/notice/-/detail/543802-2026",
+          "DEU": "https://ted.europa.eu/de/notice/-/detail/543802-2026",
+          "ELL": "https://ted.europa.eu/el/notice/-/detail/543802-2026",
+          "ENG": "https://ted.europa.eu/en/notice/-/detail/543802-2026",
+          "EST": "https://ted.europa.eu/et/notice/-/detail/543802-2026",
+          "FIN": "https://ted.europa.eu/fi/notice/-/detail/543802-2026",
+          "FRA": "https://ted.europa.eu/fr/notice/-/detail/543802-2026",
+          "GLE": "https://ted.europa.eu/ga/notice/-/detail/543802-2026",
+          "HRV": "https://ted.europa.eu/hr/notice/-/detail/543802-2026",
+          "HUN": "https://ted.europa.eu/hu/notice/-/detail/543802-2026",
+          "ITA": "https://ted.europa.eu/it/notice/-/detail/543802-2026",
+          "LAV": "https://ted.europa.eu/lv/notice/-/detail/543802-2026",
+          "LIT": "https://ted.europa.eu/lt/notice/-/detail/543802-2026",
+          "MLT": "https://ted.europa.eu/mt/notice/-/detail/543802-2026",
+          "NLD": "https://ted.europa.eu/nl/notice/-/detail/543802-2026",
+          "POL": "https://ted.europa.eu/pl/notice/-/detail/543802-2026",
+          "POR": "https://ted.europa.eu/pt/notice/-/detail/543802-2026",
+          "RON": "https://ted.europa.eu/ro/notice/-/detail/543802-2026",
+          "SLK": "https://ted.europa.eu/sk/notice/-/detail/543802-2026",
+          "SLV": "https://ted.europa.eu/sl/notice/-/detail/543802-2026",
+          "SPA": "https://ted.europa.eu/es/notice/-/detail/543802-2026",
+          "SWE": "https://ted.europa.eu/sv/notice/-/detail/543802-2026"
+        },
+        "htmlDirect": {
+          "BUL": "https://ted.europa.eu/bg/notice/543802-2026/html",
+          "CES": "https://ted.europa.eu/cs/notice/543802-2026/html",
+          "DAN": "https://ted.europa.eu/da/notice/543802-2026/html",
+          "DEU": "https://ted.europa.eu/de/notice/543802-2026/html",
+          "ELL": "https://ted.europa.eu/el/notice/543802-2026/html",
+          "ENG": "https://ted.europa.eu/en/notice/543802-2026/html",
+          "EST": "https://ted.europa.eu/et/notice/543802-2026/html",
+          "FIN": "https://ted.europa.eu/fi/notice/543802-2026/html",
+          "FRA": "https://ted.europa.eu/fr/notice/543802-2026/html",
+          "GLE": "https://ted.europa.eu/ga/notice/543802-2026/html",
+          "HRV": "https://ted.europa.eu/hr/notice/543802-2026/html",
+          "HUN": "https://ted.europa.eu/hu/notice/543802-2026/html",
+          "ITA": "https://ted.europa.eu/it/notice/543802-2026/html",
+          "LAV": "https://ted.europa.eu/lv/notice/543802-2026/html",
+          "LIT": "https://ted.europa.eu/lt/notice/543802-2026/html",
+          "MLT": "https://ted.europa.eu/mt/notice/543802-2026/html",
+          "NLD": "https://ted.europa.eu/nl/notice/543802-2026/html",
+          "POL": "https://ted.europa.eu/pl/notice/543802-2026/html",
+          "POR": "https://ted.europa.eu/pt/notice/543802-2026/html",
+          "RON": "https://ted.europa.eu/ro/notice/543802-2026/html",
+          "SLK": "https://ted.europa.eu/sk/notice/543802-2026/html",
+          "SLV": "https://ted.europa.eu/sl/notice/543802-2026/html",
+          "SPA": "https://ted.europa.eu/es/notice/543802-2026/html",
+          "SWE": "https://ted.europa.eu/sv/notice/543802-2026/html"
+        },
+        "pdf": {
+          "BUL": "https://ted.europa.eu/bg/notice/543802-2026/pdf",
+          "CES": "https://ted.europa.eu/cs/notice/543802-2026/pdf",
+          "DAN": "https://ted.europa.eu/da/notice/543802-2026/pdf",
+          "DEU": "https://ted.europa.eu/de/notice/543802-2026/pdf",
+          "ELL": "https://ted.europa.eu/el/notice/543802-2026/pdf",
+          "ENG": "https://ted.europa.eu/en/notice/543802-2026/pdf",
+          "EST": "https://ted.europa.eu/et/notice/543802-2026/pdf",
+          "FIN": "https://ted.europa.eu/fi/notice/543802-2026/pdf",
+          "FRA": "https://ted.europa.eu/fr/notice/543802-2026/pdf",
+          "GLE": "https://ted.europa.eu/ga/notice/543802-2026/pdf",
+          "HRV": "https://ted.europa.eu/hr/notice/543802-2026/pdf",
+          "HUN": "https://ted.europa.eu/hu/notice/543802-2026/pdf",
+          "ITA": "https://ted.europa.eu/it/notice/543802-2026/pdf",
+          "LAV": "https://ted.europa.eu/lv/notice/543802-2026/pdf",
+          "LIT": "https://ted.europa.eu/lt/notice/543802-2026/pdf",
+          "MLT": "https://ted.europa.eu/mt/notice/543802-2026/pdf",
+          "NLD": "https://ted.europa.eu/nl/notice/543802-2026/pdf",
+          "POL": "https://ted.europa.eu/pl/notice/543802-2026/pdf",
+          "POR": "https://ted.europa.eu/pt/notice/543802-2026/pdf",
+          "RON": "https://ted.europa.eu/ro/notice/543802-2026/pdf",
+          "SLK": "https://ted.europa.eu/sk/notice/543802-2026/pdf",
+          "SLV": "https://ted.europa.eu/sl/notice/543802-2026/pdf",
+          "SPA": "https://ted.europa.eu/es/notice/543802-2026/pdf",
+          "SWE": "https://ted.europa.eu/sv/notice/543802-2026/pdf"
+        },
+        "pdfs": {
+          "FRA": "https://ted.europa.eu/fr/notice/543802-2026/pdfs"
+        },
+        "xml": {
+          "MUL": "https://ted.europa.eu/en/notice/543802-2026/xml"
+        }
+      },
+      "notice-identifier": "01a8bc80-2181-4eda-87a2-40812211e54a",
+      "notice-title": {
+        "bul": "Фpaнция – Застраховка \"Щети на имущество\" – ASSURANCES",
+        "ces": "Francie – Pojištění majetku – ASSURANCES",
+        "dan": "Frankrig – Tingskadeforsikring – ASSURANCES",
+        "deu": "Frankreich – Vermögensversicherungen – ASSURANCES",
+        "ell": "Γαλλία – Υπηρεσίες ασφάλισης περιουσίας – ASSURANCES",
+        "eng": "France – Property insurance services – ASSURANCES",
+        "est": "Prantsusmaa – Varakindlustusteenused – ASSURANCES",
+        "fin": "Ranska – Omaisuusvakuutukset – ASSURANCES",
+        "fra": "France – Services d'assurance de biens – ASSURANCES",
+        "gle": "An Fhrainc – Property insurance services – ASSURANCES",
+        "hrv": "Francuska – Usluge osiguranja imovine – ASSURANCES",
+        "hun": "Franciaország – Vagyonbiztosítási szolgáltatások – ASSURANCES",
+        "ita": "Francia – Servizi di assicurazione di proprietà – ASSURANCES",
+        "lav": "Francija – Īpašuma apdrošināšanas pakalpojumi – ASSURANCES",
+        "lit": "Prancūzija – Turto draudimo paslaugos – ASSURANCES",
+        "mlt": "Franza – Servizzi ta' l-assigurazzjoni tal-propjetà – ASSURANCES",
+        "nld": "Frankrijk – Opstalverzekeringen – ASSURANCES",
+        "pol": "Francja – Usługi ubezpieczenia własności – ASSURANCES",
+        "por": "França – Serviços de seguros de bens – ASSURANCES",
+        "ron": "Franţa – Servicii de asigurare a bunurilor – ASSURANCES",
+        "slk": "Francúzsko – Poistenie majetku – ASSURANCES",
+        "slv": "Francija – Storitve premoženjskega zavarovanja – ASSURANCES",
+        "spa": "Francia – Servicios de seguros de cosas – ASSURANCES",
+        "swe": "Frankrike – Sakförsäkringar – ASSURANCES"
+      },
+      "notice-type": "cn-standard",
+      "notice-version": 2,
+      "official-language": [
+        "FRA"
+      ],
+      "organisation-country-buyer": [
+        "FRA"
+      ],
+      "organisation-name-buyer": {
+        "fra": [
+          "COMMUNE DE BOURG-BLANC"
+        ]
+      },
+      "place-of-performance": [
+        "FRH02",
+        "FRA",
+        "FRH02",
+        "FRH02",
+        "FRH02",
+        "FRH02",
+        "FRH02",
+        "FRA",
+        "FRA",
+        "FRA",
+        "FRA",
+        "FRA"
+      ],
+      "procedure-type": "open",
+      "publication-date": "2026-08-06+02:00",
+      "publication-number": "543802-2026",
+      "title-lot": {
+        "fra": [
+          "Dommages aux biens et Risques annexes",
+          "Responsabilité civile et Risques annexes",
+          "Flotte automobile et Risques annexes",
+          "Protection juridique",
+          "Risques statutaires"
+        ]
+      }
+    },
+    {
+      "buyer-country": [
+        "FRA"
+      ],
+      "buyer-name": {
+        "fra": [
+          "Ville de Quimper"
+        ]
+      },
+      "classification-cpv": [
+        "71314300",
+        "71314200",
+        "71314300",
+        "71314200"
+      ],
+      "contract-nature": [
+        "services",
+        "services"
+      ],
+      "deadline-receipt-request": [
+        "2026-09-25T16:00:00+02:00"
+      ],
+      "deadline-receipt-tender-date-lot": [
+        "2026-09-25+02:00"
+      ],
+      "deadline-receipt-tender-time-lot": [
+        "16:00:00+02:00"
+      ],
+      "description-lot": {
+        "fra": [
+          "Maintenance préventive et corrective et optimisation énergétique des installations de ventilation des bâtiments communaux de la Ville de Quimper."
+        ]
+      },
+      "description-proc": {
+        "fra": "Maintenance préventive et corrective et optimisation énergétique des installations de ventilation des bâtiments communaux de la Ville de Quimper."
+      },
+      "form-type": "competition",
+      "identifier-lot": [
+        "LOT-0001"
+      ],
+      "links": {
+        "html": {
+          "BUL": "https://ted.europa.eu/bg/notice/-/detail/543832-2026",
+          "CES": "https://ted.europa.eu/cs/notice/-/detail/543832-2026",
+          "DAN": "https://ted.europa.eu/da/notice/-/detail/543832-2026",
+          "DEU": "https://ted.europa.eu/de/notice/-/detail/543832-2026",
+          "ELL": "https://ted.europa.eu/el/notice/-/detail/543832-2026",
+          "ENG": "https://ted.europa.eu/en/notice/-/detail/543832-2026",
+          "EST": "https://ted.europa.eu/et/notice/-/detail/543832-2026",
+          "FIN": "https://ted.europa.eu/fi/notice/-/detail/543832-2026",
+          "FRA": "https://ted.europa.eu/fr/notice/-/detail/543832-2026",
+          "GLE": "https://ted.europa.eu/ga/notice/-/detail/543832-2026",
+          "HRV": "https://ted.europa.eu/hr/notice/-/detail/543832-2026",
+          "HUN": "https://ted.europa.eu/hu/notice/-/detail/543832-2026",
+          "ITA": "https://ted.europa.eu/it/notice/-/detail/543832-2026",
+          "LAV": "https://ted.europa.eu/lv/notice/-/detail/543832-2026",
+          "LIT": "https://ted.europa.eu/lt/notice/-/detail/543832-2026",
+          "MLT": "https://ted.europa.eu/mt/notice/-/detail/543832-2026",
+          "NLD": "https://ted.europa.eu/nl/notice/-/detail/543832-2026",
+          "POL": "https://ted.europa.eu/pl/notice/-/detail/543832-2026",
+          "POR": "https://ted.europa.eu/pt/notice/-/detail/543832-2026",
+          "RON": "https://ted.europa.eu/ro/notice/-/detail/543832-2026",
+          "SLK": "https://ted.europa.eu/sk/notice/-/detail/543832-2026",
+          "SLV": "https://ted.europa.eu/sl/notice/-/detail/543832-2026",
+          "SPA": "https://ted.europa.eu/es/notice/-/detail/543832-2026",
+          "SWE": "https://ted.europa.eu/sv/notice/-/detail/543832-2026"
+        },
+        "htmlDirect": {
+          "BUL": "https://ted.europa.eu/bg/notice/543832-2026/html",
+          "CES": "https://ted.europa.eu/cs/notice/543832-2026/html",
+          "DAN": "https://ted.europa.eu/da/notice/543832-2026/html",
+          "DEU": "https://ted.europa.eu/de/notice/543832-2026/html",
+          "ELL": "https://ted.europa.eu/el/notice/543832-2026/html",
+          "ENG": "https://ted.europa.eu/en/notice/543832-2026/html",
+          "EST": "https://ted.europa.eu/et/notice/543832-2026/html",
+          "FIN": "https://ted.europa.eu/fi/notice/543832-2026/html",
+          "FRA": "https://ted.europa.eu/fr/notice/543832-2026/html",
+          "GLE": "https://ted.europa.eu/ga/notice/543832-2026/html",
+          "HRV": "https://ted.europa.eu/hr/notice/543832-2026/html",
+          "HUN": "https://ted.europa.eu/hu/notice/543832-2026/html",
+          "ITA": "https://ted.europa.eu/it/notice/543832-2026/html",
+          "LAV": "https://ted.europa.eu/lv/notice/543832-2026/html",
+          "LIT": "https://ted.europa.eu/lt/notice/543832-2026/html",
+          "MLT": "https://ted.europa.eu/mt/notice/543832-2026/html",
+          "NLD": "https://ted.europa.eu/nl/notice/543832-2026/html",
+          "POL": "https://ted.europa.eu/pl/notice/543832-2026/html",
+          "POR": "https://ted.europa.eu/pt/notice/543832-2026/html",
+          "RON": "https://ted.europa.eu/ro/notice/543832-2026/html",
+          "SLK": "https://ted.europa.eu/sk/notice/543832-2026/html",
+          "SLV": "https://ted.europa.eu/sl/notice/543832-2026/html",
+          "SPA": "https://ted.europa.eu/es/notice/543832-2026/html",
+          "SWE": "https://ted.europa.eu/sv/notice/543832-2026/html"
+        },
+        "pdf": {
+          "BUL": "https://ted.europa.eu/bg/notice/543832-2026/pdf",
+          "CES": "https://ted.europa.eu/cs/notice/543832-2026/pdf",
+          "DAN": "https://ted.europa.eu/da/notice/543832-2026/pdf",
+          "DEU": "https://ted.europa.eu/de/notice/543832-2026/pdf",
+          "ELL": "https://ted.europa.eu/el/notice/543832-2026/pdf",
+          "ENG": "https://ted.europa.eu/en/notice/543832-2026/pdf",
+          "EST": "https://ted.europa.eu/et/notice/543832-2026/pdf",
+          "FIN": "https://ted.europa.eu/fi/notice/543832-2026/pdf",
+          "FRA": "https://ted.europa.eu/fr/notice/543832-2026/pdf",
+          "GLE": "https://ted.europa.eu/ga/notice/543832-2026/pdf",
+          "HRV": "https://ted.europa.eu/hr/notice/543832-2026/pdf",
+          "HUN": "https://ted.europa.eu/hu/notice/543832-2026/pdf",
+          "ITA": "https://ted.europa.eu/it/notice/543832-2026/pdf",
+          "LAV": "https://ted.europa.eu/lv/notice/543832-2026/pdf",
+          "LIT": "https://ted.europa.eu/lt/notice/543832-2026/pdf",
+          "MLT": "https://ted.europa.eu/mt/notice/543832-2026/pdf",
+          "NLD": "https://ted.europa.eu/nl/notice/543832-2026/pdf",
+          "POL": "https://ted.europa.eu/pl/notice/543832-2026/pdf",
+          "POR": "https://ted.europa.eu/pt/notice/543832-2026/pdf",
+          "RON": "https://ted.europa.eu/ro/notice/543832-2026/pdf",
+          "SLK": "https://ted.europa.eu/sk/notice/543832-2026/pdf",
+          "SLV": "https://ted.europa.eu/sl/notice/543832-2026/pdf",
+          "SPA": "https://ted.europa.eu/es/notice/543832-2026/pdf",
+          "SWE": "https://ted.europa.eu/sv/notice/543832-2026/pdf"
+        },
+        "pdfs": {
+          "FRA": "https://ted.europa.eu/fr/notice/543832-2026/pdfs"
+        },
+        "xml": {
+          "MUL": "https://ted.europa.eu/en/notice/543832-2026/xml"
+        }
+      },
+      "notice-identifier": "10495f60-317f-47f2-9f32-a5f5bca2719a",
+      "notice-title": {
+        "bul": "Фpaнция – Консултантски услуги по ефективност на електрически системи – Maintenance et optimisation énergétique des installations de ventilation des bâtiments communaux",
+        "ces": "Francie – Poradenství v oblasti energetické účinnosti – Maintenance et optimisation énergétique des installations de ventilation des bâtiments communaux",
+        "dan": "Frankrig – Rådgivning i forbindelse med energiudnyttelsesgrad – Maintenance et optimisation énergétique des installations de ventilation des bâtiments communaux",
+        "deu": "Frankreich – Beratung im Bereich Energieeinsparung – Maintenance et optimisation énergétique des installations de ventilation des bâtiments communaux",
+        "ell": "Γαλλία – Υπηρεσίες παροχής συμβουλών σχετικά με την ενεργειακή απόδοση – Maintenance et optimisation énergétique des installations de ventilation des bâtiments communaux",
+        "eng": "France – Energy-efficiency consultancy services – Maintenance et optimisation énergétique des installations de ventilation des bâtiments communaux",
+        "est": "Prantsusmaa – Energiaefektiivsusalased nõustamisteenused – Maintenance et optimisation énergétique des installations de ventilation des bâtiments communaux",
+        "fin": "Ranska – Energiansäästöä koskevat konsulttipalvelut – Maintenance et optimisation énergétique des installations de ventilation des bâtiments communaux",
+        "fra": "France – Services de conseil en rendement énergétique – Maintenance et optimisation énergétique des installations de ventilation des bâtiments communaux",
+        "gle": "An Fhrainc – Energy-efficiency consultancy services – Maintenance et optimisation énergétique des installations de ventilation des bâtiments communaux",
+        "hrv": "Francuska – Savjetodavne usluge u području energetske učinkovitosti – Maintenance et optimisation énergétique des installations de ventilation des bâtiments communaux",
+        "hun": "Franciaország – Energiahatékonysági tanácsadó szolgáltatások – Maintenance et optimisation énergétique des installations de ventilation des bâtiments communaux",
+        "ita": "Francia – Servizi di consulenza in efficienza energetica – Maintenance et optimisation énergétique des installations de ventilation des bâtiments communaux",
+        "lav": "Francija – Energoefektivitātes konsultāciju pakalpojumi – Maintenance et optimisation énergétique des installations de ventilation des bâtiments communaux",
+        "lit": "Prancūzija – Energijos efektyvumo konsultacinės paslaugos – Maintenance et optimisation énergétique des installations de ventilation des bâtiments communaux",
+        "mlt": "Franza – Servizzi ta' konsulenza dwar l-effiċjenza ta' l-enerġija – Maintenance et optimisation énergétique des installations de ventilation des bâtiments communaux",
+        "nld": "Frankrijk – Advies inzake efficiënt energiegebruik – Maintenance et optimisation énergétique des installations de ventilation des bâtiments communaux",
+        "pol": "Francja – Usługi doradcze w zakresie wydajności energetycznej – Maintenance et optimisation énergétique des installations de ventilation des bâtiments communaux",
+        "por": "França – Serviços de consultoria em matéria de rendimento energético – Maintenance et optimisation énergétique des installations de ventilation des bâtiments communaux",
+        "ron": "Franţa – Servicii de consultanţă în eficienţă energetică – Maintenance et optimisation énergétique des installations de ventilation des bâtiments communaux",
+        "slk": "Francúzsko – Poradenské služby pre oblasť efektívneho využitia energie – Maintenance et optimisation énergétique des installations de ventilation des bâtiments communaux",
+        "slv": "Francija – Storitve svetovanja na področju energetske učinkovitosti – Maintenance et optimisation énergétique des installations de ventilation des bâtiments communaux",
+        "spa": "Francia – Servicios de consultoría en rendimiento energético – Maintenance et optimisation énergétique des installations de ventilation des bâtiments communaux",
+        "swe": "Frankrike – Konsulttjänster för energibesparing – Maintenance et optimisation énergétique des installations de ventilation des bâtiments communaux"
+      },
+      "notice-type": "cn-standard",
+      "notice-version": 1,
+      "official-language": [
+        "FRA"
+      ],
+      "organisation-country-buyer": [
+        "FRA"
+      ],
+      "organisation-name-buyer": {
+        "fra": [
+          "Ville de Quimper"
+        ]
+      },
+      "place-of-performance": [
+        "FRH02",
+        "FRA",
+        "FRH02",
+        "FRA"
+      ],
+      "procedure-type": "open",
+      "publication-date": "2026-08-06+02:00",
+      "publication-number": "543832-2026",
+      "title-lot": {
+        "fra": [
+          "Maintenance et optimisation énergétique des installations de ventilation des bâtiments communaux"
+        ]
+      }
+    },
+    {
+      "buyer-country": [
+        "FRA"
+      ],
+      "buyer-name": {
+        "fra": [
+          "Syndicat Mixte DECOSET"
+        ]
+      },
+      "classification-cpv": [
+        "90513000",
+        "90513000",
+        "90513000",
+        "90513000"
+      ],
+      "contract-nature": [
+        "services",
+        "services"
+      ],
+      "deadline-receipt-request": [
+        "2026-10-12T14:00:00+02:00"
+      ],
+      "deadline-receipt-tender-date-lot": [
+        "2026-10-12+02:00"
+      ],
+      "deadline-receipt-tender-time-lot": [
+        "14:00:00+02:00"
+      ],
+      "description-lot": {
+        "fra": [
+          "Traitement des flux encombrants et tout venant non incinérable produits ou collectés sur les différentes installations de DECOSET, Déchèteries en régie, quais de transfert en régie ou en prestation, apports direct d'EPCI. L'ensemble des dispositions techniques ainsi que l'ensemble de l'exécution de la prestation sont mentionnés et détaillés dans le CCTP"
+        ]
+      },
+      "description-proc": {
+        "fra": "Traitement des flux encombrants et tout venant non incinérable produits ou collectés sur les différentes installations de DECOSET, Déchèteries en régie, quais de transfert en régie ou en prestation, apports direct d'EPCI. L'ensemble des dispositions techniques ainsi que l'ensemble de l'exécution de la prestation sont mentionnés et détaillés dans le CCTP"
+      },
+      "estimated-value-cur-lot": [
+        "EUR"
+      ],
+      "estimated-value-lot": [
+        "11500000"
+      ],
+      "form-type": "competition",
+      "identifier-lot": [
+        "LOT-0000"
+      ],
+      "links": {
+        "html": {
+          "BUL": "https://ted.europa.eu/bg/notice/-/detail/543852-2026",
+          "CES": "https://ted.europa.eu/cs/notice/-/detail/543852-2026",
+          "DAN": "https://ted.europa.eu/da/notice/-/detail/543852-2026",
+          "DEU": "https://ted.europa.eu/de/notice/-/detail/543852-2026",
+          "ELL": "https://ted.europa.eu/el/notice/-/detail/543852-2026",
+          "ENG": "https://ted.europa.eu/en/notice/-/detail/543852-2026",
+          "EST": "https://ted.europa.eu/et/notice/-/detail/543852-2026",
+          "FIN": "https://ted.europa.eu/fi/notice/-/detail/543852-2026",
+          "FRA": "https://ted.europa.eu/fr/notice/-/detail/543852-2026",
+          "GLE": "https://ted.europa.eu/ga/notice/-/detail/543852-2026",
+          "HRV": "https://ted.europa.eu/hr/notice/-/detail/543852-2026",
+          "HUN": "https://ted.europa.eu/hu/notice/-/detail/543852-2026",
+          "ITA": "https://ted.europa.eu/it/notice/-/detail/543852-2026",
+          "LAV": "https://ted.europa.eu/lv/notice/-/detail/543852-2026",
+          "LIT": "https://ted.europa.eu/lt/notice/-/detail/543852-2026",
+          "MLT": "https://ted.europa.eu/mt/notice/-/detail/543852-2026",
+          "NLD": "https://ted.europa.eu/nl/notice/-/detail/543852-2026",
+          "POL": "https://ted.europa.eu/pl/notice/-/detail/543852-2026",
+          "POR": "https://ted.europa.eu/pt/notice/-/detail/543852-2026",
+          "RON": "https://ted.europa.eu/ro/notice/-/detail/543852-2026",
+          "SLK": "https://ted.europa.eu/sk/notice/-/detail/543852-2026",
+          "SLV": "https://ted.europa.eu/sl/notice/-/detail/543852-2026",
+          "SPA": "https://ted.europa.eu/es/notice/-/detail/543852-2026",
+          "SWE": "https://ted.europa.eu/sv/notice/-/detail/543852-2026"
+        },
+        "htmlDirect": {
+          "BUL": "https://ted.europa.eu/bg/notice/543852-2026/html",
+          "CES": "https://ted.europa.eu/cs/notice/543852-2026/html",
+          "DAN": "https://ted.europa.eu/da/notice/543852-2026/html",
+          "DEU": "https://ted.europa.eu/de/notice/543852-2026/html",
+          "ELL": "https://ted.europa.eu/el/notice/543852-2026/html",
+          "ENG": "https://ted.europa.eu/en/notice/543852-2026/html",
+          "EST": "https://ted.europa.eu/et/notice/543852-2026/html",
+          "FIN": "https://ted.europa.eu/fi/notice/543852-2026/html",
+          "FRA": "https://ted.europa.eu/fr/notice/543852-2026/html",
+          "GLE": "https://ted.europa.eu/ga/notice/543852-2026/html",
+          "HRV": "https://ted.europa.eu/hr/notice/543852-2026/html",
+          "HUN": "https://ted.europa.eu/hu/notice/543852-2026/html",
+          "ITA": "https://ted.europa.eu/it/notice/543852-2026/html",
+          "LAV": "https://ted.europa.eu/lv/notice/543852-2026/html",
+          "LIT": "https://ted.europa.eu/lt/notice/543852-2026/html",
+          "MLT": "https://ted.europa.eu/mt/notice/543852-2026/html",
+          "NLD": "https://ted.europa.eu/nl/notice/543852-2026/html",
+          "POL": "https://ted.europa.eu/pl/notice/543852-2026/html",
+          "POR": "https://ted.europa.eu/pt/notice/543852-2026/html",
+          "RON": "https://ted.europa.eu/ro/notice/543852-2026/html",
+          "SLK": "https://ted.europa.eu/sk/notice/543852-2026/html",
+          "SLV": "https://ted.europa.eu/sl/notice/543852-2026/html",
+          "SPA": "https://ted.europa.eu/es/notice/543852-2026/html",
+          "SWE": "https://ted.europa.eu/sv/notice/543852-2026/html"
+        },
+        "pdf": {
+          "BUL": "https://ted.europa.eu/bg/notice/543852-2026/pdf",
+          "CES": "https://ted.europa.eu/cs/notice/543852-2026/pdf",
+          "DAN": "https://ted.europa.eu/da/notice/543852-2026/pdf",
+          "DEU": "https://ted.europa.eu/de/notice/543852-2026/pdf",
+          "ELL": "https://ted.europa.eu/el/notice/543852-2026/pdf",
+          "ENG": "https://ted.europa.eu/en/notice/543852-2026/pdf",
+          "EST": "https://ted.europa.eu/et/notice/543852-2026/pdf",
+          "FIN": "https://ted.europa.eu/fi/notice/543852-2026/pdf",
+          "FRA": "https://ted.europa.eu/fr/notice/543852-2026/pdf",
+          "GLE": "https://ted.europa.eu/ga/notice/543852-2026/pdf",
+          "HRV": "https://ted.europa.eu/hr/notice/543852-2026/pdf",
+          "HUN": "https://ted.europa.eu/hu/notice/543852-2026/pdf",
+          "ITA": "https://ted.europa.eu/it/notice/543852-2026/pdf",
+          "LAV": "https://ted.europa.eu/lv/notice/543852-2026/pdf",
+          "LIT": "https://ted.europa.eu/lt/notice/543852-2026/pdf",
+          "MLT": "https://ted.europa.eu/mt/notice/543852-2026/pdf",
+          "NLD": "https://ted.europa.eu/nl/notice/543852-2026/pdf",
+          "POL": "https://ted.europa.eu/pl/notice/543852-2026/pdf",
+          "POR": "https://ted.europa.eu/pt/notice/543852-2026/pdf",
+          "RON": "https://ted.europa.eu/ro/notice/543852-2026/pdf",
+          "SLK": "https://ted.europa.eu/sk/notice/543852-2026/pdf",
+          "SLV": "https://ted.europa.eu/sl/notice/543852-2026/pdf",
+          "SPA": "https://ted.europa.eu/es/notice/543852-2026/pdf",
+          "SWE": "https://ted.europa.eu/sv/notice/543852-2026/pdf"
+        },
+        "pdfs": {
+          "FRA": "https://ted.europa.eu/fr/notice/543852-2026/pdfs"
+        },
+        "xml": {
+          "MUL": "https://ted.europa.eu/en/notice/543852-2026/xml"
+        }
+      },
+      "notice-identifier": "e26d9bd5-20e1-439a-b606-1843d1e74630",
+      "notice-title": {
+        "bul": "Фpaнция – Услуги по превозване на отпадъци – Marché public n°2026-VALO-32_TRAITEMENT ENCOMBRANTS ET TOUT VENANT NON INCINERABLE POUR LE SYNDICAT MIXTE DECOSET",
+        "ces": "Francie – Odstraňování a čištění odpadu neklasifikovaného jako nebezpečný – Marché public n°2026-VALO-32_TRAITEMENT ENCOMBRANTS ET TOUT VENANT NON INCINERABLE POUR LE SYNDICAT MIXTE DECOSET",
+        "dan": "Frankrig – Affaldsbehandling og bortskaffelse af ufarligt affald – Marché public n°2026-VALO-32_TRAITEMENT ENCOMBRANTS ET TOUT VENANT NON INCINERABLE POUR LE SYNDICAT MIXTE DECOSET",
+        "deu": "Frankreich – Behandlung und Beseitigung ungefährlicher Siedlungs- und anderer Abfälle – Marché public n°2026-VALO-32_TRAITEMENT ENCOMBRANTS ET TOUT VENANT NON INCINERABLE POUR LE SYNDICAT MIXTE DECOSET",
+        "ell": "Γαλλία – Υπηρεσίες επεξεργασίας και διάθεσης μη επικίνδυνων απορριμμάτων και αποβλήτων – Marché public n°2026-VALO-32_TRAITEMENT ENCOMBRANTS ET TOUT VENANT NON INCINERABLE POUR LE SYNDICAT MIXTE DECOSET",
+        "eng": "France – Non-hazardous refuse and waste treatment and disposal services – Marché public n°2026-VALO-32_TRAITEMENT ENCOMBRANTS ET TOUT VENANT NON INCINERABLE POUR LE SYNDICAT MIXTE DECOSET",
+        "est": "Prantsusmaa – Tavajäätmete käitlus- ja kõrvaldusteenused – Marché public n°2026-VALO-32_TRAITEMENT ENCOMBRANTS ET TOUT VENANT NON INCINERABLE POUR LE SYNDICAT MIXTE DECOSET",
+        "fin": "Ranska – Vaarattomien jätteiden käsittely ja poiskuljetus – Marché public n°2026-VALO-32_TRAITEMENT ENCOMBRANTS ET TOUT VENANT NON INCINERABLE POUR LE SYNDICAT MIXTE DECOSET",
+        "fra": "France – Services de traitement et d'élimination des ordures ménagères et des déchets non dangereux – Marché public n°2026-VALO-32_TRAITEMENT ENCOMBRANTS ET TOUT VENANT NON INCINERABLE POUR LE SYNDICAT MIXTE DECOSET",
+        "gle": "An Fhrainc – Non-hazardous refuse and waste treatment and disposal services – Marché public n°2026-VALO-32_TRAITEMENT ENCOMBRANTS ET TOUT VENANT NON INCINERABLE POUR LE SYNDICAT MIXTE DECOSET",
+        "hrv": "Francuska – Usluge obrade i zbrinjavanja neopasnih otpadaka i neopasnog otpada – Marché public n°2026-VALO-32_TRAITEMENT ENCOMBRANTS ET TOUT VENANT NON INCINERABLE POUR LE SYNDICAT MIXTE DECOSET",
+        "hun": "Franciaország – Nem veszélyes hulladék és szemét kezelésével és ártalmatlanításával kapcsolatos szolgáltatások – Marché public n°2026-VALO-32_TRAITEMENT ENCOMBRANTS ET TOUT VENANT NON INCINERABLE POUR LE SYNDICAT MIXTE DECOSET",
+        "ita": "Francia – Servizi di trattamento e smaltimento di rifiuti urbani e domestici non pericolosi – Marché public n°2026-VALO-32_TRAITEMENT ENCOMBRANTS ET TOUT VENANT NON INCINERABLE POUR LE SYNDICAT MIXTE DECOSET",
+        "lav": "Francija – Nebīstamu atkritumu pārstrādes un apglabāšanas pakalpojumi – Marché public n°2026-VALO-32_TRAITEMENT ENCOMBRANTS ET TOUT VENANT NON INCINERABLE POUR LE SYNDICAT MIXTE DECOSET",
+        "lit": "Prancūzija – Nepavojingų atliekų apdorojimo ir šalinimo paslaugos – Marché public n°2026-VALO-32_TRAITEMENT ENCOMBRANTS ET TOUT VENANT NON INCINERABLE POUR LE SYNDICAT MIXTE DECOSET",
+        "mlt": "Franza – Servizzi ta' trattament u r-rimi ta' żibel u skart mhux perikoluż – Marché public n°2026-VALO-32_TRAITEMENT ENCOMBRANTS ET TOUT VENANT NON INCINERABLE POUR LE SYNDICAT MIXTE DECOSET",
+        "nld": "Frankrijk – Diensten voor het verwerken en storten van ongevaarlijk afval en vuilnis – Marché public n°2026-VALO-32_TRAITEMENT ENCOMBRANTS ET TOUT VENANT NON INCINERABLE POUR LE SYNDICAT MIXTE DECOSET",
+        "pol": "Francja – Usługi obróbki i usuwania odpadów, które nie są niebezpieczne – Marché public n°2026-VALO-32_TRAITEMENT ENCOMBRANTS ET TOUT VENANT NON INCINERABLE POUR LE SYNDICAT MIXTE DECOSET",
+        "por": "França – Serviços de tratamento e eliminação de resíduos e lixos não-perigosos – Marché public n°2026-VALO-32_TRAITEMENT ENCOMBRANTS ET TOUT VENANT NON INCINERABLE POUR LE SYNDICAT MIXTE DECOSET",
+        "ron": "Franţa – Servicii de tratare şi eliminare de deşeuri menajere şi deşeuri nepericuloase – Marché public n°2026-VALO-32_TRAITEMENT ENCOMBRANTS ET TOUT VENANT NON INCINERABLE POUR LE SYNDICAT MIXTE DECOSET",
+        "slk": "Francúzsko – Služby na spracovanie a likvidáciu nie nebezpečného odpadu – Marché public n°2026-VALO-32_TRAITEMENT ENCOMBRANTS ET TOUT VENANT NON INCINERABLE POUR LE SYNDICAT MIXTE DECOSET",
+        "slv": "Francija – Storitve obdelave in odstranjevanja nenevarnih odpadkov – Marché public n°2026-VALO-32_TRAITEMENT ENCOMBRANTS ET TOUT VENANT NON INCINERABLE POUR LE SYNDICAT MIXTE DECOSET",
+        "spa": "Francia – Servicios de tratamiento y eliminación de desperdicios y residuos no peligrosos – Marché public n°2026-VALO-32_TRAITEMENT ENCOMBRANTS ET TOUT VENANT NON INCINERABLE POUR LE SYNDICAT MIXTE DECOSET",
+        "swe": "Frankrike – Hantering av ofarligt avfall – Marché public n°2026-VALO-32_TRAITEMENT ENCOMBRANTS ET TOUT VENANT NON INCINERABLE POUR LE SYNDICAT MIXTE DECOSET"
+      },
+      "notice-type": "cn-standard",
+      "notice-version": 1,
+      "official-language": [
+        "FRA"
+      ],
+      "organisation-country-buyer": [
+        "FRA"
+      ],
+      "organisation-name-buyer": {
+        "fra": [
+          "Syndicat Mixte DECOSET"
+        ]
+      },
+      "place-of-performance": [
+        "FRJ23",
+        "FRA",
+        "FRJ23",
+        "FRA"
+      ],
+      "procedure-type": "open",
+      "publication-date": "2026-08-06+02:00",
+      "publication-number": "543852-2026",
+      "title-lot": {
+        "fra": [
+          "Marché public n°2026-VALO-32_TRAITEMENT ENCOMBRANTS ET TOUT VENANT NON INCINERABLE POUR LE SYNDICAT MIXTE DECOSET"
+        ]
+      }
+    }
+  ],
+  "timedOut": false,
+  "totalNoticeCount": 1138
+}

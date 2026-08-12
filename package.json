@@ -1,0 +1,29 @@
+{
+  "name": "bidpilot",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "test:py": "python3 -m pytest services/ingestion -q",
+    "db:generate": "pnpm --filter @bidpilot/db generate",
+    "db:migrate": "pnpm --filter @bidpilot/db migrate",
+    "db:seed": "pnpm --filter @bidpilot/db seed",
+    "db:reset": "pnpm --filter @bidpilot/db reset",
+    "eval": "python3 -m bidpilot_eval.cli",
+    "fixtures:capture": "python3 scripts/capture_fixtures.py"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "prettier": "^3.4.2",
+    "turbo": "^2.3.3",
+    "typescript": "^5.7.2"
+  }
+}
