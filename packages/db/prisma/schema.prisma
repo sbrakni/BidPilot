@@ -1,0 +1,956 @@
+// BidPilot data model (SPEC §18). Prisma is the single migration authority (§17.1);
+// the Python services treat this schema as given.
+//
+// Conventions (§18): ULID ids, created_at/updated_at everywhere, jsonb for source-shaped
+// payloads, PG enums. Every org-scoped table carries org_id and is protected by Postgres
+// RLS (§17.6) - see migrations/*_rls for the policies and the non-owner app role.
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [vector, pg_trgm, unaccent]
+}
+
+// ---------------------------------------------------------------------------
+// Enums
+// ---------------------------------------------------------------------------
+
+enum SourceTier {
+  official_api // 1
+  platform // 2
+  long_tail // 3
+  signals // 4
+}
+
+enum SourceKind {
+  api
+  ocds
+  rss
+  scrape
+  email
+  manual
+}
+
+enum SourceHealth {
+  green
+  degraded
+  silent
+  disabled
+}
+
+enum NoticeType {
+  planning
+  competition
+  result
+}
+
+enum NoticeStatus {
+  active
+  amended
+  closed
+  awarded
+  cancelled
+}
+
+enum DocumentKind {
+  rc
+  ccap
+  cctp
+  ae
+  price
+  dume
+  annex
+  amendment
+  other
+}
+
+enum OcrStatus {
+  not_needed
+  pending
+  done
+  failed
+}
+
+enum OrgRole {
+  owner
+  admin
+  bid_manager
+  contributor
+  viewer
+}
+
+enum EvidenceKind {
+  admin
+  certification
+  reference
+  people
+  content
+  template
+}
+
+enum EvidenceStatus {
+  valid
+  expiring
+  expired
+}
+
+enum MatchState {
+  new
+  shortlisted
+  dismissed
+  pursued
+}
+
+enum TenderOrigin {
+  match
+  manual
+  email
+}
+
+enum TenderStage {
+  analysis
+  decision
+  response
+  submitted
+  closed
+}
+
+enum AnalysisKind {
+  admin
+  requirements
+  redflags
+  gonogo
+}
+
+enum AnalysisStatus {
+  queued
+  running
+  done
+  failed
+}
+
+enum RequirementType {
+  eliminatory
+  selection
+  award
+  contractual
+  format
+}
+
+enum RequirementState {
+  active
+  removed
+  modified
+}
+
+enum ComplianceStatus {
+  covered
+  partial
+  missing
+  na
+}
+
+enum ReviewState {
+  draft
+  ai_draft
+  needs_review
+  reviewed
+}
+
+enum Verdict {
+  go
+  nogo
+  goif
+}
+
+enum TaskStatus {
+  todo
+  in_progress
+  blocked
+  done
+}
+
+enum TaskSource {
+  auto
+  manual
+}
+
+enum QaStatus {
+  draft
+  sent
+  answered
+}
+
+enum GenerationKind {
+  outline
+  section
+  memo_export
+  deck_pptx
+  deck_html
+  dc1
+  dc2
+  dume
+  letter
+  questions
+}
+
+enum JobState {
+  queued
+  running
+  done
+  failed
+  dead
+}
+
+enum RenewalState {
+  predicted
+  window_open
+  notice_published
+  expired
+}
+
+// ---------------------------------------------------------------------------
+// §18.1 Market data - global, tenant-read-only. Never writable by tenants.
+// ---------------------------------------------------------------------------
+
+/// A source is a row, not an integration (SPEC §6.1). Adding a portal of a known
+/// family means adding a row; `legal` is mandatory before the adapter will run (§24.7).
+model Source {
+  id            String       @id
+  code          String       @unique
+  country       String       @db.VarChar(2)
+  tier          SourceTier
+  kind          SourceKind
+  adapter       String
+  config        Json         @default("{}")
+  schedule      String?
+  legal         Json         @default("{}")
+  health        SourceHealth @default(green)
+  enabled       Boolean      @default(false)
+  lastRunAt     DateTime?    @map("last_run_at")
+  lastSuccessAt DateTime?    @map("last_success_at")
+  notices7d     Int          @default(0) @map("notices_7d")
+  errorRate     Float        @default(0) @map("error_rate")
+  cursor        Json         @default("{}")
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @updatedAt @map("updated_at")
+
+  rawNotices RawNotice[]
+
+  @@index([health, enabled])
+  @@map("sources")
+}
+
+/// Raw payloads are kept forever (SPEC §6.2): cheap, and they let us re-normalise when
+/// parsers improve. The unique key makes re-fetching idempotent while still recording a
+/// genuine content change as a new row (the amendment signal, §6.7).
+model RawNotice {
+  id          String   @id
+  sourceId    String   @map("source_id")
+  externalId  String   @map("external_id")
+  fetchedAt   DateTime @default(now()) @map("fetched_at")
+  payload     Json
+  contentHash String   @map("content_hash")
+
+  source Source @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+
+  @@unique([sourceId, externalId, contentHash])
+  @@index([sourceId, fetchedAt])
+  @@map("raw_notices")
+}
+
+/// One tender seen through one or more publications (SPEC §6.7).
+model TenderCluster {
+  id                String   @id
+  canonicalNoticeId String?  @unique @map("canonical_notice_id")
+  confidence        Float    @default(1)
+  mergedFrom        Json     @default("[]") @map("merged_from")
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+
+  notices Notice[]
+
+  @@map("tender_clusters")
+}
+
+/// The canonical notice - the only shape anything downstream reads (SPEC Annex B.1).
+/// `tsv` and `embedding` are managed by migrations, not Prisma (§17.5).
+model Notice {
+  id                  String       @id
+  clusterId           String?      @map("cluster_id")
+  sourceRefs          Json         @default("[]") @map("source_refs")
+  status              NoticeStatus @default(active)
+  noticeType          NoticeType   @map("notice_type")
+  country             String       @db.VarChar(2)
+  language            String?      @db.VarChar(2)
+  buyerName           String?      @map("buyer_name")
+  buyerSiren          String?      @map("buyer_siren") @db.VarChar(9)
+  title               String
+  description         String?
+  cpv                 String[]
+  nuts                String[]
+  procedureType       String?      @map("procedure_type")
+  amountEst           Decimal?     @map("amount_est") @db.Decimal(16, 2)
+  currency            String?      @db.VarChar(3)
+  publishedAt         DateTime?    @map("published_at")
+  deadlineAt          DateTime?    @map("deadline_at")
+  questionsDeadlineAt DateTime?    @map("questions_deadline_at")
+  visit               Json?
+  lots                Json         @default("[]")
+  urls                Json         @default("{}")
+  docsAvailable       Boolean      @default(false) @map("docs_available")
+  requiresAccount     Boolean?     @map("requires_account_for_docs")
+  award               Json?
+  provenance          Json         @default("{}")
+  version             Int          @default(1)
+  createdAt           DateTime     @default(now()) @map("created_at")
+  updatedAt           DateTime     @updatedAt @map("updated_at")
+
+  cluster   TenderCluster?   @relation(fields: [clusterId], references: [id])
+  versions  NoticeVersion[]
+  documents NoticeDocument[]
+  matches   Match[]
+  tenders   Tender[]
+
+  @@index([clusterId])
+  @@index([country, noticeType])
+  @@index([buyerSiren])
+  @@map("notices")
+}
+
+/// A re-fetched notice whose content hash changed becomes a new version with a diff -
+/// the trigger for re-analysis (§9.4) and the team alert (§12.4).
+model NoticeVersion {
+  id        String   @id
+  noticeId  String   @map("notice_id")
+  version   Int
+  payload   Json
+  diff      Json     @default("{}")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  notice Notice @relation(fields: [noticeId], references: [id], onDelete: Cascade)
+
+  @@unique([noticeId, version])
+  @@map("notice_versions")
+}
+
+model NoticeDocument {
+  id            String       @id
+  noticeId      String       @map("notice_id")
+  kind          DocumentKind @default(other)
+  title         String?
+  fileKey       String?      @map("file_key")
+  url           String?
+  pages         Int?
+  ocrStatus     OcrStatus    @default(not_needed) @map("ocr_status")
+  textExtracted Boolean      @default(false) @map("text_extracted")
+  createdAt     DateTime     @default(now()) @map("created_at")
+
+  notice Notice @relation(fields: [noticeId], references: [id], onDelete: Cascade)
+
+  @@index([noticeId])
+  @@map("notice_documents")
+}
+
+/// Award data (DECP + TED result notices) - fuel for the renewal radar (§14.2).
+model AwardRecord {
+  id             String    @id
+  source         String
+  buyerSiren     String?   @map("buyer_siren") @db.VarChar(9)
+  buyerName      String?   @map("buyer_name")
+  supplierSiren  String?   @map("supplier_siren") @db.VarChar(9)
+  supplierName   String?   @map("supplier_name")
+  title          String?
+  cpv            String[]
+  nuts           String[]
+  amount         Decimal?  @db.Decimal(16, 2)
+  currency       String?   @db.VarChar(3)
+  signedAt       DateTime? @map("signed_at")
+  durationMonths Int?      @map("duration_months")
+  /// Null when duration is unpublished: marked unknown, never guessed (§14.5).
+  endEstimateAt  DateTime? @map("end_estimate_at")
+  noticeId       String?   @map("notice_id")
+  createdAt      DateTime  @default(now()) @map("created_at")
+
+  renewalSignals RenewalSignal[]
+
+  @@index([buyerSiren])
+  @@index([supplierSiren])
+  @@index([endEstimateAt])
+  @@map("award_records")
+}
+
+/// Reference data as data (SPEC §4.2): adding a sector pack costs zero engineering.
+model CpvLabel {
+  code  String @db.VarChar(8)
+  lang  String @db.VarChar(2)
+  label String
+
+  @@id([code, lang])
+  @@map("cpv_labels")
+}
+
+model NutsLabel {
+  code  String @db.VarChar(5)
+  lang  String @db.VarChar(2)
+  label String
+
+  @@id([code, lang])
+  @@map("nuts_labels")
+}
+
+model NafCpvMap {
+  naf    String   @id @db.VarChar(6)
+  cpv    String[]
+  weight Float    @default(1)
+
+  @@map("naf_cpv_map")
+}
+
+/// Annex D thresholds. Dated rows, never hardcoded, revised as regulation moves.
+model ProcurementThreshold {
+  id         String    @id
+  code       String
+  country    String    @db.VarChar(2)
+  label      String
+  amount     Decimal   @db.Decimal(16, 2)
+  currency   String    @default("EUR") @db.VarChar(3)
+  validFrom  DateTime  @map("valid_from") @db.Date
+  validTo    DateTime? @map("valid_to") @db.Date
+  sourceNote String?   @map("source_note")
+
+  @@unique([code, country, validFrom])
+  @@map("procurement_thresholds")
+}
+
+/// Config table behind §10.4's missing-documents plan: an ISO certification takes months,
+/// which effectively means NO-GO, while a tax attestation is same-day.
+model DocumentLeadTime {
+  id           String   @id
+  documentCode String   @unique @map("document_code")
+  label        String
+  country      String   @db.VarChar(2)
+  timeToObtain String   @map("time_to_obtain")
+  typicalDays  Int      @map("typical_days")
+  validityDays Int?     @map("validity_days")
+  notes        String?
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@map("document_lead_times")
+}
+
+// ---------------------------------------------------------------------------
+// §18.2 Org & profile - RLS-protected
+// ---------------------------------------------------------------------------
+
+model Org {
+  id              String   @id
+  name            String
+  siren           String?  @db.VarChar(9)
+  country         String   @default("FR") @db.VarChar(2)
+  locale          String   @default("fr")
+  tz              String   @default("Europe/Paris")
+  settings        Json     @default("{}")
+  plan            String   @default("trial")
+  aiCreditsBalance Int     @default(0) @map("ai_credits_balance")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  members       OrgMember[]
+  profile       CompanyProfile?
+  watchProfiles WatchProfile[]
+  evidences     Evidence[]
+  references    ReferenceProject[]
+  contentChunks ContentChunk[]
+  matches       Match[]
+  tenders       Tender[]
+  tasks         Task[]
+  notifications Notification[]
+  subscription  Subscription?
+  aiUsage       AiUsage[]
+  renewalWatches OrgRenewalWatch[]
+
+  @@map("orgs")
+}
+
+model User {
+  id        String   @id
+  email     String   @unique
+  name      String?
+  locale    String   @default("fr")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  memberships   OrgMember[]
+  assignedTasks Task[]       @relation("TaskAssignee")
+  notifications Notification[]
+
+  @@map("users")
+}
+
+/// Multi-org membership is supported: consultants work across clients (SPEC §15.1).
+model OrgMember {
+  orgId     String   @map("org_id")
+  userId    String   @map("user_id")
+  role      OrgRole  @default(bid_manager)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  org  Org  @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([orgId, userId])
+  @@index([userId])
+  @@map("org_members")
+}
+
+model CompanyProfile {
+  orgId            String   @id @map("org_id")
+  identity         Json     @default("{}")
+  revenues         Json     @default("[]")
+  headcount        Int?
+  zones            Json     @default("{}")
+  cpvFamilies      String[] @map("cpv_families")
+  keywords         String[]
+  negativeKeywords String[] @map("negative_keywords")
+  capabilityText   String?  @map("capability_text")
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  org Org @relation(fields: [orgId], references: [id], onDelete: Cascade)
+
+  @@map("company_profiles")
+}
+
+model WatchProfile {
+  id          String   @id
+  orgId       String   @map("org_id")
+  name        String
+  filters     Json     @default("{}")
+  alertPolicy Json     @default("{}") @map("alert_policy")
+  enabled     Boolean  @default(true)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  org     Org     @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  matches Match[]
+
+  @@index([orgId, enabled])
+  @@map("watch_profiles")
+}
+
+/// The proof library (SPEC §7.2). `expiresAt` drives the freshness engine; validity is
+/// always evaluated against the submission deadline, not today (§10.1).
+model Evidence {
+  id        String         @id
+  orgId     String         @map("org_id")
+  kind      EvidenceKind
+  title     String
+  fileKeys  String[]       @map("file_keys")
+  issuedAt  DateTime?      @map("issued_at") @db.Date
+  expiresAt DateTime?      @map("expires_at") @db.Date
+  issuer    String?
+  meta      Json           @default("{}")
+  tags      String[]
+  status    EvidenceStatus @default(valid)
+  createdAt DateTime       @default(now()) @map("created_at")
+  updatedAt DateTime       @updatedAt @map("updated_at")
+
+  org           Org            @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  contentChunks ContentChunk[]
+
+  @@index([orgId, expiresAt])
+  @@index([orgId, kind])
+  @@map("evidences")
+}
+
+model ReferenceProject {
+  id          String   @id
+  orgId       String   @map("org_id")
+  client      String
+  clientType  String   @map("client_type")
+  title       String
+  description String?
+  cpv         String[]
+  amount      Decimal? @db.Decimal(16, 2)
+  periodStart DateTime? @map("period_start") @db.Date
+  periodEnd   DateTime? @map("period_end") @db.Date
+  location    String?
+  evidenceIds String[] @map("evidence_ids")
+  blocks      Json     @default("{}")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  org Org @relation(fields: [orgId], references: [id], onDelete: Cascade)
+
+  @@index([orgId])
+  @@map("reference_projects")
+}
+
+/// Chunked, embedded past content for §13 retrieval.
+model ContentChunk {
+  id         String   @id
+  orgId      String   @map("org_id")
+  evidenceId String?  @map("evidence_id")
+  text       String
+  meta       Json     @default("{}")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  org      Org       @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  evidence Evidence? @relation(fields: [evidenceId], references: [id], onDelete: SetNull)
+
+  @@index([orgId])
+  @@map("content_chunks")
+}
+
+// ---------------------------------------------------------------------------
+// §18.3 Matching & workspace - RLS-protected
+// ---------------------------------------------------------------------------
+
+model Match {
+  id             String     @id
+  orgId          String     @map("org_id")
+  noticeId       String     @map("notice_id")
+  watchProfileId String?    @map("watch_profile_id")
+  score          Int
+  breakdown      Json       @default("{}")
+  state          MatchState @default(new)
+  dismissReason  String?    @map("dismiss_reason")
+  createdAt      DateTime   @default(now()) @map("created_at")
+  updatedAt      DateTime   @updatedAt @map("updated_at")
+
+  org          Org           @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  notice       Notice        @relation(fields: [noticeId], references: [id], onDelete: Cascade)
+  watchProfile WatchProfile? @relation(fields: [watchProfileId], references: [id], onDelete: SetNull)
+
+  @@unique([orgId, noticeId])
+  @@index([orgId, state, score(sort: Desc)])
+  @@map("matches")
+}
+
+model Tender {
+  id         String       @id
+  orgId      String       @map("org_id")
+  noticeId   String?      @map("notice_id")
+  origin     TenderOrigin @default(match)
+  stage      TenderStage  @default(analysis)
+  title      String
+  deadlineAt DateTime?    @map("deadline_at")
+  meta       Json         @default("{}")
+  submittedAt DateTime?   @map("submitted_at")
+  createdAt  DateTime     @default(now()) @map("created_at")
+  updatedAt  DateTime     @updatedAt @map("updated_at")
+
+  org             Org              @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  notice          Notice?          @relation(fields: [noticeId], references: [id], onDelete: SetNull)
+  analyses        Analysis[]
+  requirements    Requirement[]
+  complianceItems ComplianceItem[]
+  decisions       Decision[]
+  tasks           Task[]
+  qaItems         QaItem[]
+  generations     Generation[]
+  memoDocument    MemoDocument?
+
+  @@index([orgId, stage])
+  @@index([orgId, deadlineAt])
+  @@map("tenders")
+}
+
+model Analysis {
+  id        String         @id
+  tenderId  String         @map("tender_id")
+  orgId     String         @map("org_id")
+  kind      AnalysisKind
+  version   Int            @default(1)
+  status    AnalysisStatus @default(queued)
+  output    Json           @default("{}")
+  model     String?
+  tokensIn  Int            @default(0) @map("tokens_in")
+  tokensOut Int            @default(0) @map("tokens_out")
+  costCents Int            @default(0) @map("cost_cents")
+  createdAt DateTime       @default(now()) @map("created_at")
+  updatedAt DateTime       @updatedAt @map("updated_at")
+
+  tender Tender @relation(fields: [tenderId], references: [id], onDelete: Cascade)
+
+  @@unique([tenderId, kind, version])
+  @@index([orgId])
+  @@map("analyses")
+}
+
+/// The requirement register (SPEC §9.2). `provenance` carries document + page + quote:
+/// no citation, no fact (P1).
+model Requirement {
+  id            String           @id
+  tenderId      String           @map("tender_id")
+  orgId         String           @map("org_id")
+  ref           String
+  text          String
+  type          RequirementType
+  category      String?
+  needsEvidence Boolean          @default(false) @map("needs_evidence")
+  provenance    Json             @default("{}")
+  confidence    Float?
+  lotScope      String[]         @map("lot_scope")
+  state         RequirementState @default(active)
+  createdAt     DateTime         @default(now()) @map("created_at")
+  updatedAt     DateTime         @updatedAt @map("updated_at")
+
+  tender         Tender          @relation(fields: [tenderId], references: [id], onDelete: Cascade)
+  complianceItem ComplianceItem?
+
+  @@unique([tenderId, ref])
+  @@index([tenderId, type])
+  @@map("requirements")
+}
+
+/// The invariant that defines BidPilot: no orphan requirements (SPEC §11).
+model ComplianceItem {
+  id            String           @id
+  tenderId      String           @map("tender_id")
+  orgId         String           @map("org_id")
+  requirementId String           @unique @map("requirement_id")
+  status        ComplianceStatus @default(missing)
+  ownerId       String?          @map("owner_id")
+  note          String?
+  evidenceRefs  Json             @default("[]") @map("evidence_refs")
+  reviewedBy    String?          @map("reviewed_by")
+  reviewState   ReviewState      @default(draft) @map("review_state")
+  createdAt     DateTime         @default(now()) @map("created_at")
+  updatedAt     DateTime         @updatedAt @map("updated_at")
+
+  tender      Tender      @relation(fields: [tenderId], references: [id], onDelete: Cascade)
+  requirement Requirement @relation(fields: [requirementId], references: [id], onDelete: Cascade)
+
+  @@index([tenderId, status])
+  @@map("compliance_items")
+}
+
+/// INSERT-only (SPEC §18.3, §10.6): a superseding decision creates a new record. The
+/// immutability is enforced by a trigger in the migration, not by convention.
+model Decision {
+  id            String   @id
+  tenderId      String   @map("tender_id")
+  orgId         String   @map("org_id")
+  verdict       Verdict
+  conditions    Json     @default("[]")
+  eligibilityPct Int?    @map("eligibility_pct")
+  winnability   String?
+  reasons       Json     @default("[]")
+  votes         Json     @default("[]")
+  decidedBy     String   @map("decided_by")
+  decidedAt     DateTime @default(now()) @map("decided_at")
+
+  tender Tender @relation(fields: [tenderId], references: [id], onDelete: Cascade)
+
+  @@index([tenderId, decidedAt])
+  @@map("decisions")
+}
+
+model Task {
+  id         String     @id
+  orgId      String     @map("org_id")
+  tenderId   String?    @map("tender_id")
+  title      String
+  kind       String?
+  assigneeId String?    @map("assignee_id")
+  dueAt      DateTime?  @map("due_at")
+  status     TaskStatus @default(todo)
+  source     TaskSource @default(manual)
+  meta       Json       @default("{}")
+  createdAt  DateTime   @default(now()) @map("created_at")
+  updatedAt  DateTime   @updatedAt @map("updated_at")
+
+  org      Org     @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  tender   Tender? @relation(fields: [tenderId], references: [id], onDelete: Cascade)
+  assignee User?   @relation("TaskAssignee", fields: [assigneeId], references: [id], onDelete: SetNull)
+
+  @@index([orgId, status, dueAt])
+  @@index([tenderId])
+  @@map("tasks")
+}
+
+model QaItem {
+  id         String   @id
+  tenderId   String   @map("tender_id")
+  orgId      String   @map("org_id")
+  question   String
+  status     QaStatus @default(draft)
+  sentAt     DateTime? @map("sent_at")
+  answer     String?
+  impactRefs Json     @default("[]") @map("impact_refs")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  tender Tender @relation(fields: [tenderId], references: [id], onDelete: Cascade)
+
+  @@index([tenderId, status])
+  @@map("qa_items")
+}
+
+model Generation {
+  id            String         @id
+  tenderId      String         @map("tender_id")
+  orgId         String         @map("org_id")
+  kind          GenerationKind
+  status        AnalysisStatus @default(queued)
+  inputSnapshot Json           @default("{}") @map("input_snapshot")
+  output        Json?
+  fileKey       String?        @map("file_key")
+  model         String?
+  tokensIn      Int            @default(0) @map("tokens_in")
+  tokensOut     Int            @default(0) @map("tokens_out")
+  costCents     Int            @default(0) @map("cost_cents")
+  reviewState   ReviewState    @default(ai_draft) @map("review_state")
+  createdAt     DateTime       @default(now()) @map("created_at")
+  updatedAt     DateTime       @updatedAt @map("updated_at")
+
+  tender Tender @relation(fields: [tenderId], references: [id], onDelete: Cascade)
+
+  @@index([tenderId, kind])
+  @@map("generations")
+}
+
+model MemoDocument {
+  id         String   @id
+  tenderId   String   @unique @map("tender_id")
+  orgId      String   @map("org_id")
+  outline    Json     @default("[]")
+  blocks     Json     @default("[]")
+  version    Int      @default(1)
+  pageBudget Json     @default("{}") @map("page_budget")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  tender Tender @relation(fields: [tenderId], references: [id], onDelete: Cascade)
+
+  @@map("memo_documents")
+}
+
+/// "Who to call before the tender exists" (SPEC §14.2).
+model RenewalSignal {
+  id            String       @id
+  awardRecordId String       @map("award_record_id")
+  windowStart   DateTime     @map("window_start") @db.Date
+  windowEnd     DateTime     @map("window_end") @db.Date
+  confidence    Float        @default(0.5)
+  state         RenewalState @default(predicted)
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @updatedAt @map("updated_at")
+
+  awardRecord AwardRecord       @relation(fields: [awardRecordId], references: [id], onDelete: Cascade)
+  watches     OrgRenewalWatch[]
+
+  @@index([windowStart])
+  @@map("renewal_signals")
+}
+
+model OrgRenewalWatch {
+  orgId           String   @map("org_id")
+  renewalSignalId String   @map("renewal_signal_id")
+  state           String   @default("watching")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  org           Org           @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  renewalSignal RenewalSignal @relation(fields: [renewalSignalId], references: [id], onDelete: Cascade)
+
+  @@id([orgId, renewalSignalId])
+  @@map("org_renewal_watches")
+}
+
+// ---------------------------------------------------------------------------
+// §18.4 Platform
+// ---------------------------------------------------------------------------
+
+model Subscription {
+  orgId            String   @id @map("org_id")
+  stripeCustomerId String?  @map("stripe_customer_id")
+  stripeSubId      String?  @map("stripe_subscription_id")
+  plan             String   @default("trial")
+  seats            Int      @default(1)
+  status           String   @default("trialing")
+  periodStart      DateTime? @map("period_start")
+  periodEnd        DateTime? @map("period_end")
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  org Org @relation(fields: [orgId], references: [id], onDelete: Cascade)
+
+  @@map("subscriptions")
+}
+
+model AiUsage {
+  id        String   @id
+  orgId     String   @map("org_id")
+  month     String   @db.VarChar(7)
+  feature   String
+  tokensIn  Int      @default(0) @map("tokens_in")
+  tokensOut Int      @default(0) @map("tokens_out")
+  costCents Int      @default(0) @map("cost_cents")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  org Org @relation(fields: [orgId], references: [id], onDelete: Cascade)
+
+  @@unique([orgId, month, feature])
+  @@map("ai_usage")
+}
+
+/// Delivery is tracked because a missed deadline alert is the worst product failure
+/// there is (SPEC §16, §12.4): `sentAt` and `ackAt` drive escalation.
+model Notification {
+  id        String    @id
+  orgId     String    @map("org_id")
+  userId    String?   @map("user_id")
+  kind      String
+  payload   Json      @default("{}")
+  channels  String[]
+  sentAt    DateTime? @map("sent_at")
+  ackAt     DateTime? @map("ack_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  org  Org   @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([orgId, kind, sentAt])
+  @@map("notifications")
+}
+
+/// Audit log, INSERT-only (enforced by trigger). Auditability is enterprise trust (§10.5).
+model Event {
+  id        String   @id
+  orgId     String?  @map("org_id")
+  actor     String?
+  kind      String
+  entity    String?
+  payload   Json     @default("{}")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([orgId, createdAt])
+  @@map("events")
+}
+
+/// Postgres-backed job queue (SPEC §17.1): language-agnostic across TS and Python, and
+/// transactional with business writes. Payloads are ids, never blobs (§17.3).
+model Job {
+  id             String   @id
+  kind           String
+  payload        Json     @default("{}")
+  state          JobState @default(queued)
+  runAt          DateTime @default(now()) @map("run_at")
+  attempts       Int      @default(0)
+  maxAttempts    Int      @default(5) @map("max_attempts")
+  lockedBy       String?  @map("locked_by")
+  lockedAt       DateTime? @map("locked_at")
+  idempotencyKey String   @unique @map("idempotency_key")
+  lastError      String?  @map("last_error")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  @@index([state, runAt])
+  @@map("jobs")
+}
