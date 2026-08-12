@@ -11,7 +11,6 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-
 from bidpilot_ingestion.adapters import BoampAdapter, LegalBasis, SourceConfig, TedAdapter
 from bidpilot_ingestion.adapters.base import content_hash
 from bidpilot_ingestion.canonical import CanonicalNotice, RawNotice

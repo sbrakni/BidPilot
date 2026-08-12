@@ -99,16 +99,30 @@ def capture_ted() -> None:
     """TED v3 expert search. No API key required for search (SPEC §6.3, verified)."""
     print("TED …")
     for name, query in (
-        ("competition", "(place-of-performance IN (FRA BEL LUX)) AND (notice-type IN (cn-standard))"),
-        ("award", "(place-of-performance IN (FRA BEL LUX)) AND (notice-type IN (can-standard))"),
-        ("planning", "(place-of-performance IN (FRA BEL LUX)) AND (notice-type IN (pin-only))"),
+        (
+            "competition",
+            "(place-of-performance IN (FRA BEL LUX)) AND (notice-type IN (cn-standard))",
+        ),
+        (
+            "award",
+            "(place-of-performance IN (FRA BEL LUX)) AND (notice-type IN (can-standard))",
+        ),
+        (
+            "planning",
+            "(place-of-performance IN (FRA BEL LUX)) AND (notice-type IN (pin-only))",
+        ),
     ):
         try:
             data = _post_json(
                 "https://api.ted.europa.eu/v3/notices/search",
-                {"query": f"{query} AND (publication-date >= today(-7))", "limit": 8, "page": 1, "fields": TED_FIELDS},
+                {
+                    "query": f"{query} AND (publication-date >= today(-7))",
+                    "limit": 8,
+                    "page": 1,
+                    "fields": TED_FIELDS,
+                },
             )
-        except Exception as exc:  # noqa: BLE001 - fixture capture is best-effort per source
+        except Exception as exc:
             print(f"  !! {name}: {exc}")
             continue
         _write(f"notices/ted_{name}.json", data)
@@ -121,11 +135,18 @@ def capture_boamp() -> None:
     for name, params in (
         ("recent", {"limit": 8, "order_by": "dateparution desc"}),
         # `titulaire` is populated on award notices - the DECP-adjacent signal for §14.
-        ("awards", {"limit": 5, "order_by": "dateparution desc", "where": "titulaire is not null"}),
+        (
+            "awards",
+            {
+                "limit": 5,
+                "order_by": "dateparution desc",
+                "where": "titulaire is not null",
+            },
+        ),
     ):
         try:
             data = _get_json(f"{base}?{urllib.parse.urlencode(params)}")
-        except Exception as exc:  # noqa: BLE001
+        except Exception as exc:
             print(f"  !! {name}: {exc}")
             continue
         _write(f"notices/boamp_{name}.json", data)
@@ -138,7 +159,7 @@ def capture_entreprises() -> None:
     for name, q in (("ipsos", "ipsos"), ("small_it", "societe informatique")):
         try:
             data = _get_json(f"{base}?{urllib.parse.urlencode({'q': q, 'per_page': 3})}")
-        except Exception as exc:  # noqa: BLE001
+        except Exception as exc:
             print(f"  !! {name}: {exc}")
             continue
         _write(f"entreprises/{name}.json", data)

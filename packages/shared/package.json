@@ -12,7 +12,8 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "lint": "echo \"no JS linter configured yet (see docs/STATUS.md)\""
   },
   "dependencies": {
     "zod": "^3.24.1"

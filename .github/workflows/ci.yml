@@ -1,0 +1,122 @@
+name: CI
+
+# Quality gates from SPEC §16. Two of these must never be allowed to go soft: the
+# cross-tenant suite guards tenant isolation, and the adapter regression tests guard
+# against a source silently changing shape.
+
+on:
+  push:
+    branches: ["main", "claude/**"]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Owner connection: migrations and seeding.
+  DATABASE_URL: postgresql://bidpilot:bidpilot@localhost:5432/bidpilot?schema=public
+  # Application connection: the non-owner role RLS actually applies to (SPEC §17.6).
+  DATABASE_APP_URL: postgresql://bidpilot_app:bidpilot_app@localhost:5432/bidpilot?schema=public
+
+jobs:
+  python:
+    name: Python - adapters, dedupe, matching
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          # The spec targets 3.12; the code supports >= 3.11 (ADR-0003). CI runs the
+          # spec's version so that target stays verified.
+          python-version: "3.12"
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e "services/ingestion[dev]"
+      - name: Lint
+        run: ruff check services/ingestion scripts
+      - name: Format check
+        run: ruff format --check services/ingestion scripts
+      - name: Test
+        run: pytest services/ingestion -q
+
+  typescript:
+    name: TypeScript - build, typecheck, cross-tenant RLS suite
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        # pgvector image so the vector columns and HNSW indexes exist (ADR-0004).
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: bidpilot
+          POSTGRES_PASSWORD: bidpilot
+          POSTGRES_DB: bidpilot
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U bidpilot -d bidpilot"
+          --health-interval 5s --health-timeout 5s --health-retries 20
+      redis:
+        image: redis:7-alpine
+        ports: ["6379:6379"]
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s --health-timeout 3s --health-retries 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Install postgres client
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+
+      - name: Bootstrap database extensions and application role
+        # Role creation is a privileged step, deliberately outside the migrations (ADR-0005).
+        env:
+          PGPASSWORD: bidpilot
+        run: |
+          psql -h localhost -U bidpilot -d bidpilot -c \
+            "CREATE EXTENSION IF NOT EXISTS vector; CREATE EXTENSION IF NOT EXISTS pg_trgm; CREATE EXTENSION IF NOT EXISTS unaccent;"
+          psql -h localhost -U bidpilot -d bidpilot -v app_password=bidpilot_app \
+            -f packages/db/sql/bootstrap_roles.sql
+
+      - name: Generate Prisma client
+        run: pnpm db:generate
+
+      - name: Apply migrations
+        run: pnpm db:migrate
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Build
+        run: pnpm build
+
+      - name: Seed demo environment
+        # Also asserts the seed stays runnable, which Phase 0's exit criteria depend on.
+        run: pnpm db:seed
+
+      - name: Test (includes the cross-tenant RLS suite, SPEC §15.5)
+        run: pnpm test
+
+  ai-eval:
+    name: AI eval harness (Annex E.4)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Not yet implemented
+        # Annex E.4 gates (requirement recall >= 0.90, eliminatory recall >= 0.95) land with
+        # the extraction pipeline in Phase 2. This job exists so the gate is visible in the
+        # pipeline rather than forgotten, and it MUST become blocking before any extraction
+        # prompt or model change can ship.
+        run: |
+          echo "Eval harness lands with F4 extraction in Phase 2 (see docs/STATUS.md)."
+          echo "Gates: requirement recall >= 0.90, eliminatory recall >= 0.95, precision >= 0.85."

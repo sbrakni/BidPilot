@@ -216,9 +216,7 @@ def same_tender(
     # (1) explicit cross-references between two different publications
     shared = cross_references(left) & cross_references(right)
     if shared:
-        return MatchVerdict(
-            True, MatchReason.CROSS_REFERENCE, 1.0, {"shared_reference": sorted(shared)[0]}
-        )
+        return MatchVerdict(True, MatchReason.CROSS_REFERENCE, 1.0, {"shared_reference": sorted(shared)[0]})
 
     # (2) buyer identity + deadline (±1h) + title similarity
     left_key, right_key = buyer_key(left), buyer_key(right)
@@ -384,6 +382,8 @@ def cluster_notices(
                 break
         if not placed:
             clusters.append(
-                Cluster(cluster_id=f"{id_prefix}_{len(clusters) + 1:06d}", canonical=notice.model_copy(deep=True))
+                Cluster(
+                    cluster_id=f"{id_prefix}_{len(clusters) + 1:06d}", canonical=notice.model_copy(deep=True)
+                )
             )
     return clusters

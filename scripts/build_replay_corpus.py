@@ -33,14 +33,15 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT / "services" / "ingestion"))
 sys.path.insert(0, str(REPO_ROOT))
 
-from bidpilot_ingestion.adapters import (  # noqa: E402 - path set above
+from bidpilot_ingestion.adapters import (
     BoampAdapter,
     LegalBasis,
     SourceConfig,
     TedAdapter,
 )
-from bidpilot_ingestion.canonical import CanonicalNotice, RawNotice  # noqa: E402
-from scripts.capture_fixtures import TED_FIELDS  # noqa: E402
+from bidpilot_ingestion.canonical import CanonicalNotice, RawNotice
+
+from scripts.capture_fixtures import TED_FIELDS
 
 USER_AGENT = "BidPilotBot/1.0 (+https://bidpilot.example/bot)"
 TED_SEARCH_URL = "https://api.ted.europa.eu/v3/notices/search"
@@ -65,7 +66,12 @@ def _post(url: str, payload: dict[str, Any]) -> Any:
 
 def _get(url: str) -> Any:
     request = urllib.request.Request(
-        url, headers={"User-Agent": USER_AGENT, "Accept-Encoding": "identity", "Accept": "application/json"}
+        url,
+        headers={
+            "User-Agent": USER_AGENT,
+            "Accept-Encoding": "identity",
+            "Accept": "application/json",
+        },
     )
     with urllib.request.urlopen(request, timeout=120) as response:
         body = response.read()
@@ -90,8 +96,7 @@ def collect_ted(days: int) -> list[CanonicalNotice]:
             TED_SEARCH_URL,
             {
                 "query": (
-                    "(place-of-performance IN (FRA BEL LUX)) "
-                    f"AND (publication-date >= today(-{days}))"
+                    f"(place-of-performance IN (FRA BEL LUX)) AND (publication-date >= today(-{days}))"
                 ),
                 "page": page,
                 "limit": PAGE_SIZE,
@@ -180,7 +185,8 @@ def main() -> int:
     }
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(json.dumps(corpus, ensure_ascii=False) + "\n")
-    print(f"wrote {OUTPUT.relative_to(REPO_ROOT)}: {len(notices)} notices, {OUTPUT.stat().st_size / 1024:.0f} KB")
+    size_kb = OUTPUT.stat().st_size / 1024
+    print(f"wrote {OUTPUT.relative_to(REPO_ROOT)}: {len(notices)} notices, {size_kb:.0f} KB")
     return 0
 
 

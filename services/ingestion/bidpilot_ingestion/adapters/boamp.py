@@ -46,9 +46,7 @@ from ..canonical import (
 from ..eforms import company_ids, cpv_codes, get_path, iter_nodes, nuts_codes, pick_lang, text_of
 from .base import BaseAdapter, Cursor, register
 
-BOAMP_RECORDS_URL = (
-    "https://boamp-datadila.opendatasoft.com/api/explore/v2.1/catalog/datasets/boamp/records"
-)
+BOAMP_RECORDS_URL = "https://boamp-datadila.opendatasoft.com/api/explore/v2.1/catalog/datasets/boamp/records"
 
 # France is one timezone; BOAMP timestamps carry an offset but the buyer's clock is Paris.
 FR_TIMEZONE = "Europe/Paris"
@@ -364,9 +362,7 @@ class BoampAdapter(BaseAdapter):
 
     # ---------------------------------------------------------------- field extraction
 
-    def _buyer(
-        self, record: dict[str, Any], notice_node: dict[str, Any] | None, legacy: Any
-    ) -> Buyer:
+    def _buyer(self, record: dict[str, Any], notice_node: dict[str, Any] | None, legacy: Any) -> Buyer:
         name = record.get("nomacheteur")
         siret = siren = None
         contact = Contact()

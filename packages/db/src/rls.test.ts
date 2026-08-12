@@ -11,7 +11,7 @@
 import { PrismaClient } from "@prisma/client";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
-import { withGlobalContext, withOrgContext } from "./index.js";
+import { withGlobalContext, withOrgContext, withPurgeContext } from "./index.js";
 
 const ownerUrl = process.env.DATABASE_URL;
 const appUrl = process.env.DATABASE_APP_URL;
@@ -23,6 +23,28 @@ const ORG_B = "org_rls_b";
 let owner: PrismaClient;
 let app: PrismaClient;
 
+/**
+ * Remove an org's fixture rows.
+ *
+ * Cleanup runs *inside* the org's context on purpose: the migration sets FORCE ROW LEVEL
+ * SECURITY, so a context-less `DELETE FROM orgs` matches nothing and silently succeeds -
+ * which is precisely how the first version of this fixture leaked rows between runs.
+ */
+async function resetOrg(orgId: string): Promise<void> {
+  // `withPurgeContext` because `decisions` is append-only and cascades from `tenders`:
+  // without the erasure flag, deleting the tender would be blocked by the trigger.
+  await withPurgeContext(
+    orgId,
+    async (tx) => {
+      for (const table of ["decisions", "tasks", "tenders", "org_members", "orgs"]) {
+        const column = table === "orgs" ? "id" : "org_id";
+        await tx.$executeRawUnsafe(`DELETE FROM ${table} WHERE ${column} = $1`, orgId);
+      }
+    },
+    owner,
+  );
+}
+
 beforeAll(async () => {
   if (!ownerUrl || !appUrl) {
     throw new Error("DATABASE_URL and DATABASE_APP_URL must be set to run the RLS suite");
@@ -30,10 +52,8 @@ beforeAll(async () => {
   owner = new PrismaClient({ datasources: { db: { url: ownerUrl } } });
   app = new PrismaClient({ datasources: { db: { url: appUrl } } });
 
-  // Seed through the owner connection, still establishing context per org: the migration
-  // sets FORCE ROW LEVEL SECURITY, so even the owner obeys the policies.
-  await owner.$executeRawUnsafe(`DELETE FROM tenders WHERE org_id IN ('${ORG_A}','${ORG_B}')`);
-  await owner.$executeRawUnsafe(`DELETE FROM orgs WHERE id IN ('${ORG_A}','${ORG_B}')`);
+  await resetOrg(ORG_A);
+  await resetOrg(ORG_B);
 
   for (const [orgId, title] of [
     [ORG_A, "Infogérance - Org A"],
@@ -59,9 +79,8 @@ beforeAll(async () => {
 
 afterAll(async () => {
   if (owner) {
-    await owner.$executeRawUnsafe(`DELETE FROM tenders WHERE org_id IN ('${ORG_A}','${ORG_B}')`);
-    await owner.$executeRawUnsafe(`DELETE FROM tasks WHERE org_id IN ('${ORG_A}','${ORG_B}')`);
-    await owner.$executeRawUnsafe(`DELETE FROM orgs WHERE id IN ('${ORG_A}','${ORG_B}')`);
+    await resetOrg(ORG_A);
+    await resetOrg(ORG_B);
     await owner.$disconnect();
   }
   if (app) await app.$disconnect();
@@ -84,11 +103,12 @@ describe("tenant isolation", () => {
   });
 
   it.each(["tender", "task", "org"] as const)("isolates %s rows in both directions", async (model) => {
-    const fromA = await withOrgContext(ORG_A, (tx) => (tx[model] as any).findMany(), app);
-    const fromB = await withOrgContext(ORG_B, (tx) => (tx[model] as any).findMany(), app);
-    const idsA = fromA.map((r: { id: string }) => r.id);
-    const idsB = fromB.map((r: { id: string }) => r.id);
-    expect(idsA.some((v: string) => idsB.includes(v))).toBe(false);
+    type Row = { id: string };
+    const fromA: Row[] = await withOrgContext(ORG_A, (tx) => (tx[model] as any).findMany(), app);
+    const fromB: Row[] = await withOrgContext(ORG_B, (tx) => (tx[model] as any).findMany(), app);
+    const idsA = fromA.map((r) => r.id);
+    const idsB = fromB.map((r) => r.id);
+    expect(idsA.some((v) => idsB.includes(v))).toBe(false);
     expect(idsA.length).toBeGreaterThan(0);
     expect(idsB.length).toBeGreaterThan(0);
   });
@@ -198,7 +218,6 @@ describe("append-only invariants (SPEC §10.6)", () => {
     await withOrgContext(
       ORG_A,
       async (tx) => {
-        await tx.$executeRawUnsafe(`DELETE FROM decisions WHERE tender_id = '${tenderId}'`).catch(() => 0);
         await tx.decision.create({
           data: {
             id: decisionId,
@@ -226,10 +245,33 @@ describe("append-only invariants (SPEC §10.6)", () => {
       withOrgContext(ORG_A, (tx) => tx.decision.delete({ where: { id: decisionId } }), app),
     ).rejects.toThrow(/append-only/i);
 
+    // Cleanup goes through the erasure path - the only route that may delete history.
+    await withPurgeContext(
+      ORG_A,
+      (tx) => tx.$executeRawUnsafe(`DELETE FROM decisions WHERE id = $1`, decisionId),
+      owner,
+    );
+  });
+
+  it("permits erasure only through the purge path (SPEC §15.5)", async () => {
+    // GDPR erasure must remain possible even though the log is append-only. The flag is
+    // transaction-local, so it cannot leak into a subsequent request on the same connection.
+    const decisionId = "decision_purge_test";
     await withOrgContext(
       ORG_A,
-      (tx) => tx.$executeRawUnsafe(`DELETE FROM decisions WHERE id = '${decisionId}'`),
+      (tx) =>
+        tx.decision.create({
+          data: { id: decisionId, tenderId: `tender_${ORG_A}`, orgId: ORG_A, verdict: "go", decidedBy: "user_test" },
+        }),
       owner,
-    ).catch(() => 0);
+    );
+
+    await expect(
+      withOrgContext(ORG_A, (tx) => tx.decision.delete({ where: { id: decisionId } }), owner),
+    ).rejects.toThrow(/append-only/i);
+
+    await expect(
+      withPurgeContext(ORG_A, (tx) => tx.decision.delete({ where: { id: decisionId } }), owner),
+    ).resolves.toMatchObject({ id: decisionId });
   });
 });

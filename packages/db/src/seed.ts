@@ -13,9 +13,10 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 
 import { id, withOrgContext } from "./index.js";
+
 import {
   CPV_LABELS,
   DOCUMENT_LEAD_TIMES,
@@ -25,6 +26,13 @@ import {
   SOURCES,
   THRESHOLDS,
 } from "./seed-data.js";
+
+/**
+ * Values read from the replay corpus are structurally JSON but typed `unknown` after
+ * parsing. This narrows them to Prisma's JSON input type at the single boundary where the
+ * data enters the database, instead of scattering casts through the seed.
+ */
+const asJson = (value: unknown): Prisma.InputJsonValue => value as Prisma.InputJsonValue;
 
 const REPO_ROOT = path.resolve(import.meta.dirname, "../../..");
 const REPLAY = path.join(REPO_ROOT, "fixtures", "notices", "replay_48h.json");
@@ -139,9 +147,9 @@ async function seedReferenceData(prisma: PrismaClient): Promise<void> {
         tier: source.tier,
         kind: source.kind,
         adapter: source.adapter,
-        config: source.config,
+        config: asJson(source.config),
         schedule: source.schedule,
-        legal: source.legal,
+        legal: asJson(source.legal),
         enabled: source.enabled,
       },
       create: {
@@ -151,9 +159,9 @@ async function seedReferenceData(prisma: PrismaClient): Promise<void> {
         tier: source.tier,
         kind: source.kind,
         adapter: source.adapter,
-        config: source.config,
+        config: asJson(source.config),
         schedule: source.schedule,
-        legal: source.legal,
+        legal: asJson(source.legal),
         enabled: source.enabled,
       },
     });
@@ -216,7 +224,7 @@ async function seedNotices(prisma: PrismaClient, corpus: CanonicalNotice[]): Pro
     // Deterministic id from the source reference so re-seeding updates rather than duplicates.
     const noticeId = `ntc_${ref.source}_${ref.external_id}`.replace(/[^\w]/g, "_").slice(0, 60);
     const data = {
-      sourceRefs: notice.source_refs,
+      sourceRefs: asJson(notice.source_refs),
       status: notice.status,
       noticeType: notice.notice_type,
       country: notice.country,
@@ -235,11 +243,11 @@ async function seedNotices(prisma: PrismaClient, corpus: CanonicalNotice[]): Pro
       questionsDeadlineAt: notice.dates?.questions_deadline_at
         ? new Date(notice.dates.questions_deadline_at)
         : null,
-      lots: notice.lots ?? [],
-      urls: notice.urls ?? {},
+      lots: asJson(notice.lots ?? []),
+      urls: asJson(notice.urls ?? {}),
       requiresAccount: notice.requires_account_for_docs ?? null,
-      award: (notice.award as object) ?? null,
-      provenance: notice.provenance ?? {},
+      award: notice.award ? asJson(notice.award) : Prisma.DbNull,
+      provenance: asJson(notice.provenance ?? {}),
       version: notice.version ?? 1,
     };
     await prisma.notice.upsert({ where: { id: noticeId }, update: data, create: { id: noticeId, ...data } });
@@ -257,7 +265,7 @@ async function seedNotices(prisma: PrismaClient, corpus: CanonicalNotice[]): Pro
  */
 function demoScore(
   notice: CanonicalNotice,
-  pack: { cpvFamilies: string[]; keywords: readonly string[] },
+  pack: { cpvFamilies: readonly string[]; keywords: readonly string[] },
   zones: { nuts: string[]; national: boolean },
 ): { score: number; breakdown: object } | null {
   const codes = notice.cpv ?? [];
@@ -341,8 +349,8 @@ async function seedOrgs(prisma: PrismaClient, corpus: CanonicalNotice[], noticeI
           where: { orgId: org.id },
           update: {
             headcount: org.headcount,
-            revenues: org.revenues,
-            zones: org.zones,
+            revenues: asJson(org.revenues),
+            zones: asJson(org.zones),
             cpvFamilies: [...pack.cpvFamilies],
             keywords: [...pack.keywords],
             capabilityText: org.capabilityText,
@@ -351,8 +359,8 @@ async function seedOrgs(prisma: PrismaClient, corpus: CanonicalNotice[], noticeI
             orgId: org.id,
             identity: { legal_name: org.name, siren: org.siren, sector_pack: org.pack },
             headcount: org.headcount,
-            revenues: org.revenues,
-            zones: org.zones,
+            revenues: asJson(org.revenues),
+            zones: asJson(org.zones),
             cpvFamilies: [...pack.cpvFamilies],
             keywords: [...pack.keywords],
             negativeKeywords: [],
@@ -447,14 +455,14 @@ async function seedOrgs(prisma: PrismaClient, corpus: CanonicalNotice[], noticeI
           const matchId = `mch_${org.id}_${noticeId}`.slice(0, 80);
           await tx.match.upsert({
             where: { orgId_noticeId: { orgId: org.id, noticeId } },
-            update: { score: scored.score, breakdown: scored.breakdown },
+            update: { score: scored.score, breakdown: asJson(scored.breakdown) },
             create: {
               id: matchId,
               orgId: org.id,
               noticeId,
               watchProfileId: watchId,
               score: scored.score,
-              breakdown: scored.breakdown,
+              breakdown: asJson(scored.breakdown),
               state: "new",
             },
           });

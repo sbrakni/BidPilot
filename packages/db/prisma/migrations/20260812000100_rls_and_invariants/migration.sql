@@ -94,6 +94,15 @@ BEGIN
 END
 $$;
 
+-- `org_members` is how a user *discovers* which orgs they may act for, so it cannot be
+-- readable only from inside an org context - that is circular. A user may always read
+-- their own membership rows; writing one still requires the target org's context, so
+-- adding a member remains an operation performed by that org.
+DROP POLICY IF EXISTS org_isolation ON org_members;
+CREATE POLICY org_isolation ON org_members
+  USING (org_id = app_current_org_id() OR user_id = app_current_user_id())
+  WITH CHECK (org_id = app_current_org_id());
+
 -- `users` needs per-command policies, because identity does not belong to an org.
 --
 -- The threat to close is *enumeration*: org A must not be able to list org B's people.
@@ -145,12 +154,26 @@ CREATE POLICY org_isolation ON events
 -- decisions create new records)". Enforced in the database, because "at API level" is
 -- exactly the guarantee a future endpoint forgets.
 
+-- UPDATE is never permitted: a superseding decision creates a new record, which is what
+-- makes the log auditable.
+--
+-- DELETE is permitted only under an explicit `app.allow_purge` flag. Without that escape
+-- hatch the invariant would collide with a legal obligation: §15.5 requires org deletion to
+-- purge personal data within 30 days, and because decisions cascade from tenders, an
+-- unconditional block would make any org that ever recorded a decision undeletable. The
+-- flag is set only by the erasure pipeline and by test fixtures - never on a request path -
+-- so ordinary application code still cannot delete history, and the purge is deliberate
+-- and greppable rather than an accident.
 CREATE OR REPLACE FUNCTION forbid_mutation() RETURNS trigger
   LANGUAGE plpgsql AS $$
 BEGIN
+  IF TG_OP = 'DELETE' AND current_setting('app.allow_purge', true) = 'on' THEN
+    RETURN OLD;
+  END IF;
   RAISE EXCEPTION '% is append-only: % is not permitted (SPEC §10.6/§18.4)',
     TG_TABLE_NAME, TG_OP
-    USING ERRCODE = 'restrict_violation';
+    USING ERRCODE = 'restrict_violation',
+      HINT = 'Superseding records are inserted, never updated. Erasure requires app.allow_purge.';
 END
 $$;
 

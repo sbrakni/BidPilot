@@ -11,7 +11,6 @@ from datetime import UTC, datetime
 
 import httpx
 import pytest
-
 from bidpilot_ingestion.adapters import LegalBasis, SourceConfig, TedAdapter, get_adapter
 from bidpilot_ingestion.adapters.base import BaseAdapter, Cursor, RateLimiter, content_hash
 from bidpilot_ingestion.adapters.boamp import clean_text, dept_to_nuts
@@ -19,7 +18,6 @@ from bidpilot_ingestion.adapters.ted import _combine_date_time, _parse_offset_da
 from bidpilot_ingestion.canonical import CanonicalNotice, NoticeType
 
 from tests.conftest import boamp_raws, ted_raws
-
 
 # ---------------------------------------------------------------- canonical invariants
 
@@ -149,7 +147,9 @@ def test_boamp_maps_departements_to_nuts(boamp_adapter):
 
     notices = [boamp_adapter.normalize(raw) for raw in boamp_raws()]
     assert any(notice.nuts for notice in notices), "expected NUTS on at least one record"
-    assert all(all(code.startswith(("FR", "BE", "LU", "CH", "DE", "ES", "IT")) for code in n.nuts) for n in notices)
+    assert all(
+        all(code.startswith(("FR", "BE", "LU", "CH", "DE", "ES", "IT")) for code in n.nuts) for n in notices
+    )
 
 
 # ---------------------------------------------------------------- date handling
@@ -193,7 +193,9 @@ def test_adapter_refuses_to_run_without_legal_basis():
 def test_invalid_legal_basis_is_rejected():
     with pytest.raises(ValueError, match="legal basis must be one of"):
         TedAdapter(
-            SourceConfig(code="x", country="EU", tier=1, kind="api", legal=LegalBasis(basis="because-i-said-so"))
+            SourceConfig(
+                code="x", country="EU", tier=1, kind="api", legal=LegalBasis(basis="because-i-said-so")
+            )
         )
 
 
@@ -265,7 +267,9 @@ def test_fetch_since_pages_until_short_page():
         return httpx.Response(200, json={"notices": notices, "totalNoticeCount": count})
 
     adapter = TedAdapter(
-        SourceConfig(code="eu-ted", country="EU", tier=1, kind="api", max_rps=0, legal=LegalBasis(basis="open-license")),
+        SourceConfig(
+            code="eu-ted", country="EU", tier=1, kind="api", max_rps=0, legal=LegalBasis(basis="open-license")
+        ),
         client=httpx.Client(transport=httpx.MockTransport(handler)),
     )
     fetched = list(adapter.fetch_since(Cursor()))
@@ -281,7 +285,9 @@ def test_notices_without_a_stable_id_are_skipped():
         200, json={"notices": [{"notice-title": {"fra": "sans id"}}], "totalNoticeCount": 1}
     )
     adapter = TedAdapter(
-        SourceConfig(code="eu-ted", country="EU", tier=1, kind="api", max_rps=0, legal=LegalBasis(basis="open-license")),
+        SourceConfig(
+            code="eu-ted", country="EU", tier=1, kind="api", max_rps=0, legal=LegalBasis(basis="open-license")
+        ),
         client=httpx.Client(transport=httpx.MockTransport(handler)),
     )
     assert list(adapter.fetch_since(Cursor())) == []
@@ -295,4 +301,6 @@ def test_base_adapter_cannot_be_instantiated_without_the_contract():
         version = "0.0.1"
 
     with pytest.raises(TypeError):
-        Incomplete(SourceConfig(code="x", country="FR", tier=3, kind="scrape", legal=LegalBasis(basis="robots-ok")))
+        Incomplete(
+            SourceConfig(code="x", country="FR", tier=3, kind="scrape", legal=LegalBasis(basis="robots-ok"))
+        )

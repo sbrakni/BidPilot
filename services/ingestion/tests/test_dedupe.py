@@ -13,7 +13,6 @@ from __future__ import annotations
 from datetime import UTC, datetime, timedelta
 
 import pytest
-
 from bidpilot_ingestion.canonical import (
     Amounts,
     Buyer,
@@ -57,7 +56,9 @@ def make_notice(
     documents: list[DocumentRef] | None = None,
 ) -> CanonicalNotice:
     return CanonicalNotice(
-        source_refs=[SourceRef(source=source, external_id=external_id, url=f"https://{source}.test/{external_id}")],
+        source_refs=[
+            SourceRef(source=source, external_id=external_id, url=f"https://{source}.test/{external_id}")
+        ],
         notice_type=notice_type,
         country=country,
         buyer=Buyer(name=buyer_name, siren=buyer_siren),
@@ -111,7 +112,9 @@ def test_clustering_is_reentrant_for_late_arriving_duplicates():
     first = make_notice(source="eu-ted", external_id="1-2026", title="Maintenance multitechnique des lycées")
     cluster = cluster_notices([first])[0]
 
-    late = make_notice(source="fr-maximilien", external_id="MX-42", title="Maintenance multitechnique des lycees")
+    late = make_notice(
+        source="fr-maximilien", external_id="MX-42", title="Maintenance multitechnique des lycees"
+    )
     verdict = same_tender(cluster.canonical, late)
     assert verdict.matched
     cluster.absorb(late, verdict)
@@ -146,7 +149,13 @@ def test_explicit_cross_reference_wins_over_weak_similarity():
 
 def test_buyer_siren_beats_name_spelling_differences():
     """Key (2): buyer identity is the SIREN when known, so spelling stops mattering."""
-    left = make_notice(source="eu-ted", external_id="a", title="Nettoyage des locaux administratifs", buyer_name="CA2BM", buyer_siren="200069029")
+    left = make_notice(
+        source="eu-ted",
+        external_id="a",
+        title="Nettoyage des locaux administratifs",
+        buyer_name="CA2BM",
+        buyer_siren="200069029",
+    )
     right = make_notice(
         source="fr-boamp",
         external_id="b",
@@ -197,14 +206,28 @@ def test_refetching_the_same_publication_is_idempotent():
 def test_short_external_ids_are_not_treated_as_cross_references():
     """A source-local id like "42" could collide across portals; only long references count."""
     left = make_notice(source="eu-ted", external_id="42", title="Travaux de voirie", buyer_name="Acheteur A")
-    right = make_notice(source="fr-boamp", external_id="42", title="Fourniture de repas", buyer_name="Acheteur B")
+    right = make_notice(
+        source="fr-boamp", external_id="42", title="Fourniture de repas", buyer_name="Acheteur B"
+    )
     assert not same_tender(left, right).matched
 
 
 def test_missing_deadlines_do_not_collapse_unrelated_notices():
     """Planning notices rarely carry a deadline; two None values must not compare equal."""
-    left = make_notice(source="eu-ted", external_id="a", title="RFI solution de gestion", deadline=None, notice_type=NoticeType.PLANNING)
-    right = make_notice(source="eu-ted", external_id="b", title="RFI solution de gestion", deadline=None, notice_type=NoticeType.PLANNING)
+    left = make_notice(
+        source="eu-ted",
+        external_id="a",
+        title="RFI solution de gestion",
+        deadline=None,
+        notice_type=NoticeType.PLANNING,
+    )
+    right = make_notice(
+        source="eu-ted",
+        external_id="b",
+        title="RFI solution de gestion",
+        deadline=None,
+        notice_type=NoticeType.PLANNING,
+    )
     assert not same_tender(left, right).matched
     assert len(cluster_notices([left, right])) == 2
 
@@ -212,7 +235,9 @@ def test_missing_deadlines_do_not_collapse_unrelated_notices():
 def test_different_notice_types_never_merge():
     """A competition notice and its award notice describe one procurement through two
     publications. Merging them would hide either the deadline or the winner."""
-    competition = make_notice(source="eu-ted", external_id="a", title="Maintenance des installations de froid")
+    competition = make_notice(
+        source="eu-ted", external_id="a", title="Maintenance des installations de froid"
+    )
     award = make_notice(
         source="eu-ted",
         external_id="b",
@@ -226,7 +251,9 @@ def test_different_notice_types_never_merge():
 
 def test_embedding_fallback_matches_only_within_country_and_24h():
     """Key (3): cosine >= 0.92, same country, deadlines within 24h."""
-    left = make_notice(source="eu-ted", external_id="a", title="Prestations de nettoyage", buyer_name="Acheteur A")
+    left = make_notice(
+        source="eu-ted", external_id="a", title="Prestations de nettoyage", buyer_name="Acheteur A"
+    )
     right = make_notice(
         source="fr-boamp",
         external_id="b",
@@ -242,7 +269,9 @@ def test_embedding_fallback_matches_only_within_country_and_24h():
     assert not same_tender(left, right, left_embedding=near, right_embedding=far).matched
 
     # Same vectors, different country: still not a duplicate.
-    belgian = make_notice(source="be-bosa", external_id="c", title="Services de propreté", country="BE", buyer_name="Acheteur B")
+    belgian = make_notice(
+        source="be-bosa", external_id="c", title="Services de propreté", country="BE", buyer_name="Acheteur B"
+    )
     assert not same_tender(left, belgian, left_embedding=near, right_embedding=also_near).matched
 
 
@@ -322,7 +351,9 @@ def test_merge_does_not_overwrite_a_known_deadline():
     """Sources sometimes disagree on the deadline. The first value stands and the conflict
     stays visible per source: silently adopting the later date could cost a submission."""
     canonical = make_notice(source="eu-ted", external_id="a", title="Titre", deadline=DEADLINE)
-    incoming = make_notice(source="fr-boamp", external_id="b", title="Titre", deadline=DEADLINE + timedelta(days=2))
+    incoming = make_notice(
+        source="fr-boamp", external_id="b", title="Titre", deadline=DEADLINE + timedelta(days=2)
+    )
 
     merged = merge(canonical, incoming)
     assert merged.dates.deadline_at == DEADLINE
@@ -349,7 +380,9 @@ def test_three_sources_collapse_to_one_cluster():
     notices = [
         make_notice(source="eu-ted", external_id="1", title=title),
         make_notice(source="fr-boamp", external_id="2", title=title.lower()),
-        make_notice(source="fr-maximilien", external_id="3", title="Maintenance multitechnique des lycees, 4 lots"),
+        make_notice(
+            source="fr-maximilien", external_id="3", title="Maintenance multitechnique des lycees, 4 lots"
+        ),
     ]
     clusters = cluster_notices(notices)
     assert len(clusters) == 1

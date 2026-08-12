@@ -1,0 +1,19 @@
+# Single lint configuration for all Python in the repo (services/ + scripts/), so the
+# service and the fixture tooling cannot drift apart.
+line-length = 110
+target-version = "py311"
+
+[lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+# RUF001-003 flag "ambiguous" unicode characters. Here they are data, not mistakes: TED
+# composes notice titles with an EN DASH, and French source text uses curly apostrophes.
+# Rewriting them would break the parsing they are part of.
+ignore = ["RUF001", "RUF002", "RUF003"]
+
+[lint.per-file-ignores]
+# This script bootstraps sys.path so it can import the ingestion package from a sibling
+# directory, which necessarily happens before those imports.
+"scripts/build_replay_corpus.py" = ["E402"]
+# Adapter tests reach into private normalisation helpers on purpose: the date and title
+# handling they cover is where source-shape bugs actually live.
+"services/ingestion/tests/*" = ["E501"]

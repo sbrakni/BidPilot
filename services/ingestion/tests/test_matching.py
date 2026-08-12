@@ -13,7 +13,6 @@ from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 import pytest
-
 from bidpilot_ingestion.canonical import (
     Amounts,
     Buyer,
@@ -133,7 +132,9 @@ def test_displayed_factors_sum_exactly_to_the_displayed_score(competition_notice
 def test_stage_three_llm_never_runs_on_stage_one_failures(competition_notices, it_profile):
     """§8.4 cost guard. The failure mode is a silent invoice, so it is structural: a
     notice that fails stage 1 is never scored, and `llm_eligible` cannot become True."""
-    filters = WatchFilters(cpv_families=IT_SECTOR_CPV, countries=["FR"], notice_types=[NoticeType.COMPETITION])
+    filters = WatchFilters(
+        cpv_families=IT_SECTOR_CPV, countries=["FR"], notice_types=[NoticeType.COMPETITION]
+    )
     results = run_funnel(competition_notices, it_profile, filters, now=NOW)
 
     rejected = [r for r in results if not r.passed]
@@ -147,7 +148,9 @@ def test_stage_three_llm_never_runs_on_stage_one_failures(competition_notices, i
 
 
 def test_every_scored_match_carries_a_breakdown(competition_notices, it_profile):
-    filters = WatchFilters(cpv_families=IT_SECTOR_CPV, countries=["FR"], notice_types=[NoticeType.COMPETITION])
+    filters = WatchFilters(
+        cpv_families=IT_SECTOR_CPV, countries=["FR"], notice_types=[NoticeType.COMPETITION]
+    )
     for result in run_funnel(competition_notices, it_profile, filters, now=NOW):
         if not result.passed:
             continue
@@ -246,7 +249,10 @@ def test_each_hard_filter_vetoes_with_its_own_reason(overrides, filters, expecte
 
 def test_keyword_matching_ignores_accents_and_case():
     notice = make_notice(title="INFOGERANCE du systeme d'information")
-    assert apply_hard_filters(notice, WatchFilters(keywords_include=["infogérance"]), now=NOW) is FilterOutcome.PASS
+    assert (
+        apply_hard_filters(notice, WatchFilters(keywords_include=["infogérance"]), now=NOW)
+        is FilterOutcome.PASS
+    )
 
 
 def test_amount_filters_do_not_exclude_notices_without_an_amount():
@@ -348,7 +354,11 @@ def test_three_sector_packs_all_produce_matches(competition_notices):
     }
     for name, (families, keywords) in packs.items():
         profile = CompanyProfile(
-            org_id=f"org_{name}", cpv_families=families, national=True, keywords=keywords, annual_revenue=5_000_000
+            org_id=f"org_{name}",
+            cpv_families=families,
+            national=True,
+            keywords=keywords,
+            annual_revenue=5_000_000,
         )
         filters = WatchFilters(cpv_families=families, countries=["FR"], notice_types=[NoticeType.COMPETITION])
         passed = [r for r in run_funnel(competition_notices, profile, filters, now=NOW) if r.passed]

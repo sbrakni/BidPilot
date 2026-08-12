@@ -11,14 +11,15 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
-    "test": "turbo run test",
+    "test": "turbo run test --concurrency=1",
     "test:py": "python3 -m pytest services/ingestion -q",
     "db:generate": "pnpm --filter @bidpilot/db generate",
     "db:migrate": "pnpm --filter @bidpilot/db migrate",
     "db:seed": "pnpm --filter @bidpilot/db seed",
     "db:reset": "pnpm --filter @bidpilot/db reset",
-    "eval": "python3 -m bidpilot_eval.cli",
-    "fixtures:capture": "python3 scripts/capture_fixtures.py"
+    "eval": "echo \"AI eval harness lands with F4 extraction in Phase 2 - see docs/STATUS.md\" && exit 1",
+    "fixtures:capture": "python3 scripts/capture_fixtures.py",
+    "fixtures:replay": "python3 scripts/build_replay_corpus.py"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
@@ -27,6 +28,11 @@
     "typescript": "^5.7.2"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["@prisma/client", "@prisma/engines", "esbuild", "prisma"]
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "esbuild",
+      "prisma"
+    ]
   }
 }

@@ -79,6 +79,27 @@ export async function withOrgContext<T>(
 }
 
 /**
+ * Run `fn` with only the acting user established, and no org.
+ *
+ * This is the narrow window before an org is known: a user has to be able to discover
+ * which orgs they may act for. The `org_members` policy allows exactly that - reading your
+ * own membership rows - and nothing else, so this cannot be used as a general bypass.
+ */
+export async function withUserContext<T>(
+  userId: string,
+  fn: (tx: OrgScopedClient) => Promise<T>,
+  prisma: PrismaClient = getPrisma(),
+): Promise<T> {
+  if (!userId) {
+    throw new Error("withUserContext requires a non-empty userId");
+  }
+  return prisma.$transaction(async (tx) => {
+    await tx.$executeRaw`SELECT set_config('app.user_id', ${userId}, true)`;
+    return fn(tx as unknown as OrgScopedClient);
+  });
+}
+
+/**
  * Run `fn` with no tenant context, for the global market data in §18.1.
  *
  * Reading notices, sources and awards needs no org: they are the commons. The
@@ -90,6 +111,29 @@ export async function withGlobalContext<T>(
   prisma: PrismaClient = getPrisma(),
 ): Promise<T> {
   return prisma.$transaction(async (tx) => fn(tx as unknown as OrgScopedClient));
+}
+
+/**
+ * Run `fn` with erasure permitted on the append-only tables (SPEC §15.5).
+ *
+ * This is the *only* supported way to delete decisions or audit events, and it exists
+ * because GDPR erasure is a legal obligation that an unconditional immutability trigger
+ * would make impossible. Reserved for the org-deletion pipeline and test fixtures: never
+ * call it from a request path.
+ */
+export async function withPurgeContext<T>(
+  orgId: string,
+  fn: (tx: OrgScopedClient) => Promise<T>,
+  prisma: PrismaClient = getPrisma(),
+): Promise<T> {
+  if (!orgId) {
+    throw new Error("withPurgeContext requires a non-empty orgId");
+  }
+  return prisma.$transaction(async (tx) => {
+    await tx.$executeRaw`SELECT set_config('app.org_id', ${orgId}, true)`;
+    await tx.$executeRaw`SELECT set_config('app.allow_purge', 'on', true)`;
+    return fn(tx as unknown as OrgScopedClient);
+  });
 }
 
 export async function disconnect(): Promise<void> {

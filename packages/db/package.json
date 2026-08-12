@@ -16,7 +16,8 @@
     "migrate:dev": "prisma migrate dev",
     "reset": "prisma migrate reset --force --skip-seed && tsx src/seed.ts",
     "seed": "tsx src/seed.ts",
-    "test": "vitest run"
+    "test": "vitest run",
+    "lint": "echo \"no JS linter configured yet (see docs/STATUS.md)\""
   },
   "dependencies": {
     "@prisma/client": "^6.1.0",

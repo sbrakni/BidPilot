@@ -197,8 +197,7 @@ class TedAdapter(BaseAdapter):
         days_back = max(0, (datetime.now(UTC).date() - since.date()).days)
         # `today(-N)` is TED expert-query syntax; a window (not a sort) is how we bound work.
         return (
-            f"(place-of-performance IN ({' '.join(countries)})) "
-            f"AND (publication-date >= today(-{days_back}))"
+            f"(place-of-performance IN ({' '.join(countries)})) AND (publication-date >= today(-{days_back}))"
         )
 
     def fetch_since(self, cursor: Cursor) -> Iterator[RawNotice]:
@@ -286,7 +285,9 @@ class TedAdapter(BaseAdapter):
                 type=PROCEDURE_TYPES.get(str(_first(payload.get("procedure-type")) or "")),
                 national_label=_first(payload.get("procedure-type")),
                 contract_nature=[
-                    n for n in _dedupe(payload.get("contract-nature")) if n in ("works", "supplies", "services")
+                    n
+                    for n in _dedupe(payload.get("contract-nature"))
+                    if n in ("works", "supplies", "services")
                 ],
             ),
             lots=self._lots(payload, language),

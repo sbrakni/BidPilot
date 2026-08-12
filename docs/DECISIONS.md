@@ -1,0 +1,201 @@
+# Architecture Decision Record log
+
+Every deviation from `docs/SPEC.md` is recorded here with its reason (SPEC §0). If the code
+and the spec disagree and there is no ADR, the code is wrong.
+
+Format: one entry per decision, newest last. Status is `accepted`, `superseded` or
+`revisit-at-phase-N`.
+
+---
+
+## ADR-0001 — Fixture strategy: capture real payloads, split raw from normalized
+
+**Date:** 2026-08-12 · **Status:** accepted · **Relates to:** §21.1, Annex E.3
+
+**Decision.** Adapter fixtures are *captured from the live APIs* by
+`scripts/capture_fixtures.py`, never hand-written. Two tiers:
+
+| Tier | Files | Form | Pins |
+|---|---|---|---|
+| Per-source snapshots | `fixtures/notices/{ted,boamp}_*.json` | small, pretty-printed, **raw** | adapter behaviour; a source changing shape shows in the diff |
+| Replay corpus | `fixtures/notices/replay_48h.json` | ~1,400 notices, compact, **normalized** | matching & clustering at realistic volume |
+
+**Why.** Invented fixtures test our imagination, not the sources. Writing a plausible TED
+payload by hand would have missed every one of the shape facts recorded in ADR-0002 — and
+those facts are exactly what breaks in production.
+
+**Why the replay corpus is normalized rather than raw.** A genuine 48h FR/BE/LU window is
+~1,400 notices whose raw eForms payloads weigh ~15 MB. Carrying that in git for every clone
+and CI run is not worth it, and matching consumes canonical notices anyway. The raw
+snapshots keep normalization honest, so the corpus can safely be a derived artifact.
+Rebuild with `python scripts/build_replay_corpus.py`.
+
+**Consequence.** Refreshing fixtures is a reviewable event: re-run the capture, read the
+diff, and treat an unexpected change as a source-shape alert (`unmapped_fields` is asserted
+empty in tests).
+
+---
+
+## ADR-0002 — Source API facts verified against live endpoints
+
+**Date:** 2026-08-12 · **Status:** accepted · **Relates to:** §6.3 `[VERIFY]` markers
+
+The spec marked TED field names and the BOAMP dataset schema as `[VERIFY]`. Verified
+against the live APIs; the findings changed the adapter design, so they are recorded rather
+than left in code comments alone.
+
+**TED (`POST https://api.ted.europa.eu/v3/notices/search`)**
+
+- No API key required for search. Confirms §6.3.
+- **No `sort` parameter** — sending one returns 400. Incremental fetch therefore cannot
+  "read newest first"; it bounds a publication-date window in the expert query and pages
+  through it. The cursor is a date watermark, not an offset.
+- `fields` is validated server-side against ~1,830 business terms; one unknown name fails
+  the entire request. The verified subset lives in `adapters/ted.py::TED_FIELDS`.
+- Multilingual values arrive as ISO-639-3 keyed maps, inconsistently wrapped:
+  `notice-title` is `{"fra": "…"}` but `description-lot` is `{"fra": ["…"]}`.
+- `publication-date` is a **date with offset** (`2026-08-11+02:00`), not an instant. A lot
+  deadline arrives split across `deadline-receipt-tender-date-lot` and `…-time-lot`; the
+  offset on the *time* part is the buyer's clock and governs (§5).
+- `place-of-performance` mixes NUTS codes with ISO-3166 **alpha-3 country codes** and
+  repeats values per lot. `classification-cpv` and `contract-nature` repeat likewise.
+- `notice-title` is composed as `"<Country> – <CPV label> – <real title>"`, while
+  `title-lot` is often just a buyer's internal reference (`"WS2848982494 - 1"`). Neither is
+  reliable alone, so the adapter picks between them (see `_title`).
+
+**BOAMP (Opendatasoft Explore v2.1, dataset `boamp`, licence etalab-2.0)**
+
+- Default order is **oldest first**; `order_by=dateparution desc` is required.
+- `donnees` is a **JSON string**, not an object. Recent records contain the full eForms UBL
+  tree (`{"EFORMS": {"ContractNotice": …}}`); archive records use a legacy `IDENTITE`
+  shape. Both are handled — the archive is what feeds the renewal radar (§14.2).
+- Text is HTML-entity encoded (`Communauté d&#039;Agglomération`). Decoded on ingest, once,
+  rather than at every render site.
+- `titulaire` is a list of bare supplier **names** with no SIREN, sometimes duplicated. The
+  winner's SIREN stays null and is resolved later against DECP; guessing it would
+  mis-attribute wins on the competitor pages (§14.3).
+- Responses above ~100 records are gzipped, and the geography is published as
+  **départements**, not NUTS — hence the `dept_to_nuts` bridge, without which every BOAMP
+  notice would fail a NUTS hard filter (§8.1).
+
+**Consequence.** Both sources emit eForms, so that parsing lives in one shared
+`eforms.py` — the same "one adapter family, many portals" structure §6.4 depends on.
+
+---
+
+## ADR-0003 — Python 3.11 rather than 3.12
+
+**Date:** 2026-08-12 · **Status:** revisit-at-phase-2 · **Relates to:** §17.1
+
+The spec specifies Python 3.12; the build environment ships 3.11. Nothing in the ingestion
+service needs 3.12 (`StrEnum` and PEP-604 unions are both 3.11), so `requires-python` is
+`>=3.11` and CI runs 3.12 to keep the spec's target verified. Revisit when a 3.12-only
+feature is genuinely wanted.
+
+---
+
+## ADR-0004 — `vector(1024)` instead of `halfvec(1024)`
+
+**Date:** 2026-08-12 · **Status:** revisit-at-phase-2 · **Relates to:** §17.5
+
+**Decision.** Embedding columns are `vector(1024)` with HNSW cosine indexes, not the
+spec's `halfvec(1024)`.
+
+**Why.** `halfvec` requires pgvector ≥ 0.7. Debian/Ubuntu still package 0.6.0, so a
+`halfvec` migration fails on a stock distribution install while succeeding on the
+`pgvector/pgvector:pg16` image — a difference between environments in the one place where
+schema drift is most expensive to discover.
+
+**Trade-off accepted.** `halfvec` halves index storage (2 bytes/dimension instead of 4).
+At the design scale (2M notices × 1024 dims ≈ 8 GB as `vector`, 4 GB as `halfvec`) this is
+a real but affordable cost, and it buys environment parity now.
+
+**Migration path.** When the deployment target guarantees pgvector ≥ 0.7:
+`ALTER TABLE notices ALTER COLUMN embedding TYPE halfvec(1024)`, then rebuild the HNSW
+index. No application code changes, because the column type is opaque to Prisma
+(`Unsupported`) and to the Python side.
+
+---
+
+## ADR-0005 — Role creation is a privileged bootstrap step, not a migration
+
+**Date:** 2026-08-12 · **Status:** accepted · **Relates to:** §17.6
+
+**Decision.** `packages/db/sql/bootstrap_roles.sql` creates the `bidpilot_app` login role
+and is run once by a superuser. The RLS migration *requires* the role to exist and aborts
+with instructions if it does not.
+
+**Why.** `CREATE ROLE` needs the CREATEROLE attribute, which the migration user does not
+have on managed Postgres (RDS, Scaleway) and should not have. The tempting alternative —
+create-if-possible, skip otherwise — would let a deploy silently apply the schema *without*
+the isolation policies. Failing loudly is the only safe behaviour when the failure mode is
+a cross-tenant data leak.
+
+**Consequence.** `docker-compose.yml` mounts the bootstrap script into the Postgres init
+directory, so local development still needs no manual step.
+
+---
+
+## ADR-0006 — `users` gets per-command RLS policies
+
+**Date:** 2026-08-12 · **Status:** accepted · **Relates to:** §15.1, §17.6
+
+**Decision.** `users` is not org-scoped. Policies are split per command: `SELECT` limited to
+co-members of the current org plus yourself, `INSERT` permitted, `UPDATE`/`DELETE`
+restricted to your own row via `app.user_id`.
+
+**Why.** The first implementation used one membership-gated policy for all commands, which
+made signup impossible: at signup (and at invitation acceptance) the user row must exist
+*before* any membership does, so the check could never pass. The threat actually worth
+closing is **enumeration** — org A listing org B's people — not row creation. Multi-org
+membership (§15.1) is precisely why identity cannot live inside a tenant boundary.
+
+**Consequence.** `withOrgContext` accepts an optional `userId`, and the API sets both after
+authentication.
+
+---
+
+## ADR-0007 — Seeding connects as the database owner
+
+**Date:** 2026-08-12 · **Status:** accepted · **Relates to:** §17.6, §18.1
+
+The seed writes shared market data (notices, sources, thresholds), which the application
+role is deliberately denied. Rather than widening that grant, the seeder connects with
+`DATABASE_URL` (owner) and is treated as admin tooling. The application role's inability to
+write the commons is the isolation working as designed, and it is asserted in the RLS suite.
+
+---
+
+## ADR-0009 — Append-only tables get an explicit erasure escape hatch
+
+**Date:** 2026-08-12 · **Status:** accepted · **Relates to:** §10.6, §15.5
+
+**Decision.** The `decisions` and `events` triggers refuse `UPDATE` unconditionally, and
+refuse `DELETE` unless `app.allow_purge = 'on'` is set for the transaction. That flag is set
+only by `withPurgeContext`, used by the org-deletion pipeline and by test fixtures.
+
+**Why.** The first implementation blocked `DELETE` outright, which collided with a legal
+obligation: §15.5 requires personal data to be purged within 30 days of org deletion, and
+`decisions` cascades from `tenders`. An unconditional block made any org that had ever
+recorded a decision permanently undeletable — immutability defeating erasure.
+
+Discovered by the test fixture failing to clean up, which is the useful kind of test
+failure: the invariant was right, and its interaction with erasure was not thought through.
+
+**Why a flag rather than a privileged role.** The flag is transaction-local, so it cannot
+leak into a later request on a pooled connection, and every use is a call to one greppable
+function. A role-based carve-out would be ambient and much harder to audit.
+
+---
+
+## ADR-0008 — Matching score computed in Python; the seed carries a declared stand-in
+
+**Date:** 2026-08-12 · **Status:** accepted · **Relates to:** §8.2
+
+`services/ingestion/bidpilot_ingestion/matching.py` is the single scoring authority. The
+TypeScript seed contains a small, deliberately simplified score used only to make the demo
+inbox plausible, and it says so at the definition. Two full implementations of a scoring
+function would drift, and the one users see would be the wrong one.
+
+**Revisit** when the API needs to score on the write path: expose scoring through the
+ingestion service rather than porting it.

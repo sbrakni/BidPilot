@@ -123,9 +123,12 @@ def apply_hard_filters(
         if places and not any(nuts_matches(place, filters.nuts) for place in places):
             return FilterOutcome.GEOGRAPHY
 
-    if filters.min_days_to_deadline is not None and notice.dates.deadline_at is not None:
-        if notice.dates.deadline_at - now < timedelta(days=filters.min_days_to_deadline):
-            return FilterOutcome.DEADLINE
+    if (
+        filters.min_days_to_deadline is not None
+        and notice.dates.deadline_at is not None
+        and notice.dates.deadline_at - now < timedelta(days=filters.min_days_to_deadline)
+    ):
+        return FilterOutcome.DEADLINE
 
     amount = notice.amounts.estimated_total
     if amount is not None:
@@ -391,7 +394,7 @@ def score_notice(
 
     # Round once, at the end, so the rendered factors always sum to the rendered score.
     total = sum(factor.points for factor in factors)
-    return MatchScore(score=int(round(total)), factors=factors, warnings=warnings)
+    return MatchScore(score=round(total), factors=factors, warnings=warnings)
 
 
 # ---------------------------------------------------------------- funnel
