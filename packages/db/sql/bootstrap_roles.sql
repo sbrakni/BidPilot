@@ -32,3 +32,24 @@ END
 $$;
 
 ALTER ROLE bidpilot_app WITH PASSWORD :'app_password';
+
+-- A second role whose only purpose is to OWN the platform helper function.
+--
+-- `FORCE ROW LEVEL SECURITY` subjects even the table owner to its policies, which is what makes
+-- the isolation tests meaningful - and it also means a SECURITY DEFINER function owned by the
+-- schema owner still cannot enumerate tenants. Only a BYPASSRLS role can.
+--
+-- So the bypass is scoped as narrowly as it can be: this role is NOLOGIN (nobody can connect
+-- as it) and owns exactly one function, which returns org ids and nothing else. Compare that
+-- with granting BYPASSRLS to the worker's login role, where every query it makes would be
+-- unfiltered and a single mistake would leak across tenants silently.
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'bidpilot_platform') THEN
+    CREATE ROLE bidpilot_platform NOLOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE BYPASSRLS;
+    RAISE NOTICE 'created role bidpilot_platform';
+  ELSE
+    RAISE NOTICE 'role bidpilot_platform already exists';
+  END IF;
+END
+$$;

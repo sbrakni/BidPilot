@@ -80,6 +80,12 @@ docs/                SPEC.md, DECISIONS.md
   `unmapped_fields` assertion in the adapter tests is what tells you.
 - **No model call outside the LLM gateway** (§17.4) once it exists — that is how cost,
   quality and swap-ability stay controlled.
+- **Platform (cross-org) jobs must iterate orgs and set context per org.** `app_all_org_ids()`
+  is the only function allowed to see across tenants, and it returns ids and nothing else. Do
+  not widen it, and do not give a worker's login role BYPASSRLS (ADR-0011).
+- **A job kind with no handler fails loudly**, on purpose. Do not add a stage to the scheduler
+  before its handler exists: a queue that looks healthy while nothing happens is worse than a
+  visible dead-letter.
 
 ## Commands
 
@@ -89,6 +95,8 @@ pnpm install
 pnpm db:migrate               # apply migrations  (run sql/bootstrap_roles.sql first, once)
 pnpm db:seed                  # demo orgs + the real 48h notice corpus
 pnpm dev                      # web + api
+pnpm worker                   # ingestion worker + scheduler (claims jobs, runs the pipeline)
+pnpm worker:once              # drain whatever is runnable, then exit
 pnpm test                     # TypeScript tests (includes the cross-tenant RLS suite)
 pnpm test:py                  # Python tests (adapters, dedupe, matching)
 pnpm lint && pnpm typecheck

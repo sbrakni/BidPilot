@@ -124,7 +124,11 @@ def test_ted_title_rejects_both_useless_extremes(ted_adapter):
         RawNotice(
             source="eu-ted",
             external_id="1-2026",
-            payload={"publication-number": "1-2026", "title-lot": {"fra": ["WS284 - 1"]}, "notice-title": composed},
+            payload={
+                "publication-number": "1-2026",
+                "title-lot": {"fra": ["WS284 - 1"]},
+                "notice-title": composed,
+            },
         )
     )
     assert too_short.title == "Refonte du portail citoyen"

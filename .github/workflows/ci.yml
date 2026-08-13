@@ -22,8 +22,19 @@ env:
 
 jobs:
   python:
-    name: Python - adapters, dedupe, matching
+    name: Python - adapters, dedupe, matching, pipeline
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: bidpilot
+          POSTGRES_PASSWORD: bidpilot
+          POSTGRES_DB: bidpilot
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U bidpilot -d bidpilot"
+          --health-interval 5s --health-timeout 5s --health-retries 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -39,6 +50,30 @@ jobs:
         run: ruff check services/ingestion scripts
       - name: Format check
         run: ruff format --check services/ingestion scripts
+
+      # The pipeline suite needs the real schema: it asserts on FOR UPDATE SKIP LOCKED, jsonb
+      # and enum casts, and the RLS-aware platform paths. Without a database it would skip
+      # itself, which is worse than failing.
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+      - name: Prepare database
+        env:
+          PGPASSWORD: bidpilot
+        run: |
+          sudo apt-get update && sudo apt-get install -y postgresql-client
+          psql -h localhost -U bidpilot -d bidpilot -c \
+            "CREATE EXTENSION IF NOT EXISTS vector; CREATE EXTENSION IF NOT EXISTS pg_trgm; CREATE EXTENSION IF NOT EXISTS unaccent;"
+          psql -h localhost -U bidpilot -d bidpilot -v app_password=bidpilot_app \
+            -f packages/db/sql/bootstrap_roles.sql
+          pnpm install --frozen-lockfile
+          pnpm db:generate
+          pnpm db:migrate
+
       - name: Test
         run: pytest services/ingestion -q
 

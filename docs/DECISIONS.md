@@ -166,6 +166,86 @@ write the commons is the isolation working as designed, and it is asserted in th
 
 ---
 
+## ADR-0010 — Every instant is `timestamptz`
+
+**Date:** 2026-08-13 · **Status:** accepted · **Relates to:** §5, §16, P3
+
+**Decision.** Every `DateTime` field carries `@db.Timestamptz`; no column stores a naive
+timestamp.
+
+**Why.** Prisma's default maps `DateTime` to `timestamp without time zone`, which is the wrong
+type for this product. A submission deadline is defined by the buyer's clock (§5), and P3 makes
+a missed deadline the worst failure there is. A column that discards the offset means any writer
+with a non-UTC session silently shifts the value, and Postgres cannot compare it to `now()`
+without assuming a zone.
+
+Found by wiring the ingestion pipeline to the database: Python raised "can't compare
+offset-naive and offset-aware datetimes" on a deadline comparison. That error was the symptom;
+the type was the cause.
+
+**Migration.** `ALTER COLUMN ... TYPE timestamptz USING value AT TIME ZONE 'UTC'` - stating what
+the stored values already were, rather than reinterpreting anything.
+
+---
+
+## ADR-0011 — Platform jobs enumerate tenants through one privileged function
+
+**Date:** 2026-08-13 · **Status:** accepted · **Relates to:** §17.6, §12.4
+
+**Decision.** `app_all_org_ids()` is a `SECURITY DEFINER` function owned by
+`bidpilot_platform`, a NOLOGIN BYPASSRLS role that owns nothing else. Cross-org background jobs
+call it for the list of orgs, then process each one *inside that org's tenant context*.
+
+**Why.** Deadline alerts, vault freshness and digests have to sweep every tenant, but `orgs` is
+RLS-protected and the tables use FORCE ROW LEVEL SECURITY - so even the schema owner sees
+nothing without context. That fail-closed default is deliberate and worth keeping.
+
+Two alternatives were rejected:
+
+- **BYPASSRLS on the worker's login role.** Ambient and coarse: every query that role makes
+  would be unfiltered, so one mistake in a worker leaks across tenants with nothing to catch it.
+- **Relaxing the policies so "no context sees everything".** This inverts the fail-closed
+  default: an API path that forgot to establish context would suddenly see every tenant. It is
+  the smallest diff and by far the most dangerous option.
+
+What makes the chosen approach safe is that the privileged surface is one function returning one
+column of ids, and every row the job then reads or writes is still policy-checked. A test
+asserts both properties - the definer bypasses RLS and cannot log in, and the function exposes
+exactly one output column.
+
+**Note.** The first attempt failed instructively: a SECURITY DEFINER function owned by the
+schema owner is still filtered, because FORCE RLS applies to the owner. The BYPASSRLS definer is
+required, not decorative.
+
+---
+
+## ADR-0012 — Deadline alerts are computed each tick, never pre-scheduled
+
+**Date:** 2026-08-13 · **Status:** accepted · **Relates to:** §12.4, §16, P3
+
+**Decision.** Each tick asks "which alerts are due and not yet raised?" rather than writing
+"send at J-7" rows when a tender is pursued. Offsets are counted in **working days**, and only
+the nearest unsent offset fires per tender.
+
+**Why each part:**
+
+- **Computed, not scheduled.** Deadlines move - that is frequently what an amendment *is*.
+  Pre-scheduled rows would fire against the old date and would need a cleanup path on every
+  amendment. Computing from the current deadline corrects itself with no cleanup at all.
+- **Working days.** A J-3 alert on a Monday deadline must land on the preceding Wednesday. In
+  calendar days it lands on Friday, giving the team no working time - which defeats the alert.
+- **Nearest offset only.** A tender pursued five days before its deadline would otherwise emit
+  J-14, J-7 and J-3 at once, which reads as noise and buries the one that matters.
+- **Public holidays are not modelled.** Treating a holiday as a working day makes an alert fire
+  *earlier*, which is safe; treating a working day as a holiday makes it fire later, which is
+  not. Given that asymmetry the naive Monday-Friday rule is the correct default until a
+  per-country calendar exists (FR/BE/LU differ).
+
+Idempotency comes from the `notifications` row, written in the same transaction as the send job:
+a duplicate tick cannot double-send, and a crash between the two cannot lose an alert.
+
+---
+
 ## ADR-0009 — Append-only tables get an explicit erasure escape hatch
 
 **Date:** 2026-08-12 · **Status:** accepted · **Relates to:** §10.6, §15.5

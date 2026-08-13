@@ -193,3 +193,27 @@ describe("global market data (SPEC §18.1)", () => {
     await request(server).get("/v1/notices/ntc_does_not_exist").expect(404);
   });
 });
+
+describe("public coverage status (SPEC §6.9)", () => {
+  it("is served without authentication and reports per-source freshness", async () => {
+    // Unauthenticated on purpose: coverage transparency only builds trust if anyone can check
+    // it. It carries operational facts only - no notice content, no tenant data.
+    const response = await request(server).get("/v1/status/coverage").expect(200);
+
+    expect(response.body.summary.total).toBeGreaterThan(0);
+    expect(response.body.sources.length).toBe(response.body.summary.total);
+
+    for (const source of response.body.sources) {
+      expect(source).toHaveProperty("code");
+      expect(source).toHaveProperty("health");
+      expect(source).toHaveProperty("hoursSinceSuccess");
+      // Every source must carry a recorded legal basis or be disabled (SPEC §24.7).
+      expect(source.legalBasis !== null || source.enabled === false).toBe(true);
+    }
+  });
+
+  it("declares the gaps we know about rather than leaving them to be discovered", async () => {
+    const response = await request(server).get("/v1/status/coverage").expect(200);
+    expect(response.body.knownGaps.join(" ")).toMatch(/JAL/);
+  });
+});

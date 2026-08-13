@@ -232,13 +232,13 @@ model Source {
   legal         Json         @default("{}")
   health        SourceHealth @default(green)
   enabled       Boolean      @default(false)
-  lastRunAt     DateTime?    @map("last_run_at")
-  lastSuccessAt DateTime?    @map("last_success_at")
+  lastRunAt     DateTime?    @map("last_run_at") @db.Timestamptz
+  lastSuccessAt DateTime?    @map("last_success_at") @db.Timestamptz
   notices7d     Int          @default(0) @map("notices_7d")
   errorRate     Float        @default(0) @map("error_rate")
   cursor        Json         @default("{}")
-  createdAt     DateTime     @default(now()) @map("created_at")
-  updatedAt     DateTime     @updatedAt @map("updated_at")
+  createdAt     DateTime     @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt     DateTime     @updatedAt @map("updated_at") @db.Timestamptz
 
   rawNotices RawNotice[]
 
@@ -253,7 +253,7 @@ model RawNotice {
   id          String   @id
   sourceId    String   @map("source_id")
   externalId  String   @map("external_id")
-  fetchedAt   DateTime @default(now()) @map("fetched_at")
+  fetchedAt   DateTime @default(now()) @map("fetched_at") @db.Timestamptz
   payload     Json
   contentHash String   @map("content_hash")
 
@@ -270,8 +270,8 @@ model TenderCluster {
   canonicalNoticeId String?  @unique @map("canonical_notice_id")
   confidence        Float    @default(1)
   mergedFrom        Json     @default("[]") @map("merged_from")
-  createdAt         DateTime @default(now()) @map("created_at")
-  updatedAt         DateTime @updatedAt @map("updated_at")
+  createdAt         DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt         DateTime @updatedAt @map("updated_at") @db.Timestamptz
 
   notices Notice[]
 
@@ -297,9 +297,9 @@ model Notice {
   procedureType       String?      @map("procedure_type")
   amountEst           Decimal?     @map("amount_est") @db.Decimal(16, 2)
   currency            String?      @db.VarChar(3)
-  publishedAt         DateTime?    @map("published_at")
-  deadlineAt          DateTime?    @map("deadline_at")
-  questionsDeadlineAt DateTime?    @map("questions_deadline_at")
+  publishedAt         DateTime?    @map("published_at") @db.Timestamptz
+  deadlineAt          DateTime?    @map("deadline_at") @db.Timestamptz
+  questionsDeadlineAt DateTime?    @map("questions_deadline_at") @db.Timestamptz
   visit               Json?
   lots                Json         @default("[]")
   urls                Json         @default("{}")
@@ -308,8 +308,8 @@ model Notice {
   award               Json?
   provenance          Json         @default("{}")
   version             Int          @default(1)
-  createdAt           DateTime     @default(now()) @map("created_at")
-  updatedAt           DateTime     @updatedAt @map("updated_at")
+  createdAt           DateTime     @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt           DateTime     @updatedAt @map("updated_at") @db.Timestamptz
 
   cluster   TenderCluster?   @relation(fields: [clusterId], references: [id])
   versions  NoticeVersion[]
@@ -331,7 +331,7 @@ model NoticeVersion {
   version   Int
   payload   Json
   diff      Json     @default("{}")
-  createdAt DateTime @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
 
   notice Notice @relation(fields: [noticeId], references: [id], onDelete: Cascade)
 
@@ -349,7 +349,7 @@ model NoticeDocument {
   pages         Int?
   ocrStatus     OcrStatus    @default(not_needed) @map("ocr_status")
   textExtracted Boolean      @default(false) @map("text_extracted")
-  createdAt     DateTime     @default(now()) @map("created_at")
+  createdAt     DateTime     @default(now()) @map("created_at") @db.Timestamptz
 
   notice Notice @relation(fields: [noticeId], references: [id], onDelete: Cascade)
 
@@ -370,12 +370,12 @@ model AwardRecord {
   nuts           String[]
   amount         Decimal?  @db.Decimal(16, 2)
   currency       String?   @db.VarChar(3)
-  signedAt       DateTime? @map("signed_at")
+  signedAt       DateTime? @map("signed_at") @db.Timestamptz
   durationMonths Int?      @map("duration_months")
   /// Null when duration is unpublished: marked unknown, never guessed (§14.5).
-  endEstimateAt  DateTime? @map("end_estimate_at")
+  endEstimateAt  DateTime? @map("end_estimate_at") @db.Timestamptz
   noticeId       String?   @map("notice_id")
-  createdAt      DateTime  @default(now()) @map("created_at")
+  createdAt      DateTime  @default(now()) @map("created_at") @db.Timestamptz
 
   renewalSignals RenewalSignal[]
 
@@ -439,7 +439,7 @@ model DocumentLeadTime {
   typicalDays  Int      @map("typical_days")
   validityDays Int?     @map("validity_days")
   notes        String?
-  createdAt    DateTime @default(now()) @map("created_at")
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz
 
   @@map("document_lead_times")
 }
@@ -458,8 +458,8 @@ model Org {
   settings        Json     @default("{}")
   plan            String   @default("trial")
   aiCreditsBalance Int     @default(0) @map("ai_credits_balance")
-  createdAt       DateTime @default(now()) @map("created_at")
-  updatedAt       DateTime @updatedAt @map("updated_at")
+  createdAt       DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt       DateTime @updatedAt @map("updated_at") @db.Timestamptz
 
   members       OrgMember[]
   profile       CompanyProfile?
@@ -483,8 +483,8 @@ model User {
   email     String   @unique
   name      String?
   locale    String   @default("fr")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz
 
   memberships   OrgMember[]
   assignedTasks Task[]       @relation("TaskAssignee")
@@ -498,7 +498,7 @@ model OrgMember {
   orgId     String   @map("org_id")
   userId    String   @map("user_id")
   role      OrgRole  @default(bid_manager)
-  createdAt DateTime @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
 
   org  Org  @relation(fields: [orgId], references: [id], onDelete: Cascade)
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -518,8 +518,8 @@ model CompanyProfile {
   keywords         String[]
   negativeKeywords String[] @map("negative_keywords")
   capabilityText   String?  @map("capability_text")
-  createdAt        DateTime @default(now()) @map("created_at")
-  updatedAt        DateTime @updatedAt @map("updated_at")
+  createdAt        DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt        DateTime @updatedAt @map("updated_at") @db.Timestamptz
 
   org Org @relation(fields: [orgId], references: [id], onDelete: Cascade)
 
@@ -533,8 +533,8 @@ model WatchProfile {
   filters     Json     @default("{}")
   alertPolicy Json     @default("{}") @map("alert_policy")
   enabled     Boolean  @default(true)
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime @updatedAt @map("updated_at") @db.Timestamptz
 
   org     Org     @relation(fields: [orgId], references: [id], onDelete: Cascade)
   matches Match[]
@@ -557,8 +557,8 @@ model Evidence {
   meta      Json           @default("{}")
   tags      String[]
   status    EvidenceStatus @default(valid)
-  createdAt DateTime       @default(now()) @map("created_at")
-  updatedAt DateTime       @updatedAt @map("updated_at")
+  createdAt DateTime       @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime       @updatedAt @map("updated_at") @db.Timestamptz
 
   org           Org            @relation(fields: [orgId], references: [id], onDelete: Cascade)
   contentChunks ContentChunk[]
@@ -582,8 +582,8 @@ model ReferenceProject {
   location    String?
   evidenceIds String[] @map("evidence_ids")
   blocks      Json     @default("{}")
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime @updatedAt @map("updated_at") @db.Timestamptz
 
   org Org @relation(fields: [orgId], references: [id], onDelete: Cascade)
 
@@ -598,7 +598,7 @@ model ContentChunk {
   evidenceId String?  @map("evidence_id")
   text       String
   meta       Json     @default("{}")
-  createdAt  DateTime @default(now()) @map("created_at")
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz
 
   org      Org       @relation(fields: [orgId], references: [id], onDelete: Cascade)
   evidence Evidence? @relation(fields: [evidenceId], references: [id], onDelete: SetNull)
@@ -620,8 +620,8 @@ model Match {
   breakdown      Json       @default("{}")
   state          MatchState @default(new)
   dismissReason  String?    @map("dismiss_reason")
-  createdAt      DateTime   @default(now()) @map("created_at")
-  updatedAt      DateTime   @updatedAt @map("updated_at")
+  createdAt      DateTime   @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt      DateTime   @updatedAt @map("updated_at") @db.Timestamptz
 
   org          Org           @relation(fields: [orgId], references: [id], onDelete: Cascade)
   notice       Notice        @relation(fields: [noticeId], references: [id], onDelete: Cascade)
@@ -639,11 +639,11 @@ model Tender {
   origin     TenderOrigin @default(match)
   stage      TenderStage  @default(analysis)
   title      String
-  deadlineAt DateTime?    @map("deadline_at")
+  deadlineAt DateTime?    @map("deadline_at") @db.Timestamptz
   meta       Json         @default("{}")
-  submittedAt DateTime?   @map("submitted_at")
-  createdAt  DateTime     @default(now()) @map("created_at")
-  updatedAt  DateTime     @updatedAt @map("updated_at")
+  submittedAt DateTime?   @map("submitted_at") @db.Timestamptz
+  createdAt  DateTime     @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt  DateTime     @updatedAt @map("updated_at") @db.Timestamptz
 
   org             Org              @relation(fields: [orgId], references: [id], onDelete: Cascade)
   notice          Notice?          @relation(fields: [noticeId], references: [id], onDelete: SetNull)
@@ -673,8 +673,8 @@ model Analysis {
   tokensIn  Int            @default(0) @map("tokens_in")
   tokensOut Int            @default(0) @map("tokens_out")
   costCents Int            @default(0) @map("cost_cents")
-  createdAt DateTime       @default(now()) @map("created_at")
-  updatedAt DateTime       @updatedAt @map("updated_at")
+  createdAt DateTime       @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime       @updatedAt @map("updated_at") @db.Timestamptz
 
   tender Tender @relation(fields: [tenderId], references: [id], onDelete: Cascade)
 
@@ -698,8 +698,8 @@ model Requirement {
   confidence    Float?
   lotScope      String[]         @map("lot_scope")
   state         RequirementState @default(active)
-  createdAt     DateTime         @default(now()) @map("created_at")
-  updatedAt     DateTime         @updatedAt @map("updated_at")
+  createdAt     DateTime         @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt     DateTime         @updatedAt @map("updated_at") @db.Timestamptz
 
   tender         Tender          @relation(fields: [tenderId], references: [id], onDelete: Cascade)
   complianceItem ComplianceItem?
@@ -721,8 +721,8 @@ model ComplianceItem {
   evidenceRefs  Json             @default("[]") @map("evidence_refs")
   reviewedBy    String?          @map("reviewed_by")
   reviewState   ReviewState      @default(draft) @map("review_state")
-  createdAt     DateTime         @default(now()) @map("created_at")
-  updatedAt     DateTime         @updatedAt @map("updated_at")
+  createdAt     DateTime         @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt     DateTime         @updatedAt @map("updated_at") @db.Timestamptz
 
   tender      Tender      @relation(fields: [tenderId], references: [id], onDelete: Cascade)
   requirement Requirement @relation(fields: [requirementId], references: [id], onDelete: Cascade)
@@ -744,7 +744,7 @@ model Decision {
   reasons       Json     @default("[]")
   votes         Json     @default("[]")
   decidedBy     String   @map("decided_by")
-  decidedAt     DateTime @default(now()) @map("decided_at")
+  decidedAt     DateTime @default(now()) @map("decided_at") @db.Timestamptz
 
   tender Tender @relation(fields: [tenderId], references: [id], onDelete: Cascade)
 
@@ -759,12 +759,12 @@ model Task {
   title      String
   kind       String?
   assigneeId String?    @map("assignee_id")
-  dueAt      DateTime?  @map("due_at")
+  dueAt      DateTime?  @map("due_at") @db.Timestamptz
   status     TaskStatus @default(todo)
   source     TaskSource @default(manual)
   meta       Json       @default("{}")
-  createdAt  DateTime   @default(now()) @map("created_at")
-  updatedAt  DateTime   @updatedAt @map("updated_at")
+  createdAt  DateTime   @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt  DateTime   @updatedAt @map("updated_at") @db.Timestamptz
 
   org      Org     @relation(fields: [orgId], references: [id], onDelete: Cascade)
   tender   Tender? @relation(fields: [tenderId], references: [id], onDelete: Cascade)
@@ -781,11 +781,11 @@ model QaItem {
   orgId      String   @map("org_id")
   question   String
   status     QaStatus @default(draft)
-  sentAt     DateTime? @map("sent_at")
+  sentAt     DateTime? @map("sent_at") @db.Timestamptz
   answer     String?
   impactRefs Json     @default("[]") @map("impact_refs")
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt  DateTime @updatedAt @map("updated_at") @db.Timestamptz
 
   tender Tender @relation(fields: [tenderId], references: [id], onDelete: Cascade)
 
@@ -807,8 +807,8 @@ model Generation {
   tokensOut     Int            @default(0) @map("tokens_out")
   costCents     Int            @default(0) @map("cost_cents")
   reviewState   ReviewState    @default(ai_draft) @map("review_state")
-  createdAt     DateTime       @default(now()) @map("created_at")
-  updatedAt     DateTime       @updatedAt @map("updated_at")
+  createdAt     DateTime       @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt     DateTime       @updatedAt @map("updated_at") @db.Timestamptz
 
   tender Tender @relation(fields: [tenderId], references: [id], onDelete: Cascade)
 
@@ -824,8 +824,8 @@ model MemoDocument {
   blocks     Json     @default("[]")
   version    Int      @default(1)
   pageBudget Json     @default("{}") @map("page_budget")
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt  DateTime @updatedAt @map("updated_at") @db.Timestamptz
 
   tender Tender @relation(fields: [tenderId], references: [id], onDelete: Cascade)
 
@@ -840,8 +840,8 @@ model RenewalSignal {
   windowEnd     DateTime     @map("window_end") @db.Date
   confidence    Float        @default(0.5)
   state         RenewalState @default(predicted)
-  createdAt     DateTime     @default(now()) @map("created_at")
-  updatedAt     DateTime     @updatedAt @map("updated_at")
+  createdAt     DateTime     @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt     DateTime     @updatedAt @map("updated_at") @db.Timestamptz
 
   awardRecord AwardRecord       @relation(fields: [awardRecordId], references: [id], onDelete: Cascade)
   watches     OrgRenewalWatch[]
@@ -854,7 +854,7 @@ model OrgRenewalWatch {
   orgId           String   @map("org_id")
   renewalSignalId String   @map("renewal_signal_id")
   state           String   @default("watching")
-  createdAt       DateTime @default(now()) @map("created_at")
+  createdAt       DateTime @default(now()) @map("created_at") @db.Timestamptz
 
   org           Org           @relation(fields: [orgId], references: [id], onDelete: Cascade)
   renewalSignal RenewalSignal @relation(fields: [renewalSignalId], references: [id], onDelete: Cascade)
@@ -874,10 +874,10 @@ model Subscription {
   plan             String   @default("trial")
   seats            Int      @default(1)
   status           String   @default("trialing")
-  periodStart      DateTime? @map("period_start")
-  periodEnd        DateTime? @map("period_end")
-  createdAt        DateTime @default(now()) @map("created_at")
-  updatedAt        DateTime @updatedAt @map("updated_at")
+  periodStart      DateTime? @map("period_start") @db.Timestamptz
+  periodEnd        DateTime? @map("period_end") @db.Timestamptz
+  createdAt        DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt        DateTime @updatedAt @map("updated_at") @db.Timestamptz
 
   org Org @relation(fields: [orgId], references: [id], onDelete: Cascade)
 
@@ -892,7 +892,7 @@ model AiUsage {
   tokensIn  Int      @default(0) @map("tokens_in")
   tokensOut Int      @default(0) @map("tokens_out")
   costCents Int      @default(0) @map("cost_cents")
-  createdAt DateTime @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
 
   org Org @relation(fields: [orgId], references: [id], onDelete: Cascade)
 
@@ -909,9 +909,9 @@ model Notification {
   kind      String
   payload   Json      @default("{}")
   channels  String[]
-  sentAt    DateTime? @map("sent_at")
-  ackAt     DateTime? @map("ack_at")
-  createdAt DateTime  @default(now()) @map("created_at")
+  sentAt    DateTime? @map("sent_at") @db.Timestamptz
+  ackAt     DateTime? @map("ack_at") @db.Timestamptz
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz
 
   org  Org   @relation(fields: [orgId], references: [id], onDelete: Cascade)
   user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -928,7 +928,7 @@ model Event {
   kind      String
   entity    String?
   payload   Json     @default("{}")
-  createdAt DateTime @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
 
   @@index([orgId, createdAt])
   @@map("events")
@@ -941,15 +941,15 @@ model Job {
   kind           String
   payload        Json     @default("{}")
   state          JobState @default(queued)
-  runAt          DateTime @default(now()) @map("run_at")
+  runAt          DateTime @default(now()) @map("run_at") @db.Timestamptz
   attempts       Int      @default(0)
   maxAttempts    Int      @default(5) @map("max_attempts")
   lockedBy       String?  @map("locked_by")
-  lockedAt       DateTime? @map("locked_at")
+  lockedAt       DateTime? @map("locked_at") @db.Timestamptz
   idempotencyKey String   @unique @map("idempotency_key")
   lastError      String?  @map("last_error")
-  createdAt      DateTime @default(now()) @map("created_at")
-  updatedAt      DateTime @updatedAt @map("updated_at")
+  createdAt      DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt      DateTime @updatedAt @map("updated_at") @db.Timestamptz
 
   @@index([state, runAt])
   @@map("jobs")

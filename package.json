@@ -19,7 +19,9 @@
     "db:reset": "pnpm --filter @bidpilot/db reset",
     "eval": "echo \"AI eval harness lands with F4 extraction in Phase 2 - see docs/STATUS.md\" && exit 1",
     "fixtures:capture": "python3 scripts/capture_fixtures.py",
-    "fixtures:replay": "python3 scripts/build_replay_corpus.py"
+    "fixtures:replay": "python3 scripts/build_replay_corpus.py",
+    "worker": "python3 -m bidpilot_ingestion.worker",
+    "worker:once": "python3 -m bidpilot_ingestion.worker --once"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
