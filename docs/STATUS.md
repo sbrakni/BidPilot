@@ -13,7 +13,7 @@ Last updated: 2026-08-13.
 |---|---|
 | **Phase 0 — Foundations** | Complete |
 | **Phase 1 — "Radar"** | **Complete**: sign-in → SIREN → live matches → pursue → digest, plus the §6.5 email connector. Remaining Tier-1/2 adapters are blocked on the §24.7 legal review, not on code |
-| Phase 2 — "Decision" | Not started |
+| Phase 2 — "Decision" | **In progress**: LLM gateway, document pipeline and eval harness built and tested; extraction cannot be *measured* without a provider key and the Annex E.3 corpus (ADR-0018) |
 | Phase 3 — "Studio" | Not started |
 | Phase 4 — "Coverage & intelligence" | Not started |
 | Phase 5 — "Expansion" | Not started |
@@ -55,6 +55,17 @@ exercised against a real Postgres and, for the adapters, against live source pay
 | Inbox states + dismissal reasons (§8.3) | ✅ | API-level, with reasons recorded for weight tuning |
 | Instant high-score alerts | ✅ | enqueued above the per-profile threshold and delivered |
 | Daily digest (§8.3) | ✅ | one per org per day, at the send hour in the *org's* timezone, skipped when there is nothing to say |
+
+### Decision engine — F4, F5 (§9, §17.4)
+
+| Item | State | Evidence |
+|---|---|---|
+| LLM gateway (§17.4) | ✅ | tier registry, versioned prompts, schema-validated output with retry, cache keyed on (prompt_hash, model), per-org token accounting, breaker with downward fallback — 29 tests, all incident paths exercised against a scripted transport |
+| Prompt registry (Annex E.1) | ✅ | `packages/ai/prompts/`, three prompts; `scripts/check_prompts.py` asserts E.2 mechanically and was verified to catch each rule being removed |
+| Document pipeline (§9.1) | ✅ | page-anchored extraction, page-boundary windowing, OCR detection, citation verification — 23 tests against a real PDF of real procurement French |
+| Eval harness (Annex E.4) | ✅ machinery | gates as named constants, pooled metrics, `pnpm eval`; 20 tests including that a missing corpus **fails** rather than passing |
+| **Extraction measured against the gates** | ❌ | **blocked**: needs a provider key and the ≥15-DCE gold corpus (Annex E.3). `pnpm eval` exits 2 = "nothing measured", which CI reports as a warning that is explicitly not a pass (ADR-0018) |
+| Red flags (§9.3), eligibility, Go/No-Go brief (§10) | ❌ | not started |
 
 ### Data model & tenancy — §17.6, §18, F10
 
@@ -104,10 +115,10 @@ exercised against a real Postgres and, for the adapters, against live source pay
 |---|---|
 | Typecheck, build, lint (TS) | ✅ |
 | ruff check + format (Python) | ✅ |
-| Unit + integration tests | ✅ 190 Python, 86 TypeScript |
+| Unit + integration tests | ✅ 275 Python, 86 TypeScript |
 | CI running all of the above | ✅ `.github/workflows/ci.yml`, as a **non-superuser** owner - the default service-container role is a superuser, under which RLS does not apply and the isolation suite proves nothing (ADR-0014) |
 | E2E happy paths (Playwright) | ❌ the app is built and manually verified; the automated pass is not written |
-| **AI eval harness (Annex E.4)** | ❌ **placeholder job in CI**; must become blocking before any extraction prompt ships |
+| **AI eval harness (Annex E.4)** | ⚠️ **real job**: harness self-tests and the prompt-registry check run and block; the gates themselves report "nothing measured" until the corpus and a key exist, and must become blocking then (ADR-0018) |
 
 ---
 
@@ -115,8 +126,11 @@ exercised against a real Postgres and, for the adapters, against live source pay
 
 1. **Remaining Tier-1/2 adapters**: BOAMP is live, PLACE, BOSA (BE) and the atexo family are
    seeded as rows but disabled pending the legal review §24.7 requires.
-2. Then Phase 2: the DCE document pipeline, extractions with page-anchored citations, the
-   eval harness with its Annex E.4 gates enforced in CI, and the Go/No-Go brief.
+2. **The Annex E.3 gold corpus and a provider key.** Everything around extraction is built and
+   tested; nothing has been *measured*. Until ≥15 labelled DCEs exist in `fixtures/dce/` and CI
+   has a key, no extraction prompt may ship (ADR-0018). This is the single largest gap.
+3. Then the rest of Phase 2: red flags (§9.3), eligibility and missing-docs plan, the Go/No-Go
+   brief with its decision workflow and PDF export (§10).
 
 ## Phase 1 exit demo (§21)
 
@@ -138,7 +152,7 @@ What is *not* claimed: the "20" is corpus-dependent (a narrow profile against a 
 ## Deliberate scope choices
 
 - Fixtures are captured from live APIs, never authored (ADR-0001).
-- Deviations from the spec are recorded in [`DECISIONS.md`](DECISIONS.md); there are sixteen so
+- Deviations from the spec are recorded in [`DECISIONS.md`](DECISIONS.md); there are eighteen so
   far, several forced by facts the spec marked `[VERIFY]` and several by problems that only
   appeared once the code ran against a real database - or, in ADR-0014's case, against a database
   configured the way CI configures one.

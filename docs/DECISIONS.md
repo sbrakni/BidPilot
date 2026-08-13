@@ -489,3 +489,70 @@ on is an alarm nobody reads.
 **Revisit when** a portal's alert format is worth parsing properly for a large customer. The right
 shape then is a per-portal parser with its own fixtures and its own tests, in the adapter family
 structure §6.4 already describes - not a general-purpose email scraper.
+
+---
+
+## ADR-0017 — The gateway runs in Python; the prompt registry stays in `packages/ai`
+
+**Date:** 2026-08-13 · **Status:** accepted · **Relates to:** §17.4, Annex E.1, ADR-0013
+
+**Decision.** §17.4 names `packages/ai`. The *prompt registry* is there, as language-neutral
+data. The gateway runtime that reads it is `services/ingestion/bidpilot_ingestion/ai/`.
+
+**Why.** Every model call in this product is a queue job — `docs.extract`,
+`analysis.requirements`, `gen.section`, `qualify_match` — and the queue consumer is the Python
+worker. A TypeScript gateway would therefore mean one of two things: a network hop for every
+model call, or a second implementation of retry, caching, token accounting and the circuit
+breaker. The failure mode of two subtly different gateways is a cost control that holds in one
+of them, which is exactly what §17.4's "no service calls a model except through this gateway"
+exists to prevent. Same reasoning as ADR-0013 chose one queue consumer over one language per
+concern.
+
+Prompts stay in `packages/ai/prompts/` because they are *data*, read by the worker, the eval
+harness and any future TypeScript caller. One registry, not one per language, is the property
+Annex E.1 actually cares about.
+
+**What this does not change.** `pnpm eval` still exists and still runs the harness; it shells
+into Python. The command in the spec is the contract, not the language it is written in.
+
+---
+
+## ADR-0018 — Extraction is built; the eval gates cannot yet run
+
+**Date:** 2026-08-13 · **Status:** revisit-at-phase-2 · **Relates to:** Annex E.3/E.4, §9.2
+
+**Decision.** The extraction path is complete and tested except for the one thing that would
+make it shippable: it has never been run against a model. `pnpm eval` exits **2 — "nothing was
+measured"** rather than 0, and CI reports that as a warning that explicitly is not a pass.
+
+**Why it cannot run here.** Two external inputs are missing, and neither can be manufactured
+honestly:
+
+- **A provider key.** No `ANTHROPIC_API_KEY` in this environment, so no extraction has executed.
+- **The Annex E.3 gold corpus.** It requires ≥ 15 *real* DCEs with hand-labelled requirement
+  registers. DCE documents live on authenticated buyer platforms; fabricating them would violate
+  ADR-0001 (fixtures are captured, never authored) and produce gates that measure our imagination.
+  A hand-written "gold" register is a set of answers written to be passed.
+
+**What was built anyway, because it is worth building without the corpus:**
+
+- The gateway, whose incident paths — schema retry, open circuit, tier fallback — are tested
+  against a scripted transport, and are precisely the paths that never run in development.
+- The document pipeline, which is deterministic and needs no model. Its page anchors are what
+  make a citation checkable at all, tested against a real PDF of real procurement French.
+- The harness, tested against itself: that a missing corpus fails, that an eliminatory item filed
+  as a formatting note does not count as found, that a citation matching *gold* but absent from
+  the *document* is invalid, and that pooling stops a 5-requirement DCE outvoting a 200-item one.
+- `scripts/check_prompts.py`, which asserts Annex E.2 mechanically on every push — verbatim
+  quotes demanded, pages demanded, "not found" permitted, citations *required* in the schema,
+  temperature 0. Verified to catch each of those being removed.
+
+**What this deliberately does not do.** Ship extraction as working. §9.2 says "below-gate
+model/prompt changes MUST NOT ship" and E.2 rule 5 makes the eval a merge gate; a green build
+with no measurement behind it would satisfy the letter and invert the point. The distinction
+between exit 1 and exit 2 exists so that "we measured and it is bad" and "we measured nothing"
+can never be confused.
+
+**To close this:** put ≥ 15 labelled DCEs in `fixtures/dce/` as `<case>.pdf` +
+`<case>.gold.json`, set `ANTHROPIC_API_KEY` in CI, and make the `Extraction gates` step
+blocking. The harness needs no changes; it is waiting for its inputs.

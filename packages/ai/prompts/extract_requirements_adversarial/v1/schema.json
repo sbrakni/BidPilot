@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["requirements"],
+  "properties": {
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["ref", "text", "type", "needs_evidence", "page", "quote", "confidence"],
+        "properties": {
+          "ref": { "type": "string", "pattern": "^REQ-[0-9]{3,4}$" },
+          "text": { "type": "string", "minLength": 3 },
+          "type": {
+            "type": "string",
+            "enum": ["eliminatory", "selection", "award", "contractual", "format"]
+          },
+          "category": { "type": "string", "nullable": true },
+          "needs_evidence": { "type": "boolean" },
+          "page": { "type": "integer", "minimum": 1 },
+          "quote": { "type": "string", "minLength": 3 },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+        }
+      }
+    }
+  }
+}

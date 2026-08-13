@@ -168,11 +168,43 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Not yet implemented
-        # Annex E.4 gates (requirement recall >= 0.90, eliminatory recall >= 0.95) land with
-        # the extraction pipeline in Phase 2. This job exists so the gate is visible in the
-        # pipeline rather than forgotten, and it MUST become blocking before any extraction
-        # prompt or model change can ship.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
         run: |
-          echo "Eval harness lands with F4 extraction in Phase 2 (see docs/STATUS.md)."
-          echo "Gates: requirement recall >= 0.90, eliminatory recall >= 0.95, precision >= 0.85."
+          python -m pip install --upgrade pip
+          pip install -e "services/ingestion[dev]"
+
+      # The harness itself is tested here unconditionally. Annex E.2 rule 5 makes a prompt change
+      # something CI must re-evaluate, and measuring equipment that is not itself checked reports
+      # whatever it reports - so the scoring rules are asserted even on days the corpus is absent.
+      - name: Harness self-tests
+        run: pytest services/ingestion/tests/test_evals.py services/ingestion/tests/test_ai_gateway.py -q
+
+      # Every prompt must load and satisfy its Annex E.2 obligations, so a malformed prompt fails
+      # here rather than at the first extraction.
+      - name: Prompt registry
+        run: python scripts/check_prompts.py
+
+      # The gates themselves. Exit 2 means "nothing was measured" - no corpus, or no key - which
+      # is reported as a warning rather than a pass, because those are different facts and
+      # collapsing them is how a pipeline goes green after the corpus quietly disappears.
+      # This step MUST become blocking once fixtures/dce holds the Annex E.3 corpus; see
+      # docs/STATUS.md, where the gap is recorded rather than hidden.
+      - name: Extraction gates
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          set +e
+          python scripts/run_eval.py
+          code=$?
+          set -e
+          if [ "$code" -eq 1 ]; then
+            echo "::error::Extraction is below an Annex E.4 gate. Per E.2 rule 5, this blocks merge."
+            exit 1
+          fi
+          if [ "$code" -eq 2 ]; then
+            echo "::warning::Eval did not run: no gold corpus (Annex E.3) or no provider key."
+            echo "::warning::This is NOT a pass. No extraction prompt may ship until it runs."
+          fi

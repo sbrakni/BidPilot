@@ -1,0 +1,6 @@
+{
+  "description": "Exhaustive atomic requirement register with page-anchored citations (SPEC §9.2 B).",
+  "tier": "L",
+  "max_tokens": 16384,
+  "temperature": 0
+}

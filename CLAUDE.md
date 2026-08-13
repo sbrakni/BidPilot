@@ -78,8 +78,13 @@ docs/                SPEC.md, DECISIONS.md
   on the source row.
 - **Fixtures are captured, never authored.** See ADR-0001. If a source's shape changed, the
   `unmapped_fields` assertion in the adapter tests is what tells you.
-- **No model call outside the LLM gateway** (§17.4) once it exists — that is how cost,
-  quality and swap-ability stay controlled.
+- **No model call outside the LLM gateway** (§17.4) — `services/ingestion/bidpilot_ingestion/ai/`,
+  with prompts as data in `packages/ai/prompts/` (ADR-0017). Call sites ask for a tier (S/M/L) and
+  never name a model. Add a prompt *version* rather than editing one in place: the cache is keyed
+  on it, and Annex E.2 makes a prompt change something CI must re-evaluate.
+- **No extraction prompt ships until `pnpm eval` measures it** (Annex E.2 rule 5, ADR-0018). The
+  harness exits 2 for "nothing measured" and 1 for "measured and below gate" — those are different
+  facts, and a build that treats the first as a pass is the failure the gate exists to prevent.
 - **Platform (cross-org) jobs must iterate orgs and set context per org.** `app_all_org_ids()`
   is the only function allowed to see across tenants, and it returns ids and nothing else. Do
   not widen it, and do not give a worker's login role BYPASSRLS (ADR-0011).
@@ -114,8 +119,12 @@ pnpm test                     # TypeScript tests (includes the cross-tenant RLS 
 pnpm test:py                  # Python tests (adapters, dedupe, matching)
 pnpm lint && pnpm typecheck
 
+pnpm eval                     # extraction eval against the Annex E.4 gates
+python scripts/check_prompts.py         # assert Annex E.2 on every prompt
+
 python scripts/capture_fixtures.py      # refresh raw source snapshots
 python scripts/build_replay_corpus.py   # rebuild the 48h matching corpus
+python scripts/build_dce_fixture.py     # rebuild the DCE test document
 ```
 
 ## Build order

@@ -1,0 +1,6 @@
+{
+  "description": "Second framing for eliminatory detection; Annex E.2 rule 2 takes the union with extract_requirements.",
+  "tier": "L",
+  "max_tokens": 16384,
+  "temperature": 0
+}
