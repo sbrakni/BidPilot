@@ -63,7 +63,8 @@
       "submitted": "Déposé",
       "closed": "Clôturé"
     },
-    "nextAction": "Prochaine action"
+    "nextAction": "Prochaine action",
+    "viaEmail": "Reçu par e-mail"
   },
   "library": {
     "title": "Bibliothèque",
@@ -170,6 +171,20 @@
     "done": {
       "title": "Votre veille est active",
       "body": "Voici les avis qui correspondent à votre profil."
+    }
+  },
+  "settings": {
+    "inbound": {
+      "title": "Connecteur e-mail",
+      "body": "Abonnez cette adresse aux alertes des plateformes que nous ne couvrons pas encore. Chaque lien reçu devient une consultation à examiner.",
+      "copy": "Copier",
+      "copied": "Copié",
+      "step1": "Copiez l'adresse ci-dessus.",
+      "step2": "Créez une alerte sur le portail concerné avec cette adresse comme destinataire.",
+      "step3": "Les avis annoncés par ce portail apparaîtront dans « Mes AO », à l'étape Analyse.",
+      "privacy": "Nous n'extrayons que les liens contenus dans le message. Rien d'autre n'est déduit du texte.",
+      "notConfigured": "Le connecteur e-mail n'est pas configuré sur cet environnement.",
+      "unavailable": "Adresse indisponible pour l'instant."
     }
   }
 }

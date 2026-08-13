@@ -437,3 +437,55 @@ floated on a range, because a beta's patch releases are not bound by semver.
 
 **Revisit when** SSO/SAML arrives (§15.1 puts it in Enterprise, P4). That is a bigger identity
 story and the right moment to ask whether authentication should become its own service.
+
+---
+
+## ADR-0016 — The email connector extracts links and infers nothing else
+
+**Date:** 2026-08-13 · **Status:** accepted · **Relates to:** §6.5, §21 (Phase 1), P1, P6
+
+**Decision.** An inbound alert email becomes org-scoped **tender candidates**, one per distinct
+link, in `analysis`. Links that match a source we ingest carry that attribution and join to the
+existing notice; the rest carry their URL and nothing more. No other field is read from the
+message body.
+
+**Why not parse the notice out of the email.** Portal alerts often contain a title, a buyer and a
+deadline, and it is tempting to read them. They are also prose written for humans, in per-portal
+formats that change without notice, in a product where P3 makes a wrong deadline the worst defect
+available. A regex that reads "clôture le 14/03" correctly for one portal and silently mis-reads
+another is exactly the hallucinated fact P1 forbids. So the only thing taken is the element that
+is structurally unambiguous: the URL. Where a link's own anchor text exists it becomes the title -
+that is the portal's own label for that exact link, not an inference about it.
+
+**Why candidates rather than notices.** A notice is market data, shared across every tenant
+(§17.6). A forwarded email is one org's private mail, and it arrives with no CPV, no NUTS and no
+amount - so as a notice it would fail every hard filter in §8.1 and reach nobody, while polluting
+the commons. As an org-scoped tender it lands where a human can act on it, which is also what
+`TenderOrigin.email` in the schema was always for.
+
+**Three guards worth naming**, each of which was a bug first:
+
+- **Lookalike hosts.** `notted.europa.eu` *ends with* `ted.europa.eu`, so the obvious suffix check
+  would attribute an attacker-registered domain to a real TED notice. Host matching requires a dot
+  boundary.
+- **Boilerplate.** Unsubscribe, preferences, view-in-browser and social links are in every alert.
+  Left in, one three-consultation email opened six workspaces. They are filtered, and the count is
+  reported rather than dropped silently.
+- **Address case.** Org ids are upper-case ULIDs and email local parts get normalised by some
+  MTAs, so lower-casing the address - the obvious thing to do - destroyed every real org id. The
+  tag's case is preserved, with a case-insensitive fallback against the platform's org list.
+
+**The API accepts and does not parse.** `POST /v1/inbound/email` verifies a shared secret in
+constant time, fails closed when none is configured, and enqueues. Parsing in the worker means a
+malformed message costs a retry rather than an HTTP error that the provider answers by
+re-delivering the same broken mail.
+
+**Two things this shipped alongside**, because the feature was not usable without them: `GET
+/v1/tenders` and the "Mes AO" screen, since both `pursue` and this connector were writing rows
+nothing could read; and a fix to source health, which reported every push source as permanently
+silent - a silence budget makes no sense for something nobody polls, and an alarm that is always
+on is an alarm nobody reads.
+
+**Revisit when** a portal's alert format is worth parsing properly for a large customer. The right
+shape then is a per-portal parser with its own fixtures and its own tests, in the adapter family
+structure §6.4 already describes - not a general-purpose email scraper.

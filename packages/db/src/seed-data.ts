@@ -132,14 +132,12 @@ export const SOURCES: SourceSeed[] = [
     // The universal fallback (§6.5): covers any portal that can send an alert email,
     // including authenticated ones, using the user's own access.
     config: { address_pattern: "sources+{org}@{domain}" },
-    schedule: "* * * * *",
+    // No cron on purpose: this source is *pushed to*, not polled. A schedule here would queue a
+    // fetch for an adapter that does not exist, because there is nothing to fetch - mail arrives
+    // at the webhook (`POST /v1/inbound/email`) and the worker parses it from the queue.
+    schedule: "",
     legal: { basis: "open-license", notes: "User-forwarded content.", reviewed_at: "2026-08-12" },
-    // Disabled until the connector exists, for the same reason a stage is never added to the
-    // scheduler before its handler: enabled, this row schedules a fetch every minute for an
-    // adapter that is not registered, so every environment collects a permanently failing job.
-    // A dead-letter queue that is always red tells you nothing when something real breaks.
-    // Flip to true with the F1/§6.5 inbound parser.
-    enabled: false,
+    enabled: true,
   },
   {
     code: "manual-import",

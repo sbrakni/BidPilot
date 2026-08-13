@@ -12,7 +12,7 @@ Last updated: 2026-08-13.
 | Phase | State |
 |---|---|
 | **Phase 0 — Foundations** | Complete |
-| **Phase 1 — "Radar"** | **Exit demo passes**: signup → SIREN → live matches → pursue → digest. Email connector and remaining Tier-1/2 adapters outstanding |
+| **Phase 1 — "Radar"** | **Complete**: sign-in → SIREN → live matches → pursue → digest, plus the §6.5 email connector. Remaining Tier-1/2 adapters are blocked on the §24.7 legal review, not on code |
 | Phase 2 — "Decision" | Not started |
 | Phase 3 — "Studio" | Not started |
 | Phase 4 — "Coverage & intelligence" | Not started |
@@ -39,8 +39,8 @@ exercised against a real Postgres and, for the adapters, against live source pay
 | Job queue (§17.1, §17.3) | ✅ | Postgres-backed, `FOR UPDATE SKIP LOCKED`, idempotency keys, capped retries, dead-letter, stale-claim recovery |
 | Scheduler (§17.1) | ✅ | cron per source row plus platform jobs; idempotent per time bucket, so redundant schedulers are safe (§16) |
 | Source registry as data (§6.1) | ✅ | 10 seeded sources; Tier-2 rows disabled pending legal review, per §24.7 |
-| Email connector (§6.5) | ❌ | source row seeded, inbound parsing not implemented |
-| Source health monitoring (§6.1) | ✅ | per-tier silence budgets and the week-over-week yield-drop check, with transitions recorded as events |
+| Email connector (§6.5) | ✅ | `POST /v1/inbound/email` → queue → parse; links only, never inferred facts (ADR-0016). Verified end-to-end with a portal-shaped alert: 3 consultations in, 3 candidates out, 3 boilerplate links filtered |
+| Source health monitoring (§6.1) | ✅ | per-tier silence budgets and the week-over-week yield-drop check, with transitions recorded as events; push sources are exempt from silence, which they cannot meaningfully fail |
 | Public coverage status (§6.9 MUST) | ✅ | `GET /v1/status/coverage`, unauthenticated, declaring the JAL gap explicitly |
 
 ### Matching — F3 (§8)
@@ -85,6 +85,8 @@ exercised against a real Postgres and, for the adapters, against live source pay
 | i18n, French-first (§20.6) | ✅ FR + EN via next-intl |
 | Onboarding wizard (§15.3) | ✅ SIREN → confirm → scope → inbox, verified in a browser against the live registry |
 | Sign-in (§17.1) | ✅ magic link, no password field; OAuth buttons appear only where configured |
+| "Mes AO" list (§20.1) | ✅ by stage, soonest deadline first, showing where a candidate came from |
+| Settings: inbound address (§6.5) | ✅ the address to subscribe, with copy-to-clipboard and what to do with it |
 | Tender workspace (§12.1), compliance matrix, studio | ❌ sections render honest empty states rather than 404s |
 
 ### API — §19
@@ -92,7 +94,7 @@ exercised against a real Postgres and, for the adapters, against live source pay
 | Item | State |
 |---|---|
 | `/health`, `/health/ready` | ✅ version-neutral |
-| `/v1/org`, `/v1/matches` (+ shortlist/dismiss/pursue), `/v1/notices/{id}`, `/v1/status/coverage`, `/v1/profile` (+ bootstrap) | ✅ 39 API tests, including session verification |
+| `/v1/org`, `/v1/matches` (+ shortlist/dismiss/pursue), `/v1/notices/{id}`, `/v1/tenders`, `/v1/status/coverage`, `/v1/profile` (+ bootstrap), `/v1/inbound/email` | ✅ 49 API tests, including session verification and the inbound webhook |
 | OpenAPI document at `/docs` | ✅ generated |
 | Everything else in §19 | ❌ |
 
@@ -102,7 +104,7 @@ exercised against a real Postgres and, for the adapters, against live source pay
 |---|---|
 | Typecheck, build, lint (TS) | ✅ |
 | ruff check + format (Python) | ✅ |
-| Unit + integration tests | ✅ 156 Python, 76 TypeScript |
+| Unit + integration tests | ✅ 190 Python, 86 TypeScript |
 | CI running all of the above | ✅ `.github/workflows/ci.yml`, as a **non-superuser** owner - the default service-container role is a superuser, under which RLS does not apply and the isolation suite proves nothing (ADR-0014) |
 | E2E happy paths (Playwright) | ❌ the app is built and manually verified; the automated pass is not written |
 | **AI eval harness (Annex E.4)** | ❌ **placeholder job in CI**; must become blocking before any extraction prompt ships |
@@ -111,11 +113,9 @@ exercised against a real Postgres and, for the adapters, against live source pay
 
 ## Known gaps, in the order they should be closed
 
-1. **Email inbox connector** (§6.5), which §21 requires in Phase 1. It is the universal
-   fallback that "covers" any portal able to send an alert mail, including authenticated ones.
-2. **Remaining Tier-1/2 adapters**: BOAMP is live, PLACE, BOSA (BE) and the atexo family are
+1. **Remaining Tier-1/2 adapters**: BOAMP is live, PLACE, BOSA (BE) and the atexo family are
    seeded as rows but disabled pending the legal review §24.7 requires.
-3. Then Phase 2: the DCE document pipeline, extractions with page-anchored citations, the
+2. Then Phase 2: the DCE document pipeline, extractions with page-anchored citations, the
    eval harness with its Annex E.4 gates enforced in CI, and the Go/No-Go brief.
 
 ## Phase 1 exit demo (§21)
@@ -138,7 +138,7 @@ What is *not* claimed: the "20" is corpus-dependent (a narrow profile against a 
 ## Deliberate scope choices
 
 - Fixtures are captured from live APIs, never authored (ADR-0001).
-- Deviations from the spec are recorded in [`DECISIONS.md`](DECISIONS.md); there are fifteen so
+- Deviations from the spec are recorded in [`DECISIONS.md`](DECISIONS.md); there are sixteen so
   far, several forced by facts the spec marked `[VERIFY]` and several by problems that only
   appeared once the code ran against a real database - or, in ADR-0014's case, against a database
   configured the way CI configures one.

@@ -1,9 +1,13 @@
 /**
  * Typed client for the BidPilot API (SPEC §17.2: "web ↔ api only").
  *
- * The web app never touches the database. That is not ceremony: it means tenant isolation
- * has exactly one enforcement point (the API's authorization plus Postgres RLS behind it),
- * and the same contract serves the public API on the Scale plan (§19).
+ * Every piece of tenant data in this app arrives through here. That is not ceremony: it means
+ * isolation has exactly one enforcement point - the API's authorization plus Postgres RLS behind
+ * it - and the same contract serves the public API on the Scale plan (§19).
+ *
+ * The web app does hold one database connection, for Auth.js alone. Its role is granted the four
+ * authentication tables and nothing else, so "tenant data comes only from the API" is enforced by
+ * Postgres rather than by the absence of a connection string (ADR-0015).
  */
 
 import { cookies } from "next/headers";
@@ -76,6 +80,25 @@ export type MatchCard = {
 
 export type MatchPage = { data: MatchCard[]; nextCursor: string | null };
 
+export type TenderCard = {
+  id: string;
+  title: string;
+  stage: "analysis" | "decision" | "response" | "submitted" | "closed";
+  origin: "match" | "manual" | "email";
+  deadlineAt: string | null;
+  sourceUrl: string | null;
+  notice: {
+    id: string;
+    buyerName: string | null;
+    cpv: string[];
+    amountEst: number | null;
+    currency: string | null;
+    urls: unknown;
+  } | null;
+};
+
+export type TenderList = { data: TenderCard[]; countsByStage: Record<string, number> };
+
 export type OrgSummary = {
   id: string;
   name: string;
@@ -84,6 +107,8 @@ export type OrgSummary = {
   tz: string;
   plan: string;
   role: string;
+  /** `sources+{org}@{domain}` for the email connector (§6.5); null when not configured. */
+  inboundEmail: string | null;
   profile: { headcount: number | null; cpvFamilies: string[]; keywords: string[] } | null;
   counters: { newMatches: number; evidenceNeedingAttention: number };
 };
@@ -128,6 +153,8 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
 
 export const api = {
   org: () => request<OrgSummary>("/v1/org"),
+
+  tenders: () => request<TenderList>("/v1/tenders"),
 
   matches: (params: { state?: string; minScore?: number; limit?: number; cursor?: string } = {}) => {
     const query = new URLSearchParams();

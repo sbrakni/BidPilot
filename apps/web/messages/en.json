@@ -63,7 +63,8 @@
       "submitted": "Submitted",
       "closed": "Closed"
     },
-    "nextAction": "Next action"
+    "nextAction": "Next action",
+    "viaEmail": "Via email"
   },
   "library": {
     "title": "Library",
@@ -170,6 +171,20 @@
     "done": {
       "title": "Monitoring is active",
       "body": "These are the notices matching your profile."
+    }
+  },
+  "settings": {
+    "inbound": {
+      "title": "Email connector",
+      "body": "Subscribe this address to alerts from portals we don't cover yet. Every link it receives becomes a consultation to review.",
+      "copy": "Copy",
+      "copied": "Copied",
+      "step1": "Copy the address above.",
+      "step2": "Create an alert on the portal, using this address as the recipient.",
+      "step3": "Notices that portal announces will appear under “My tenders”, at the Analysis stage.",
+      "privacy": "We extract only the links in the message. Nothing else is inferred from the text.",
+      "notConfigured": "The email connector is not configured on this environment.",
+      "unavailable": "Address unavailable right now."
     }
   }
 }

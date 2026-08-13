@@ -770,3 +770,196 @@ def test_deadline_alerts_stay_scoped_to_their_own_org(connection):
         assert rows, f"org {name} should see its own alert"
         assert {row["org_id"] for row in rows} == {org_id}, "an org must never see another's alerts"
         assert all(row["tender_id"] == f"tnd_{name}" for row in rows)
+
+
+# ---------------------------------------------------------------- email connector (§6.5)
+
+
+def _make_org(connection, name: str) -> str:
+    from bidpilot_ingestion.ids import new_id
+
+    org_id = new_id("org")
+    connection.execute(text("SELECT set_config('app.org_id', :org, true)"), {"org": org_id})
+    connection.execute(
+        text(
+            """
+            INSERT INTO orgs (id, name, country, locale, tz, settings, plan,
+                              ai_credits_balance, created_at, updated_at)
+            VALUES (:id, :name, 'FR', 'fr', 'Europe/Paris', '{}'::jsonb, 'trial', 0, now(), now())
+            """
+        ),
+        {"id": org_id, "name": name},
+    )
+    return org_id
+
+
+def test_inbound_email_creates_a_candidate_per_link(connection):
+    """The §6.5 promise: a portal that can send an alert is a portal we cover."""
+    from bidpilot_ingestion.inbound import process_inbound_email
+
+    org_id = _make_org(connection, "inbound-basic")
+    result = process_inbound_email(
+        connection,
+        {
+            "to": f"sources+{org_id}@in.bidpilot.example",
+            "from": "alertes@marches-hopital.example",
+            "subject": "2 nouvelles consultations",
+            "text": (
+                "Bonjour,\n"
+                "https://marches.example-hospital.fr/consultation/4412\n"
+                "https://marches.example-hospital.fr/consultation/4413\n"
+            ),
+            "html": None,
+            "message_id": "<a@example>",
+        },
+    )
+
+    assert result["org_id"] == org_id
+    assert result["links"] == 2
+    assert result["created"] == 2
+
+    connection.execute(text("SELECT set_config('app.org_id', :org, true)"), {"org": org_id})
+    rows = (
+        connection.execute(
+            text("SELECT origin::text, stage::text, meta FROM tenders WHERE org_id = :org"),
+            {"org": org_id},
+        )
+        .mappings()
+        .all()
+    )
+    assert len(rows) == 2
+    assert {row["origin"] for row in rows} == {"email"}
+    # `analysis`, not `response`: the decision has not been made yet (P2).
+    assert {row["stage"] for row in rows} == {"analysis"}
+    assert all(row["meta"]["discovered_via"] == "email" for row in rows)
+
+
+def test_inbound_email_is_idempotent_across_redeliveries(connection):
+    """Providers retry, and portals resend the same digest. Neither may open a second workspace."""
+    from bidpilot_ingestion.inbound import process_inbound_email
+
+    org_id = _make_org(connection, "inbound-idempotent")
+    payload = {
+        "to": f"sources+{org_id}@in.bidpilot.example",
+        "subject": "Avis",
+        "text": "https://marches.example-hospital.fr/consultation/999",
+        "message_id": "<dup@example>",
+    }
+
+    first = process_inbound_email(connection, payload)
+    second = process_inbound_email(connection, payload)
+
+    assert first["created"] == 1
+    assert second["created"] == 0 and second["duplicates"] == 1
+
+    connection.execute(text("SELECT set_config('app.org_id', :org, true)"), {"org": org_id})
+    count = connection.execute(
+        text("SELECT count(*) FROM tenders WHERE org_id = :org"), {"org": org_id}
+    ).scalar()
+    assert count == 1
+
+
+def test_inbound_email_links_a_recognised_notice_to_the_real_row(connection, test_source):
+    """A TED link in an email should reach the notice we already hold, not a thinner copy of it."""
+    from bidpilot_ingestion.ids import new_id
+    from bidpilot_ingestion.inbound import process_inbound_email
+
+    external_id = "00987654-2026"
+    notice_id = new_id("ntc")
+    connection.execute(
+        text(
+            """
+            INSERT INTO notices (id, source_refs, status, notice_type, country, title, lots,
+                                 urls, docs_available, provenance, version, created_at, updated_at)
+            VALUES (:id, CAST(:refs AS jsonb), 'active', 'competition', 'FR', :title, '[]'::jsonb,
+                    '{}'::jsonb, false, '{}'::jsonb, 1, now(), now())
+            """
+        ),
+        {
+            "id": notice_id,
+            "refs": json.dumps([{"source": "eu-ted", "external_id": external_id}]),
+            "title": "Infogérance",
+        },
+    )
+
+    org_id = _make_org(connection, "inbound-linked")
+    result = process_inbound_email(
+        connection,
+        {
+            "to": f"sources+{org_id}@in.bidpilot.example",
+            "subject": "Nouvel avis TED",
+            "text": f"https://ted.europa.eu/en/notice/-/detail/{external_id}",
+            "message_id": "<ted@example>",
+        },
+    )
+
+    assert result["created"] == 1 and result["linked_to_notice"] == 1
+
+    connection.execute(text("SELECT set_config('app.org_id', :org, true)"), {"org": org_id})
+    linked = connection.execute(
+        text("SELECT notice_id FROM tenders WHERE org_id = :org"), {"org": org_id}
+    ).scalar()
+    assert linked == notice_id
+
+
+def test_inbound_email_for_an_unreadable_address_is_dropped_not_guessed(connection):
+    """Mail we cannot attribute is refused. Guessing an org would be a cross-tenant write."""
+    from bidpilot_ingestion.inbound import process_inbound_email
+
+    result = process_inbound_email(
+        connection,
+        {"to": "hello@in.bidpilot.example", "text": "https://example.com/avis/1"},
+    )
+    assert result["rejected_reason"] == "unaddressable"
+    assert result["created"] == 0
+
+
+def test_inbound_email_for_an_unknown_org_is_refused(connection):
+    """A well-formed address naming an org that does not exist creates nothing."""
+    from bidpilot_ingestion.inbound import process_inbound_email
+
+    result = process_inbound_email(
+        connection,
+        {
+            "to": "sources+org_01JZZZZZZZZZZZZZZZZZZZZZZZ@in.bidpilot.example",
+            "text": "https://example.com/avis/1",
+        },
+    )
+    assert result["rejected_reason"] == "unknown_org"
+    assert result["created"] == 0
+
+
+def test_inbound_email_caps_a_newsletter_and_says_how_many_it_skipped(connection):
+    """Over the cap the excess is reported, not silently dropped (§6.9 is about honest gaps)."""
+    from bidpilot_ingestion.inbound import MAX_LINKS_PER_EMAIL, process_inbound_email
+
+    org_id = _make_org(connection, "inbound-newsletter")
+    body = "\n".join(f"https://marches.example-hospital.fr/c/{i}" for i in range(MAX_LINKS_PER_EMAIL + 7))
+    result = process_inbound_email(
+        connection,
+        {"to": f"sources+{org_id}@in.bidpilot.example", "text": body, "message_id": "<n@example>"},
+    )
+
+    assert result["created"] == MAX_LINKS_PER_EMAIL
+    assert result["skipped_links"] == 7
+
+
+def test_inbound_email_candidates_stay_inside_their_org(connection):
+    """The connector writes tenant data from third-party input, so isolation is asserted here."""
+    from bidpilot_ingestion.inbound import process_inbound_email
+
+    alpha = _make_org(connection, "inbound-alpha")
+    beta = _make_org(connection, "inbound-beta")
+
+    process_inbound_email(
+        connection,
+        {
+            "to": f"sources+{alpha}@in.bidpilot.example",
+            "text": "https://marches.example-hospital.fr/only-alpha",
+            "message_id": "<alpha@example>",
+        },
+    )
+
+    connection.execute(text("SELECT set_config('app.org_id', :org, true)"), {"org": beta})
+    visible = connection.execute(text("SELECT count(*) FROM tenders")).scalar()
+    assert visible == 0, "beta must not see a candidate created from alpha's mail"

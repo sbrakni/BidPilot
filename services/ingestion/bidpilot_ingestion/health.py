@@ -71,11 +71,21 @@ def evaluate(
     silent_for: timedelta | None,
     notices_7d: int,
     notices_prev_7d: int,
+    polled: bool = True,
 ) -> SourceHealth:
     """Decide a source's health. Pure, so the thresholds are unit-testable without a database."""
     if not enabled:
         return SourceHealth(
             code, tier, "disabled", "source disabled", notices_7d, notices_prev_7d, silent_for
+        )
+
+    if not polled:
+        # Push sources - the email connector (§6.5), manual import - are never fetched on a
+        # schedule, so "no successful run" says nothing about their health. Applying a silence
+        # budget to them would put a permanent false alarm on the coverage page, which is the
+        # fastest way to teach operators to ignore it.
+        return SourceHealth(
+            code, tier, "green", "push source; not polled", notices_7d, notices_prev_7d, silent_for
         )
 
     budget = SILENCE_BUDGET.get(tier, timedelta(hours=24))
@@ -124,6 +134,7 @@ def run_source_health(connection: Connection) -> dict[str, Any]:
             text(
                 """
             SELECT s.code, s.tier::text AS tier, s.enabled, s.health::text AS health,
+                   s.schedule,
                    EXTRACT(EPOCH FROM (now() - s.last_success_at)) AS silent_seconds,
                    (SELECT count(*) FROM raw_notices r
                      WHERE r.source_id = s.id AND r.fetched_at > now() - interval '7 days') AS notices_7d,
@@ -149,6 +160,8 @@ def run_source_health(connection: Connection) -> dict[str, Any]:
             silent_for=timedelta(seconds=float(silent_seconds)) if silent_seconds is not None else None,
             notices_7d=int(row["notices_7d"] or 0),
             notices_prev_7d=int(row["notices_prev_7d"] or 0),
+            # A source with no cron is push-driven, not neglected.
+            polled=bool((row["schedule"] or "").strip()),
         )
         verdicts.append(verdict)
 

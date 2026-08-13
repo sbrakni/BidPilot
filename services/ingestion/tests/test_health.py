@@ -99,3 +99,37 @@ def test_a_disabled_source_reports_disabled_not_silent():
     verdict = _evaluate(enabled=False, silent_for=timedelta(days=30))
     assert verdict.health == "disabled"
     assert verdict.should_page is False
+
+
+def test_a_push_source_is_not_reported_silent():
+    """The email connector (§6.5) and manual import are never polled, so silence means nothing.
+
+    Before this, every environment showed them permanently silent on the coverage page - an
+    alarm that is always on is an alarm nobody reads.
+    """
+    verdict = evaluate(
+        code="email-inbox",
+        tier="long_tail",
+        enabled=True,
+        silent_for=None,
+        notices_7d=0,
+        notices_prev_7d=0,
+        polled=False,
+    )
+    assert verdict.health == "green"
+    assert verdict.should_page is False
+
+
+def test_a_polled_source_that_never_ran_is_still_silent():
+    """The opposite case, so the exemption above cannot quietly swallow a real outage."""
+    verdict = evaluate(
+        code="eu-ted",
+        tier="official_api",
+        enabled=True,
+        silent_for=None,
+        notices_7d=0,
+        notices_prev_7d=0,
+        polled=True,
+    )
+    assert verdict.health == "silent"
+    assert verdict.should_page is True

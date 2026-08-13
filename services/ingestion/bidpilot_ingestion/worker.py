@@ -25,6 +25,7 @@ from typing import Any
 from .alerts import escalate_unacknowledged, run_deadline_alerts, run_vault_freshness
 from .db import transaction
 from .health import run_source_health
+from .inbound import process_inbound_email
 from .notify import run_daily_digest, run_notify_send
 from .pipeline import record_fetch_failure, run_dedupe, run_match, run_normalize, run_source_fetch
 from .queue import Job, claim, complete, fail, queue_depth, reclaim_stale
@@ -94,6 +95,16 @@ def _handle_daily_digest(connection, payload: dict[str, Any]) -> dict[str, Any]:
     return run_daily_digest(connection)
 
 
+def _handle_inbound_email(connection, payload: dict[str, Any]) -> dict[str, Any]:
+    """Turn a received alert email into tender candidates (SPEC §6.5).
+
+    The API accepts the webhook and enqueues; the parsing happens here, where the rest of the
+    sourcing engine lives and where a malformed message costs a retry rather than an HTTP error
+    on the provider's side.
+    """
+    return process_inbound_email(connection, payload)
+
+
 def _handle_unimplemented(connection, payload: dict[str, Any]) -> dict[str, Any]:
     """Declared-but-unbuilt stages fail loudly rather than silently succeeding.
 
@@ -113,6 +124,7 @@ HANDLERS: dict[str, Handler] = {
     "vault.freshness": _handle_vault_freshness,
     "notify.send": _handle_notify_send,
     "digest.daily": _handle_daily_digest,
+    "email.inbound": _handle_inbound_email,
 }
 
 

@@ -56,6 +56,7 @@ JOB_KINDS = frozenset(
         "renewals.compute",
         "source.health",
         "notify.deadlines",
+        "email.inbound",
     }
 )
 

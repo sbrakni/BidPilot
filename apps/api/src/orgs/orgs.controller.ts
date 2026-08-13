@@ -13,6 +13,12 @@ import { withOrgContext } from "@bidpilot/db";
 
 import { TenantService } from "../common/tenant.js";
 
+/** `sources+{org}@{domain}` (SPEC §6.5), or null where the connector is not configured. */
+export function inboundAddress(orgId: string): string | null {
+  const domain = process.env.INBOUND_EMAIL_DOMAIN;
+  return domain ? `sources+${orgId}@${domain}` : null;
+}
+
 /** Declared for the same reasons as the match shapes: a written-down wire contract. */
 export type OrgSummary = {
   id: string;
@@ -22,6 +28,15 @@ export type OrgSummary = {
   tz: string;
   plan: string;
   role: string;
+  /**
+   * The address this org subscribes to portal alert emails (SPEC §6.5).
+   *
+   * Derived rather than stored: it is a pure function of the org id and the deployment's inbound
+   * domain, so there is no second copy to drift, and rotating the domain does not need a
+   * migration. Null when no inbound domain is configured, which is how the UI knows to say the
+   * connector is unavailable instead of showing an address that goes nowhere.
+   */
+  inboundEmail: string | null;
   profile: {
     headcount: number | null;
     cpvFamilies: string[];
@@ -56,6 +71,7 @@ export class OrgsController {
         tz: org.tz,
         plan: org.plan,
         role: principal.role,
+        inboundEmail: inboundAddress(org.id),
         profile: org.profile
           ? {
               headcount: org.profile.headcount,

@@ -293,3 +293,133 @@ describe("public coverage status (SPEC §6.9)", () => {
     expect(response.body.knownGaps.join(" ")).toMatch(/JAL/);
   });
 });
+
+describe("inbound email webhook (SPEC §6.5)", () => {
+  const SECRET = "test-inbound-secret";
+  const payload = {
+    to: "sources+org_demo_esn@in.bidpilot.example",
+    from: "alertes@marches.example",
+    subject: "Nouvelle consultation",
+    text: "https://marches.example-hospital.fr/consultation/8801",
+    messageId: "<webhook-test@example>",
+  };
+
+  beforeAll(() => {
+    process.env.INBOUND_EMAIL_WEBHOOK_SECRET = SECRET;
+  });
+
+  afterAll(async () => {
+    delete process.env.INBOUND_EMAIL_WEBHOOK_SECRET;
+    await owner?.$executeRawUnsafe(
+      `DELETE FROM jobs WHERE idempotency_key LIKE 'email.inbound:%'`,
+    );
+  });
+
+  it("refuses a request with no secret", async () => {
+    await request(server).post("/v1/inbound/email").send(payload).expect(401);
+  });
+
+  it("refuses a wrong secret", async () => {
+    await request(server)
+      .post("/v1/inbound/email")
+      .set("x-bidpilot-inbound-secret", "not-the-secret")
+      .send(payload)
+      .expect(401);
+  });
+
+  it("refuses a session token in place of the shared secret", async () => {
+    // The endpoint is machine-to-machine; a user credential must not open it.
+    await request(server)
+      .post("/v1/inbound/email")
+      .set("x-bidpilot-inbound-secret", LEA)
+      .send(payload)
+      .expect(401);
+  });
+
+  it("accepts a signed delivery and queues it for the worker", async () => {
+    const response = await request(server)
+      .post("/v1/inbound/email")
+      .set("x-bidpilot-inbound-secret", SECRET)
+      .send(payload)
+      .expect(202);
+
+    expect(response.body.accepted).toBe(true);
+    expect(response.body.jobId).toBeTruthy();
+
+    const job = await owner.job.findFirst({
+      where: { idempotencyKey: `email.inbound:${payload.messageId}:1` },
+    });
+    expect(job?.kind).toBe("email.inbound");
+    // The API stores the message and parses nothing: that belongs to the ingestion worker.
+    expect((job?.payload as { to?: string }).to).toBe(payload.to);
+  });
+
+  it("does not queue the same message twice when the provider retries", async () => {
+    await request(server)
+      .post("/v1/inbound/email")
+      .set("x-bidpilot-inbound-secret", SECRET)
+      .send(payload)
+      .expect(202);
+
+    const count = await owner.job.count({
+      where: { idempotencyKey: `email.inbound:${payload.messageId}:1` },
+    });
+    expect(count).toBe(1);
+  });
+
+  it("accepts but does not queue a message it cannot attribute to an org", async () => {
+    // 202 rather than 4xx: the provider cannot fix a missing recipient by re-sending, and an
+    // error status would have it redeliver the same message indefinitely.
+    const response = await request(server)
+      .post("/v1/inbound/email")
+      .set("x-bidpilot-inbound-secret", SECRET)
+      .send({ ...payload, to: undefined, messageId: "<no-recipient@example>" })
+      .expect(202);
+    expect(response.body.jobId).toBeNull();
+  });
+});
+
+describe("tender list (SPEC §20.1)", () => {
+  it("returns the org's tenders, soonest deadline first", async () => {
+    const response = await request(server)
+      .get("/v1/tenders")
+      .set("authorization", `Bearer ${LEA}`)
+      .expect(200);
+
+    expect(Array.isArray(response.body.data)).toBe(true);
+    // P3: a published deadline always outranks an absent one, whatever else is true of the row.
+    const deadlines: Array<string | null> = response.body.data.map(
+      (tender: { deadlineAt: string | null }) => tender.deadlineAt,
+    );
+    const withDeadline = deadlines.filter(Boolean) as string[];
+    const sorted = [...withDeadline].sort();
+    expect(withDeadline).toEqual(sorted);
+    expect(deadlines.slice(withDeadline.length).every((value) => value === null)).toBe(true);
+  });
+
+  it("counts by stage so the screen can show where work sits", async () => {
+    const response = await request(server)
+      .get("/v1/tenders")
+      .set("authorization", `Bearer ${LEA}`)
+      .expect(200);
+    const total = Object.values(response.body.countsByStage as Record<string, number>).reduce(
+      (sum, n) => sum + n,
+      0,
+    );
+    expect(total).toBe(response.body.data.length);
+  });
+
+  it("never shows another org's tenders", async () => {
+    const [lea, sofia] = await Promise.all([
+      request(server).get("/v1/tenders").set("authorization", `Bearer ${LEA}`).expect(200),
+      request(server).get("/v1/tenders").set("authorization", `Bearer ${SOFIA}`).expect(200),
+    ]);
+    const leaIds = new Set(lea.body.data.map((t: { id: string }) => t.id));
+    const overlap = sofia.body.data.filter((t: { id: string }) => leaIds.has(t.id));
+    expect(overlap).toEqual([]);
+  });
+
+  it("requires authentication", async () => {
+    await request(server).get("/v1/tenders").expect(401);
+  });
+});
