@@ -85,10 +85,11 @@ docs/                SPEC.md, DECISIONS.md
   not widen it, and do not give a worker's login role BYPASSRLS (ADR-0011).
 - **`DATABASE_URL`'s role must not be a superuser** (ADR-0014). SUPERUSER and BYPASSRLS are both
   exempt from RLS — `FORCE ROW LEVEL SECURITY` does not reach them — so under either, tenant
-  context is silently ignored while everything still reports success. The trap is that this is
-  the *default*: `initdb --username="$POSTGRES_USER"` makes that role a superuser, so compose and
-  CI both drop it (`packages/db/sql/drop_superuser.sql`) and the ingestion service refuses to set
-  tenant context on a role that bypasses policies. If a fresh database makes the worker abort
+  context is silently ignored while everything still reports success. So `POSTGRES_USER` is
+  `postgres`, an admin role used only for the privileged bootstrap, and `bootstrap_roles.sql`
+  creates the unprivileged `bidpilot` owner that `DATABASE_URL` points at. Do not "simplify" this
+  by pointing `DATABASE_URL` at `postgres`, and do not try to demote it either — Postgres refuses
+  to remove SUPERUSER from the role `initdb` created. If a fresh database makes the worker abort
   with `RlsBypassError`, that is this, and the fix is the role, never the guard.
 - **A job kind with no handler fails loudly**, on purpose. Do not add a stage to the scheduler
   before its handler exists: a queue that looks healthy while nothing happens is worse than a

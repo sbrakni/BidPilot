@@ -28,12 +28,18 @@ jobs:
       postgres:
         image: pgvector/pgvector:pg16
         env:
-          POSTGRES_USER: bidpilot
-          POSTGRES_PASSWORD: bidpilot
+          # An admin role, not the application's. initdb makes POSTGRES_USER the cluster's
+          # bootstrap superuser, which is exempt from row-level security and cannot be demoted
+          # (Postgres refuses: "the bootstrap user must have the SUPERUSER attribute"). Running
+          # the suite as that role would make every tenant boundary inert and the isolation
+          # tests vacuous, so the unprivileged owner behind DATABASE_URL is created separately
+          # by bootstrap_roles.sql (ADR-0014).
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
           POSTGRES_DB: bidpilot
         ports: ["5432:5432"]
         options: >-
-          --health-cmd "pg_isready -U bidpilot -d bidpilot"
+          --health-cmd "pg_isready -U postgres -d bidpilot"
           --health-interval 5s --health-timeout 5s --health-retries 20
     steps:
       - uses: actions/checkout@v4
@@ -62,15 +68,17 @@ jobs:
           node-version: "22"
           cache: pnpm
       - name: Prepare database
+        # ON_ERROR_STOP on every psql call: without it psql exits 0 after printing ERROR, so a
+        # broken bootstrap reports success here and surfaces later as a confusing test failure.
         env:
-          PGPASSWORD: bidpilot
+          PGPASSWORD: postgres
         run: |
           sudo apt-get update && sudo apt-get install -y postgresql-client
-          psql -h localhost -U bidpilot -d bidpilot -c \
+          psql -v ON_ERROR_STOP=1 -h localhost -U postgres -d bidpilot -c \
             "CREATE EXTENSION IF NOT EXISTS vector; CREATE EXTENSION IF NOT EXISTS pg_trgm; CREATE EXTENSION IF NOT EXISTS unaccent;"
-          psql -h localhost -U bidpilot -d bidpilot -v app_password=bidpilot_app \
+          psql -v ON_ERROR_STOP=1 -h localhost -U postgres -d bidpilot \
+            -v owner_password=bidpilot -v app_password=bidpilot_app \
             -f packages/db/sql/bootstrap_roles.sql
-          psql -h localhost -U bidpilot -d bidpilot -f packages/db/sql/drop_superuser.sql
           pnpm install --frozen-lockfile
           pnpm db:generate
           pnpm db:migrate
@@ -86,12 +94,18 @@ jobs:
         # pgvector image so the vector columns and HNSW indexes exist (ADR-0004).
         image: pgvector/pgvector:pg16
         env:
-          POSTGRES_USER: bidpilot
-          POSTGRES_PASSWORD: bidpilot
+          # An admin role, not the application's. initdb makes POSTGRES_USER the cluster's
+          # bootstrap superuser, which is exempt from row-level security and cannot be demoted
+          # (Postgres refuses: "the bootstrap user must have the SUPERUSER attribute"). Running
+          # the suite as that role would make every tenant boundary inert and the isolation
+          # tests vacuous, so the unprivileged owner behind DATABASE_URL is created separately
+          # by bootstrap_roles.sql (ADR-0014).
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
           POSTGRES_DB: bidpilot
         ports: ["5432:5432"]
         options: >-
-          --health-cmd "pg_isready -U bidpilot -d bidpilot"
+          --health-cmd "pg_isready -U postgres -d bidpilot"
           --health-interval 5s --health-timeout 5s --health-retries 20
       redis:
         image: redis:7-alpine
@@ -114,16 +128,18 @@ jobs:
       - name: Install postgres client
         run: sudo apt-get update && sudo apt-get install -y postgresql-client
 
-      - name: Bootstrap database extensions and application role
+      - name: Bootstrap database extensions and application roles
         # Role creation is a privileged step, deliberately outside the migrations (ADR-0005).
+        # ON_ERROR_STOP on every psql call: without it psql exits 0 after printing ERROR, so a
+        # broken bootstrap reports success here and surfaces later as a confusing test failure.
         env:
-          PGPASSWORD: bidpilot
+          PGPASSWORD: postgres
         run: |
-          psql -h localhost -U bidpilot -d bidpilot -c \
+          psql -v ON_ERROR_STOP=1 -h localhost -U postgres -d bidpilot -c \
             "CREATE EXTENSION IF NOT EXISTS vector; CREATE EXTENSION IF NOT EXISTS pg_trgm; CREATE EXTENSION IF NOT EXISTS unaccent;"
-          psql -h localhost -U bidpilot -d bidpilot -v app_password=bidpilot_app \
+          psql -v ON_ERROR_STOP=1 -h localhost -U postgres -d bidpilot \
+            -v owner_password=bidpilot -v app_password=bidpilot_app \
             -f packages/db/sql/bootstrap_roles.sql
-          psql -h localhost -U bidpilot -d bidpilot -f packages/db/sql/drop_superuser.sql
 
       - name: Generate Prisma client
         run: pnpm db:generate

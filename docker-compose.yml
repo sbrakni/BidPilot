@@ -8,8 +8,12 @@ services:
     # schema targets vector(1024) and how to move to halfvec.
     image: pgvector/pgvector:pg16
     environment:
-      POSTGRES_USER: bidpilot
-      POSTGRES_PASSWORD: bidpilot
+      # The role initdb creates is the cluster's bootstrap superuser, and a superuser is exempt
+      # from row-level security - so it must not be the role the application uses. It stays an
+      # admin role here; `bidpilot`, which owns the schema and backs DATABASE_URL, is created
+      # unprivileged by the bootstrap script below (ADR-0014).
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: bidpilot
       # Deadline maths is timezone-sensitive; keep the server in UTC (SPEC §16 i18n/TZ).
       TZ: UTC
@@ -22,16 +26,13 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-      # Run once, on the first start of a fresh volume, in this order. The point of the last two
-      # is that local development uses the same unprivileged owner as production and CI: the role
-      # initdb creates is a superuser, and a superuser is exempt from row-level security, so
-      # leaving it that way would make every tenant boundary untested locally (ADR-0014).
+      # Run once, on the first start of a fresh volume, in this order: extensions first, because
+      # `vector` is not a trusted extension and only a superuser can create it, then the roles -
+      # including the unprivileged `bidpilot` owner the application actually connects as.
       - ./packages/db/sql/dev-init/10_extensions.sql:/docker-entrypoint-initdb.d/10_extensions.sql:ro
       - ./packages/db/sql/bootstrap_roles.sql:/docker-entrypoint-initdb.d/20_bootstrap_roles.sql:ro
-      - ./packages/db/sql/dev-init/30_rescue_superuser.sql:/docker-entrypoint-initdb.d/30_rescue_superuser.sql:ro
-      - ./packages/db/sql/drop_superuser.sql:/docker-entrypoint-initdb.d/40_drop_superuser.sql:ro
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U bidpilot -d bidpilot"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d bidpilot"]
       interval: 5s
       timeout: 5s
       retries: 20

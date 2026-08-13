@@ -318,9 +318,10 @@ schema owner, exempt from nothing.
    SUPERUSER or BYPASSRLS. It is called from `set_org_context()` - Python's `withOrgContext` -
    so every per-org read and write in the ingestion service passes through it. One query per
    engine per process, because it sits on a loop over every org.
-2. CI creates the extensions and roles with the privileges those need, then **drops superuser**
-   (`.github/scripts/drop_superuser.sql`) and runs the migrations, the seed and the whole suite
-   as a plain owner.
+2. CI and docker-compose set `POSTGRES_USER: postgres` - an admin role used only for the
+   privileged setup - and `bootstrap_roles.sql` creates the unprivileged `bidpilot` owner that
+   `DATABASE_URL` points at. Migrations, seed and the whole suite run as that owner. The
+   bootstrap ends by verifying it is not exempt, and fails if it is.
 3. Both test suites assert their own role is policy-bound before asserting anything about
    isolation.
 
@@ -343,6 +344,18 @@ that had been aborting both jobs before their tests ever ran. Until then the Pyt
 never reached `pytest` with a database attached, so this had never been executed in CI at all.
 With superuser, `test_deadline_alerts_stay_scoped_to_their_own_org` fails on a set comparison
 that says nothing about why; that was the thread worth pulling.
+
+**The first fix was wrong, and CI said so.** It kept `POSTGRES_USER: bidpilot` and ran
+`ALTER ROLE bidpilot NOSUPERUSER` after the privileged setup. That works on any role *except*
+the one it needed to work on: Postgres refuses to demote the role `initdb` created, with
+`permission denied to alter role / the bootstrap user must have the SUPERUSER attribute`. It
+passed locally only because the local `bidpilot` is not that cluster's bootstrap user, so the
+rehearsal reproduced "is a superuser" without reproducing "is *the* superuser" - the distinction
+the rule turns on. Hence the shape above: never demote, provision a separate owner from the
+start, which is also how managed Postgres is set up. Two smaller findings came with it - the
+bootstrap needs `GRANT CREATE ON DATABASE` because Prisma's engine issues `CREATE SCHEMA IF NOT
+EXISTS` before applying anything, and every psql call in CI needs `-v ON_ERROR_STOP=1`, without
+which psql exits 0 after printing ERROR and a broken bootstrap reports success.
 
 **Two privilege facts fell out of running migrations as a correctly unprivileged owner**, both
 invisible to a superuser because a superuser skips the checks:
