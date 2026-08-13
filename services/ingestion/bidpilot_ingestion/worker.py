@@ -25,6 +25,7 @@ from typing import Any
 from .alerts import escalate_unacknowledged, run_deadline_alerts, run_vault_freshness
 from .db import transaction
 from .health import run_source_health
+from .notify import run_daily_digest, run_notify_send
 from .pipeline import record_fetch_failure, run_dedupe, run_match, run_normalize, run_source_fetch
 from .queue import Job, claim, complete, fail, queue_depth, reclaim_stale
 from .scheduler import tick
@@ -80,6 +81,19 @@ def _handle_scheduler_tick(connection, payload: dict[str, Any]) -> dict[str, Any
     return tick(connection)
 
 
+def _handle_notify_send(connection, payload: dict[str, Any]) -> dict[str, Any]:
+    """Deliver pending notifications.
+
+    Driven by the `notifications` table rather than this job's payload, so a lost or duplicated
+    job cannot cause a double send or a silent miss: the table is the record.
+    """
+    return run_notify_send(connection)
+
+
+def _handle_daily_digest(connection, payload: dict[str, Any]) -> dict[str, Any]:
+    return run_daily_digest(connection)
+
+
 def _handle_unimplemented(connection, payload: dict[str, Any]) -> dict[str, Any]:
     """Declared-but-unbuilt stages fail loudly rather than silently succeeding.
 
@@ -97,6 +111,8 @@ HANDLERS: dict[str, Handler] = {
     "source.health": _handle_source_health,
     "notify.deadlines": _handle_deadline_alerts,
     "vault.freshness": _handle_vault_freshness,
+    "notify.send": _handle_notify_send,
+    "digest.daily": _handle_daily_digest,
 }
 
 

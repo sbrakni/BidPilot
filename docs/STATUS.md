@@ -53,8 +53,8 @@ exercised against a real Postgres and, for the adapters, against live source pay
 | **§8.4 acceptance: ≥10 matches for a seeded IT/IDF org** | ✅ | **14 matches** from the 1,421-notice 48h replay, zero filter violations |
 | Three sector packs produce matches | ✅ | IT / training / maintenance, all from real data |
 | Inbox states + dismissal reasons (§8.3) | ✅ | API-level, with reasons recorded for weight tuning |
-| Instant high-score alerts | ⚠️ partial | the `notify.send` job is enqueued above the threshold; nothing delivers it yet |
-| Daily digest | ❌ | deliberately not scheduled until the notifier exists, so the queue stays clean |
+| Instant high-score alerts | ✅ | enqueued above the per-profile threshold and delivered |
+| Daily digest (§8.3) | ✅ | one per org per day, at the send hour in the *org's* timezone, skipped when there is nothing to say |
 
 ### Data model & tenancy — §17.6, §18, F10
 
@@ -68,6 +68,7 @@ exercised against a real Postgres and, for the adapters, against live source pay
 | Seed creates a full demo org | ✅ | 3 persona orgs, real notices, computed matches; idempotent |
 | Deadline alerts (§12.4, P3) | ✅ | J-14/7/3/1 in **working days**, computed each tick so a moved deadline self-corrects; escalation to Owner after 24h unacknowledged |
 | Vault freshness engine (§7.2) | ✅ | expiry recomputed per org rather than trusted, since eligibility reads this status |
+| Notification delivery (§12.4) | ✅ | SMTP, localised from the UI catalogue; `sent_at` set only after the transport accepts, so a failed send is retried rather than lost. Verified against a real SMTP server (ADR-0013) |
 | Auth.js sessions (§17.1) | ❌ | a demo persona picker stands in; the API refuses its header when `NODE_ENV=production` |
 | Stripe billing (§15.2) | ❌ | schema only |
 
@@ -97,7 +98,7 @@ exercised against a real Postgres and, for the adapters, against live source pay
 |---|---|
 | Typecheck, build, lint (TS) | ✅ |
 | ruff check + format (Python) | ✅ |
-| Unit + integration tests | ✅ 137 Python, 44 TypeScript |
+| Unit + integration tests | ✅ 151 Python, 44 TypeScript |
 | CI running all of the above | ✅ `.github/workflows/ci.yml` |
 | E2E happy paths (Playwright) | ❌ the app is built and manually verified; the automated pass is not written |
 | **AI eval harness (Annex E.4)** | ❌ **placeholder job in CI**; must become blocking before any extraction prompt ships |
@@ -106,20 +107,15 @@ exercised against a real Postgres and, for the adapters, against live source pay
 
 ## Known gaps, in the order they should be closed
 
-1. **Notification delivery.** Deadline alerts, amendment alerts and high-score pushes all
-   *raise* correctly - a `notifications` row plus a `notify.send` job - but nothing sends them
-   yet. This is the highest-priority gap because P3 makes a missed deadline the worst failure
-   the product has, and an alert that is computed but never delivered is not an alert. Needs
-   the TS notifier of §17.2 plus the daily digest (§8.3).
-2. **Auth.js** (§17.1), replacing the demo persona picker. The tenant-resolution seam already
+1. **Auth.js** (§17.1), replacing the demo persona picker. The tenant-resolution seam already
    exists and is tested, so this is contained.
-3. **Email inbox connector** (§6.5), which §21 requires in Phase 1. It is the universal
+2. **Email inbox connector** (§6.5), which §21 requires in Phase 1. It is the universal
    fallback that "covers" any portal able to send an alert mail, including authenticated ones.
-4. **Onboarding wizard** (§15.3) - the scripted path to the P5 "value in under five minutes"
+3. **Onboarding wizard** (§15.3) - the scripted path to the P5 "value in under five minutes"
    promise. The matching it depends on already works.
-5. **Remaining Tier-1/2 adapters**: BOAMP is live, PLACE, BOSA (BE) and the atexo family are
+4. **Remaining Tier-1/2 adapters**: BOAMP is live, PLACE, BOSA (BE) and the atexo family are
    seeded as rows but disabled pending the legal review §24.7 requires.
-6. Then Phase 2: the DCE document pipeline, extractions with page-anchored citations, the
+5. Then Phase 2: the DCE document pipeline, extractions with page-anchored citations, the
    eval harness with its Annex E.4 gates enforced in CI, and the Go/No-Go brief.
 
 ## Deliberate scope choices
@@ -132,6 +128,6 @@ exercised against a real Postgres and, for the adapters, against live source pay
   review before they run and the adapter refuses to start without one.
 - No LLM code has been written yet. §17.4 requires all model access to go through the
   gateway package, so the first model call should arrive with that gateway, not before it.
-- A job kind with no handler fails loudly rather than reporting success, and `digest.daily` is
-  therefore not scheduled yet: a queue that looks healthy while the work never happens is worse
-  than a visible dead-letter.
+- A job kind with no handler fails loudly rather than reporting success. A stage is added to the
+  scheduler only once its handler exists: a queue that looks healthy while the work never happens
+  is worse than a visible dead-letter.

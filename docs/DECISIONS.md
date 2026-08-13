@@ -279,3 +279,28 @@ function would drift, and the one users see would be the wrong one.
 
 **Revisit** when the API needs to score on the write path: expose scoring through the
 ingestion service rather than porting it.
+
+---
+
+## ADR-0013 — The notifier is Python, not TypeScript
+
+**Date:** 2026-08-13 · **Status:** revisit-at-phase-3 · **Relates to:** §17.2, §12.4
+
+**Decision.** Notification delivery (`notify.send`, `digest.daily`) runs in the Python ingestion
+worker. §17.2's topology diagram places the notifier in TypeScript.
+
+**Why deviate.** A TypeScript notifier would need its own implementation of the queue's claim
+semantics - `FOR UPDATE SKIP LOCKED`, attempt counting, capped backoff, dead-lettering, stale-claim
+recovery. Two implementations of *that* would be a genuine hazard: the failure mode of a subtly
+different retry policy is a duplicated or a silently dropped deadline alert, which is precisely
+the outcome §16 calls the worst the product has. One queue implementation is the more important
+invariant than one language per concern.
+
+**What is preserved.** Email copy is read from `apps/web/messages/*.json`, the same catalogue the
+UI uses, so an email and the screen it links to cannot disagree and neither carries a hardcoded
+string (§20.6).
+
+**Revisit when** rich HTML email is needed - branded digests, or the studio's outputs. At that
+point react-email in TypeScript is clearly the better tool, and the right move is to extract the
+queue consumer into a shared contract first rather than reimplementing it.
+

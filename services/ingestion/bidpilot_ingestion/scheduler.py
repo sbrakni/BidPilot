@@ -35,8 +35,11 @@ PLATFORM_SCHEDULE: tuple[tuple[str, timedelta], ...] = (
     # every 15 minutes rather than daily: a J-1 alert computed once a day can be 23 hours late.
     ("notify.deadlines", timedelta(minutes=15)),
     ("vault.freshness", timedelta(hours=6)),
-    # `digest.daily` is deliberately absent until the notifier exists: scheduling a stage with
-    # no handler would dead-letter a job every hour and train operators to ignore the queue.
+    # Delivery runs often: an alert that is computed but not yet sent is not an alert (P3).
+    ("notify.send", timedelta(minutes=5)),
+    # Hourly, because the digest picks its own moment - the send hour is compared in each org's
+    # timezone, so this only needs to tick often enough not to miss that hour.
+    ("digest.daily", timedelta(hours=1)),
 )
 
 
