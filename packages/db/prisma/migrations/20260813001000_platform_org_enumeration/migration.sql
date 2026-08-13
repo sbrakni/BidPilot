@@ -34,12 +34,38 @@ CREATE OR REPLACE FUNCTION app_all_org_ids()
   STABLE
   AS $$ SELECT id FROM orgs $$;
 
+-- Two preconditions this migration cannot create for itself, both satisfied by
+-- sql/bootstrap_roles.sql. Checked here so a missing bootstrap step fails with instructions
+-- rather than with Postgres' own error, and so the reason is recorded where the statement that
+-- needs it lives:
+--
+--   1. The role must exist, and the migration role must be able to SET ROLE to it - `ALTER
+--      FUNCTION ... OWNER TO` requires that of the caller.
+--   2. The role must be able to create in this schema - `ALTER ... OWNER TO` checks the
+--      *incoming* owner's privileges too, and fails with `permission denied for schema public`
+--      without it.
+--
+-- Neither shows up when the migration runs as a superuser, because a superuser skips both
+-- checks. They are the price of a correctly unprivileged migration role, which is the one worth
+-- paying for.
 DO $$
 BEGIN
   IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'bidpilot_platform') THEN
     RAISE EXCEPTION
       'role bidpilot_platform is missing. Run packages/db/sql/bootstrap_roles.sql as a '
       'superuser before migrating - platform jobs cannot enumerate tenants without it.';
+  END IF;
+  IF NOT pg_has_role(current_user, 'bidpilot_platform', 'USAGE') THEN
+    RAISE EXCEPTION
+      'role % cannot SET ROLE to bidpilot_platform, so it cannot hand the platform function '
+      'over to it. Re-run packages/db/sql/bootstrap_roles.sql (it grants the membership), '
+      'passing -v migration_role=% if it is not the role bootstrapping the database.',
+      current_user, current_user;
+  END IF;
+  IF NOT has_schema_privilege('bidpilot_platform', current_schema(), 'CREATE') THEN
+    RAISE EXCEPTION
+      'bidpilot_platform cannot create in schema %, so it cannot own the platform function. '
+      'Re-run packages/db/sql/bootstrap_roles.sql, which grants it.', current_schema();
   END IF;
 END
 $$;

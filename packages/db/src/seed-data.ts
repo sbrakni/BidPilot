@@ -134,7 +134,12 @@ export const SOURCES: SourceSeed[] = [
     config: { address_pattern: "sources+{org}@{domain}" },
     schedule: "* * * * *",
     legal: { basis: "open-license", notes: "User-forwarded content.", reviewed_at: "2026-08-12" },
-    enabled: true,
+    // Disabled until the connector exists, for the same reason a stage is never added to the
+    // scheduler before its handler: enabled, this row schedules a fetch every minute for an
+    // adapter that is not registered, so every environment collects a permanently failing job.
+    // A dead-letter queue that is always red tells you nothing when something real breaks.
+    // Flip to true with the F1/§6.5 inbound parser.
+    enabled: false,
   },
   {
     code: "manual-import",

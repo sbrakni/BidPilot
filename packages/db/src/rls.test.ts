@@ -86,6 +86,38 @@ afterAll(async () => {
   if (app) await app.$disconnect();
 });
 
+describe("the roles these tests depend on", () => {
+  /**
+   * Asserted first because every test below it is meaningless if this fails.
+   *
+   * SUPERUSER and BYPASSRLS defeat row-level security outright, and `FORCE ROW LEVEL SECURITY`
+   * does not reach them. Under either attribute `withOrgContext` still sets `app.org_id`, every
+   * query still returns rows, and the whole suite still passes - with no filtering happening at
+   * all. A green run would then mean nothing.
+   *
+   * Worth asserting rather than assuming because the broken configuration is the *default* one:
+   * the postgres Docker image makes `POSTGRES_USER` the cluster's bootstrap superuser, which is
+   * what a stock compose file and a stock CI service container hand to `DATABASE_URL`.
+   */
+  it.each([
+    ["the application role", () => app],
+    ["the owner role the fixtures use", () => owner],
+  ])("confirms %s is subject to row-level security", async (_label, client) => {
+    const [role] = await withGlobalContext(
+      (tx) =>
+        tx.$queryRawUnsafe<{ name: string; rolsuper: boolean; rolbypassrls: boolean }[]>(
+          `SELECT current_user AS name, rolsuper, rolbypassrls
+             FROM pg_roles WHERE rolname = current_user`,
+        ),
+      client(),
+    );
+    expect(role, `${role?.name} must be subject to the policies`).toMatchObject({
+      rolsuper: false,
+      rolbypassrls: false,
+    });
+  });
+});
+
 describe("tenant isolation", () => {
   it("shows an org only its own tenders", async () => {
     const rows = await withOrgContext(ORG_A, (tx) => tx.tender.findMany(), app);

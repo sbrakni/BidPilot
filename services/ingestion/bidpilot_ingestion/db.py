@@ -8,6 +8,10 @@ tables, and the two would drift.
 Connection choice matters. The ingestion service writes market data (notices, sources, raw
 payloads), which the application role is explicitly denied (§17.6, ADR-0007). So it connects
 with `DATABASE_URL` - it is admin-side tooling, like the seeder, not a tenant.
+
+That makes one property of `DATABASE_URL`'s role load-bearing, and `assert_policy_bound` below
+is what enforces it: the role must still be *subject* to row-level security. Admin-side does
+not mean unfiltered.
 """
 
 from __future__ import annotations
@@ -94,6 +98,60 @@ def get_metadata() -> MetaData:
 
 def table(name: str) -> Table:
     return get_metadata().tables[name]
+
+
+class RlsBypassError(RuntimeError):
+    """The connected role can see past row-level security, so per-org work is not safe.
+
+    This is fatal rather than a warning on purpose. A worker whose role bypasses RLS still
+    *appears* to work: `set_config('app.org_id', ...)` succeeds, every query returns rows, every
+    job reports success. What silently stops happening is the filtering - so a per-org loop
+    reads and writes every tenant's rows under one org's context, and the first symptom is a
+    tenant seeing another tenant's data. There is no failure mode worth trading for that.
+    """
+
+
+#: Engines whose role has been confirmed subject to RLS. A login role's attributes do not
+#: change under a running worker, so one query per engine per process is enough - and the
+#: check sits on a per-org loop, so it has to be close to free.
+_POLICY_BOUND_ENGINES: set[Engine] = set()
+
+_ROLE_BYPASSES_RLS_SQL = """
+SELECT current_user AS role, (rolsuper OR rolbypassrls) AS bypasses
+  FROM pg_roles
+ WHERE rolname = current_user
+"""
+
+
+def assert_policy_bound(connection: Connection) -> None:
+    """Fail loudly if this connection's role is exempt from row-level security.
+
+    Two role attributes defeat RLS outright, and neither leaves a trace at query time:
+    SUPERUSER and BYPASSRLS. Table ownership does *not*, because the schema uses `FORCE ROW
+    LEVEL SECURITY` - which is why the owner connection this service uses is otherwise fine.
+
+    The reason this needs enforcing rather than documenting: the forbidden configuration is also
+    the default one. `POSTGRES_USER` in the postgres Docker image becomes the cluster's
+    bootstrap superuser, so a stock `docker compose up` - and a stock CI service container -
+    hands `DATABASE_URL` a role that quietly ignores every policy in the database.
+    """
+    engine = connection.engine
+    if engine in _POLICY_BOUND_ENGINES:
+        return
+
+    row = connection.execute(text(_ROLE_BYPASSES_RLS_SQL)).mappings().first()
+    if row is None:
+        # current_user always has a pg_roles row; if it does not, something is wrong enough
+        # that carrying on with per-org work is not defensible.
+        raise RlsBypassError("cannot determine whether the connected role is subject to RLS")
+    if row["bypasses"]:
+        raise RlsBypassError(
+            f"role {row['role']!r} is SUPERUSER or BYPASSRLS, so row-level security does not "
+            "apply to it and per-org context would be silently ignored. Connect as a role that "
+            "owns the schema but has neither attribute (see packages/db/sql/bootstrap_roles.sql)."
+        )
+
+    _POLICY_BOUND_ENGINES.add(engine)
 
 
 @contextmanager

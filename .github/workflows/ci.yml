@@ -54,9 +54,9 @@ jobs:
       # The pipeline suite needs the real schema: it asserts on FOR UPDATE SKIP LOCKED, jsonb
       # and enum casts, and the RLS-aware platform paths. Without a database it would skip
       # itself, which is worse than failing.
+      # No `version:` here on purpose - it is read from package.json's `packageManager`, which
+      # keeps one authority for the pnpm version. Specifying both makes the action abort.
       - uses: pnpm/action-setup@v4
-        with:
-          version: 10
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
@@ -70,6 +70,7 @@ jobs:
             "CREATE EXTENSION IF NOT EXISTS vector; CREATE EXTENSION IF NOT EXISTS pg_trgm; CREATE EXTENSION IF NOT EXISTS unaccent;"
           psql -h localhost -U bidpilot -d bidpilot -v app_password=bidpilot_app \
             -f packages/db/sql/bootstrap_roles.sql
+          psql -h localhost -U bidpilot -d bidpilot -f packages/db/sql/drop_superuser.sql
           pnpm install --frozen-lockfile
           pnpm db:generate
           pnpm db:migrate
@@ -100,9 +101,9 @@ jobs:
           --health-interval 5s --health-timeout 3s --health-retries 20
     steps:
       - uses: actions/checkout@v4
+      # No `version:` here on purpose - it is read from package.json's `packageManager`, which
+      # keeps one authority for the pnpm version. Specifying both makes the action abort.
       - uses: pnpm/action-setup@v4
-        with:
-          version: 10
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
@@ -122,6 +123,7 @@ jobs:
             "CREATE EXTENSION IF NOT EXISTS vector; CREATE EXTENSION IF NOT EXISTS pg_trgm; CREATE EXTENSION IF NOT EXISTS unaccent;"
           psql -h localhost -U bidpilot -d bidpilot -v app_password=bidpilot_app \
             -f packages/db/sql/bootstrap_roles.sql
+          psql -h localhost -U bidpilot -d bidpilot -f packages/db/sql/drop_superuser.sql
 
       - name: Generate Prisma client
         run: pnpm db:generate

@@ -8,13 +8,17 @@ computing alerts instead of pre-scheduling them: a deadline that moves.
 from __future__ import annotations
 
 from datetime import UTC, date, datetime, timedelta
+from typing import Any
 
+import pytest
 from bidpilot_ingestion.alerts import (
     DEADLINE_ALERT_OFFSETS,
     due_deadline_alerts,
     is_working_day,
+    set_org_context,
     working_days_before,
 )
+from bidpilot_ingestion.db import RlsBypassError, assert_policy_bound
 
 # 2026-11-20 is a Friday; 2026-11-23 a Monday.
 FRIDAY = datetime(2026, 11, 20, 12, 0, tzinfo=UTC)
@@ -124,3 +128,64 @@ def test_alerts_carry_the_org_so_delivery_stays_scoped():
     )
     assert due[0].org_id == "org_x"
     assert due[0].notification_kind == "deadline.j14"
+
+
+# ------------------------------------------------- the tenant context has to mean something
+
+
+class _StubConnection:
+    """A connection that answers the role-privilege query and counts how often it is asked.
+
+    Stubbed rather than run against Postgres because the interesting case - a role that bypasses
+    RLS - cannot be reached from a correctly bootstrapped database: `bidpilot_platform` is the
+    only BYPASSRLS role and it is NOLOGIN precisely so nobody can connect as it. The database
+    side of this is covered by `test_worker_role_is_subject_to_row_level_security`.
+    """
+
+    def __init__(self, row: dict[str, Any] | None) -> None:
+        self._row = row
+        self.engine = object()
+        self.queries: list[str] = []
+
+    def execute(self, statement: Any, *_args: Any, **_kwargs: Any) -> Any:
+        self.queries.append(str(statement))
+        return self
+
+    def mappings(self) -> Any:
+        return self
+
+    def first(self) -> dict[str, Any] | None:
+        return self._row
+
+
+def test_a_role_that_bypasses_rls_is_refused():
+    connection = _StubConnection({"role": "postgres", "bypasses": True})
+    with pytest.raises(RlsBypassError) as raised:
+        assert_policy_bound(connection)
+    # The message has to name the role: whoever hits this is looking at a connection string.
+    assert "postgres" in str(raised.value)
+
+
+def test_setting_tenant_context_is_refused_on_such_a_role():
+    """The guard is only worth having if the choke point actually calls it."""
+    connection = _StubConnection({"role": "postgres", "bypasses": True})
+    with pytest.raises(RlsBypassError):
+        set_org_context(connection, "org_1")
+    assert not any("set_config" in query for query in connection.queries), (
+        "context must not be set on a connection where it would be silently ignored"
+    )
+
+
+def test_a_policy_bound_role_is_checked_once_per_engine():
+    """The check sits on a loop over every org, so it must not cost a round-trip per org."""
+    connection = _StubConnection({"role": "bidpilot", "bypasses": False})
+    set_org_context(connection, "org_1")
+    set_org_context(connection, "org_2")
+    privilege_queries = [query for query in connection.queries if "rolbypassrls" in query]
+    assert len(privilege_queries) == 1
+
+
+def test_an_unanswerable_privilege_check_is_refused():
+    """No answer is not the same as a reassuring answer."""
+    with pytest.raises(RlsBypassError):
+        assert_policy_bound(_StubConnection(None))

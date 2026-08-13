@@ -28,6 +28,7 @@ from typing import Any
 from sqlalchemy import text
 from sqlalchemy.engine import Connection
 
+from .db import assert_policy_bound
 from .ids import new_id
 from .queue import enqueue
 
@@ -130,7 +131,12 @@ def set_org_context(connection: Connection, org_id: str | None) -> None:
     Platform jobs iterate orgs and process each *inside* that org's context, so every row they
     read or write is still policy-checked. See the 20260813001000 migration for why this is done
     with per-org context rather than a BYPASSRLS role.
+
+    This is Python's `withOrgContext`: the one place tenant context is established, which makes
+    it the one place worth checking that setting it means anything at all. A role exempt from RLS
+    turns every call below into a no-op that still looks like it worked.
     """
+    assert_policy_bound(connection)
     connection.execute(text("SELECT set_config('app.org_id', :org, true)"), {"org": org_id or ""})
 
 

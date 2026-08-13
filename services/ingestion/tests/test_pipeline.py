@@ -658,6 +658,37 @@ def test_health_persists_verdicts_and_records_transitions(connection, test_sourc
 # ---------------------------------------------------------------- platform jobs
 
 
+def test_worker_role_is_subject_to_row_level_security(connection):
+    """Every isolation assertion in this file rests on this one, so it is asserted directly.
+
+    SUPERUSER and BYPASSRLS both defeat row-level security outright, and `FORCE ROW LEVEL
+    SECURITY` does not reach them. Under such a role `set_config('app.org_id', ...)` still
+    succeeds and every query still returns rows - there just is no filtering any more, so the
+    tests below would pass whatever the policies said.
+
+    That is not a hypothetical misconfiguration: the postgres Docker image makes `POSTGRES_USER`
+    the cluster's bootstrap superuser, so it is what a stock compose file and a stock CI service
+    container both hand to `DATABASE_URL`.
+    """
+    role = (
+        connection.execute(
+            text(
+                """
+            SELECT current_user AS name, rolsuper, rolbypassrls
+              FROM pg_roles WHERE rolname = current_user
+            """
+            )
+        )
+        .mappings()
+        .first()
+    )
+    assert role["rolsuper"] is False, (
+        f"role {role['name']} is a superuser, so row-level security does not apply to it and the "
+        "cross-tenant assertions in this suite prove nothing"
+    )
+    assert role["rolbypassrls"] is False, f"role {role['name']} has BYPASSRLS"
+
+
 def test_platform_helper_returns_ids_only(connection):
     """The one privileged surface in the schema, so its reach is asserted explicitly.
 

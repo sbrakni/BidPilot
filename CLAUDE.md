@@ -83,6 +83,13 @@ docs/                SPEC.md, DECISIONS.md
 - **Platform (cross-org) jobs must iterate orgs and set context per org.** `app_all_org_ids()`
   is the only function allowed to see across tenants, and it returns ids and nothing else. Do
   not widen it, and do not give a worker's login role BYPASSRLS (ADR-0011).
+- **`DATABASE_URL`'s role must not be a superuser** (ADR-0014). SUPERUSER and BYPASSRLS are both
+  exempt from RLS — `FORCE ROW LEVEL SECURITY` does not reach them — so under either, tenant
+  context is silently ignored while everything still reports success. The trap is that this is
+  the *default*: `initdb --username="$POSTGRES_USER"` makes that role a superuser, so compose and
+  CI both drop it (`packages/db/sql/drop_superuser.sql`) and the ingestion service refuses to set
+  tenant context on a role that bypasses policies. If a fresh database makes the worker abort
+  with `RlsBypassError`, that is this, and the fix is the role, never the guard.
 - **A job kind with no handler fails loudly**, on purpose. Do not add a stage to the scheduler
   before its handler exists: a queue that looks healthy while nothing happens is worse than a
   visible dead-letter.
@@ -92,7 +99,7 @@ docs/                SPEC.md, DECISIONS.md
 ```bash
 docker compose up -d          # postgres (+pgvector), redis, minio, mailpit
 pnpm install
-pnpm db:migrate               # apply migrations  (run sql/bootstrap_roles.sql first, once)
+pnpm db:migrate               # apply migrations  (compose runs the privileged bootstrap for you)
 pnpm db:seed                  # demo orgs + the real 48h notice corpus
 pnpm dev                      # web + api
 pnpm worker                   # ingestion worker + scheduler (claims jobs, runs the pipeline)

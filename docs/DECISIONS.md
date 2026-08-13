@@ -304,3 +304,68 @@ string (§20.6).
 point react-email in TypeScript is clearly the better tool, and the right move is to extract the
 queue consumer into a shared contract first rather than reimplementing it.
 
+
+---
+
+## ADR-0014 — The worker's role must be *subject* to RLS, and that is enforced
+
+**Date:** 2026-08-13 · **Status:** accepted · **Relates to:** §15.5, §17.6, ADR-0011
+
+**Decision.** Three changes, one invariant: the role behind `DATABASE_URL` must be a plain
+schema owner, exempt from nothing.
+
+1. `db.assert_policy_bound()` refuses to establish tenant context on a connection whose role is
+   SUPERUSER or BYPASSRLS. It is called from `set_org_context()` - Python's `withOrgContext` -
+   so every per-org read and write in the ingestion service passes through it. One query per
+   engine per process, because it sits on a loop over every org.
+2. CI creates the extensions and roles with the privileges those need, then **drops superuser**
+   (`.github/scripts/drop_superuser.sql`) and runs the migrations, the seed and the whole suite
+   as a plain owner.
+3. Both test suites assert their own role is policy-bound before asserting anything about
+   isolation.
+
+**Why this was needed.** ADR-0011 already said not to give the worker's login role BYPASSRLS,
+and `sql/bootstrap_roles.sql` says it twice. Nothing checked it - and the forbidden
+configuration is the *default* one: the postgres Docker image runs
+`initdb --username="$POSTGRES_USER"`, so the role it creates is the cluster's bootstrap
+superuser. That is what a stock `docker compose up` and a stock CI service container both hand
+to `DATABASE_URL`.
+
+Under such a role nothing looks wrong. `set_config('app.org_id', ...)` succeeds, every query
+returns rows, every job reports success. What silently stops happening is the filtering, so a
+per-org loop reads and writes every tenant's rows under one org's context - and the cross-tenant
+suite whose entire purpose is to catch that passes regardless of what the policies say. This is
+the failure mode §16 cares most about, arrived at by accident rather than by anyone deciding
+anything.
+
+**How it surfaced.** Simulating the CI database path locally, after fixing the pnpm setup step
+that had been aborting both jobs before their tests ever ran. Until then the Python job had
+never reached `pytest` with a database attached, so this had never been executed in CI at all.
+With superuser, `test_deadline_alerts_stay_scoped_to_their_own_org` fails on a set comparison
+that says nothing about why; that was the thread worth pulling.
+
+**Two privilege facts fell out of running migrations as a correctly unprivileged owner**, both
+invisible to a superuser because a superuser skips the checks:
+
+- `ALTER FUNCTION ... OWNER TO bidpilot_platform` requires the caller to be able to `SET ROLE`
+  to the new owner. `bootstrap_roles.sql` now grants that membership (defaulting to whoever runs
+  it, overridable with `-v migration_role=`). Role attributes are not inherited through
+  membership - BYPASSRLS applies only after an explicit `SET ROLE` - and the migration role owns
+  every table anyway, so this widens nothing that matters.
+- `ALTER ... OWNER TO` also checks the *incoming* owner's privileges: it needs CREATE on the
+  object's schema, or it fails with `permission denied for schema public`.
+
+Both grants live in `bootstrap_roles.sql` rather than in the migration, for the reason ADR-0005
+already gives: they are privileged acts the migration role cannot perform on itself, so a
+migration that tried would fail on exactly the deployments that need it. The migration instead
+*verifies* both preconditions and fails with instructions naming the fix, the same
+require-and-fail-loudly shape.
+
+`bootstrap_roles.sql` is idempotent, so an existing database picks the grants up by re-running
+it; nothing else is needed, because the migration itself has already succeeded there. Adding
+those checks does change that migration's recorded checksum, which `prisma migrate deploy` -
+the only migrate command this project runs - does not verify. Checked, not assumed: `deploy`
+against a database holding the old checksum reports no pending migrations and applies nothing.
+
+**Not chosen: making the test tolerant of a superuser.** It would have turned a real production
+hazard into a green build, which is the outcome this whole entry exists to prevent.

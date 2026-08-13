@@ -61,7 +61,8 @@ exercised against a real Postgres and, for the adapters, against live source pay
 | Item | State | Evidence |
 |---|---|---|
 | Full core schema (§18) | ✅ | migrations apply from scratch |
-| **Cross-tenant isolation (§15.5)** | ✅ | 17 tests: reads, writes, aggregates, relation traversal, raw SQL, fail-closed default |
+| **Cross-tenant isolation (§15.5)** | ✅ | 19 tests: reads, writes, aggregates, relation traversal, raw SQL, fail-closed default - and, first, that the connected role is itself subject to the policies (ADR-0014) |
+| Worker role cannot be exempt from RLS | ✅ | `set_org_context` refuses a SUPERUSER/BYPASSRLS connection rather than silently processing every tenant under one org's context |
 | Market data read-only for tenants | ✅ | tested; the seeder connects as owner (ADR-0007) |
 | Append-only decision log (§10.6) | ✅ | trigger-enforced, with an audited erasure path for GDPR (ADR-0009) |
 | FTS + trigram + HNSW indexes (§17.5) | ✅ | applied; `vector` not `halfvec` (ADR-0004) |
@@ -99,8 +100,8 @@ exercised against a real Postgres and, for the adapters, against live source pay
 |---|---|
 | Typecheck, build, lint (TS) | ✅ |
 | ruff check + format (Python) | ✅ |
-| Unit + integration tests | ✅ 151 Python, 60 TypeScript |
-| CI running all of the above | ✅ `.github/workflows/ci.yml` |
+| Unit + integration tests | ✅ 156 Python, 62 TypeScript |
+| CI running all of the above | ✅ `.github/workflows/ci.yml`, as a **non-superuser** owner - the default service-container role is a superuser, under which RLS does not apply and the isolation suite proves nothing (ADR-0014) |
 | E2E happy paths (Playwright) | ❌ the app is built and manually verified; the automated pass is not written |
 | **AI eval harness (Annex E.4)** | ❌ **placeholder job in CI**; must become blocking before any extraction prompt ships |
 
@@ -136,9 +137,10 @@ What is *not* claimed: the "20" is corpus-dependent (a narrow profile against a 
 ## Deliberate scope choices
 
 - Fixtures are captured from live APIs, never authored (ADR-0001).
-- Deviations from the spec are recorded in [`DECISIONS.md`](DECISIONS.md); there are twelve so
+- Deviations from the spec are recorded in [`DECISIONS.md`](DECISIONS.md); there are fourteen so
   far, several forced by facts the spec marked `[VERIFY]` and several by problems that only
-  appeared once the code ran against a real database.
+  appeared once the code ran against a real database - or, in ADR-0014's case, against a database
+  configured the way CI configures one.
 - Tier-2 scraping sources are seeded **disabled**, because §24.7 requires a per-source legal
   review before they run and the adapter refuses to start without one.
 - No LLM code has been written yet. §17.4 requires all model access to go through the
