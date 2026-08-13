@@ -15,7 +15,7 @@ from bidpilot_ingestion.adapters import LegalBasis, SourceConfig, TedAdapter, ge
 from bidpilot_ingestion.adapters.base import BaseAdapter, Cursor, RateLimiter, content_hash
 from bidpilot_ingestion.adapters.boamp import clean_text, dept_to_nuts
 from bidpilot_ingestion.adapters.ted import _combine_date_time, _parse_offset_date
-from bidpilot_ingestion.canonical import CanonicalNotice, NoticeType
+from bidpilot_ingestion.canonical import CanonicalNotice, NoticeType, RawNotice
 
 from tests.conftest import boamp_raws, ted_raws
 
@@ -109,6 +109,59 @@ def test_ted_titles_are_descriptive_not_internal_references(ted_adapter):
         assert " " in title, f"title looks like a bare reference: {title!r}"
     # The country/CPV prefix must not survive into the canonical title.
     assert not any(title.startswith(("France – ", "Belgique – ", "Luxembourg – ")) for title in titles)
+
+
+def test_ted_title_rejects_both_useless_extremes(ted_adapter):
+    """A title must be neither a bare reference nor a pasted-in description.
+
+    Real buyers produce both: "WS2848982494 - 1" on one side, and 300 characters of object
+    description on the other. Either makes the inbox unusable, so both fall back to the
+    composed `notice-title`.
+    """
+    composed = {"fra": "France – Services informatiques – Refonte du portail citoyen"}
+
+    too_short = ted_adapter.normalize(
+        RawNotice(
+            source="eu-ted",
+            external_id="1-2026",
+            payload={"publication-number": "1-2026", "title-lot": {"fra": ["WS284 - 1"]}, "notice-title": composed},
+        )
+    )
+    assert too_short.title == "Refonte du portail citoyen"
+
+    too_long = ted_adapter.normalize(
+        RawNotice(
+            source="eu-ted",
+            external_id="2-2026",
+            payload={
+                "publication-number": "2-2026",
+                "title-lot": {"fra": ["La présente consultation a pour objet " + "x" * 200]},
+                "notice-title": composed,
+            },
+        )
+    )
+    assert too_long.title == "Refonte du portail citoyen"
+
+    just_right = ted_adapter.normalize(
+        RawNotice(
+            source="eu-ted",
+            external_id="3-2026",
+            payload={
+                "publication-number": "3-2026",
+                "title-lot": {"fra": ["Maintenance applicative du SI financier"]},
+                "notice-title": composed,
+            },
+        )
+    )
+    assert just_right.title == "Maintenance applicative du SI financier"
+
+
+def test_ted_titles_stay_within_a_readable_length(ted_adapter):
+    """Checked across the whole fixture set, not just the constructed cases above."""
+    for name in ("ted_competition", "ted_award", "ted_planning"):
+        for raw in ted_raws(name):
+            title = ted_adapter.normalize(raw).title
+            assert len(title) <= 400, f"unusable title length {len(title)}: {title[:60]!r}"
 
 
 def test_ted_detects_document_language(ted_adapter):

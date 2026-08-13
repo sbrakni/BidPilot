@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+ * Design tokens (SPEC §20.3).
+ *
+ * "Clean, dense, calm B2B (linear-like sobriety): neutral background, one accent colour,
+ * red reserved exclusively for eliminatory/deadline danger; tabular numerals for
+ * amounts/dates."
+ *
+ * The red rule is the load-bearing one and it is a product rule, not a taste rule. If red
+ * also meant "error" or "delete", users would stop reading it as danger - and the one thing
+ * they must never fail to notice is an eliminatory criterion or an expiring deadline (P3).
+ * Anything that is merely wrong uses `--color-warning`.
+ */
+
+@layer base {
+  :root {
+    --color-bg: 0 0% 100%;
+    --color-surface: 220 14% 99%;
+    --color-surface-raised: 0 0% 100%;
+    --color-border: 220 13% 91%;
+    --color-border-strong: 220 13% 82%;
+
+    --color-text: 224 22% 12%;
+    --color-text-muted: 220 9% 42%;
+    --color-text-subtle: 220 9% 56%;
+
+    /* The single accent. Used for primary actions and the score ring. */
+    --color-accent: 221 76% 46%;
+    --color-accent-hover: 221 76% 40%;
+    --color-accent-subtle: 221 90% 96%;
+
+    /* Reserved: eliminatory conditions and deadline danger only. */
+    --color-danger: 0 72% 45%;
+    --color-danger-subtle: 0 86% 97%;
+
+    /* Everything else that needs attention but is not danger. */
+    --color-warning: 32 90% 42%;
+    --color-warning-subtle: 38 92% 95%;
+    --color-success: 152 56% 34%;
+    --color-success-subtle: 150 60% 96%;
+
+    /* AI output is always visually tagged until a human marks it reviewed (§20.3, P6). */
+    --color-ai: 265 70% 52%;
+    --color-ai-subtle: 265 90% 97%;
+
+    --radius: 0.5rem;
+  }
+
+  :root[data-theme="dark"] {
+    --color-bg: 224 24% 8%;
+    --color-surface: 224 22% 11%;
+    --color-surface-raised: 224 20% 14%;
+    --color-border: 223 16% 22%;
+    --color-border-strong: 223 14% 32%;
+
+    --color-text: 220 20% 96%;
+    --color-text-muted: 220 12% 70%;
+    --color-text-subtle: 220 10% 56%;
+
+    --color-accent: 217 90% 66%;
+    --color-accent-hover: 217 90% 74%;
+    --color-accent-subtle: 221 60% 18%;
+
+    --color-danger: 0 80% 66%;
+    --color-danger-subtle: 0 50% 18%;
+    --color-warning: 36 92% 62%;
+    --color-warning-subtle: 33 60% 16%;
+    --color-success: 150 50% 56%;
+    --color-success-subtle: 152 40% 15%;
+    --color-ai: 265 85% 74%;
+    --color-ai-subtle: 265 45% 20%;
+  }
+
+  html {
+    color-scheme: light;
+  }
+  html[data-theme="dark"] {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: hsl(var(--color-bg));
+    color: hsl(var(--color-text));
+    /* Amounts and dates are compared down a column constantly; tabular figures make that
+       possible (§20.3). */
+    font-variant-numeric: tabular-nums;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Full keyboard navigation is a requirement, not a nicety (§16 Accessibility, WCAG 2.1 AA). */
+  :focus-visible {
+    outline: 2px solid hsl(var(--color-accent));
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .bp-card {
+    @apply rounded-lg border border-border bg-surface-raised;
+  }
+
+  .bp-chip {
+    @apply inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium;
+  }
+
+  /* Skeleton loaders rather than spinners: the page keeps its shape while loading (§20.3). */
+  .bp-skeleton {
+    @apply animate-pulse rounded bg-border;
+  }
+}

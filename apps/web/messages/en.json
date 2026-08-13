@@ -1,0 +1,123 @@
+{
+  "app": {
+    "name": "BidPilot",
+    "tagline": "Find it, decide it, answer it."
+  },
+  "nav": {
+    "today": "Today",
+    "opportunities": "Opportunities",
+    "tenders": "My tenders",
+    "library": "Library",
+    "intel": "Market intel",
+    "settings": "Settings",
+    "signedInAs": "Signed in as",
+    "switchOrg": "Switch organisation"
+  },
+  "today": {
+    "title": "Today",
+    "subtitle": "New notices, deadlines this week, and alerts from your library.",
+    "newMatches": "New relevant notices",
+    "deadlinesThisWeek": "Deadlines this week",
+    "vaultAlerts": "Documents to renew",
+    "decisionsPending": "Decisions pending",
+    "topMatches": "Your best matches",
+    "seeAll": "See all"
+  },
+  "opportunities": {
+    "title": "Opportunities",
+    "subtitle": "{count, plural, =0 {No notices} one {# notice} other {# notices}} matching your profile.",
+    "filters": {
+      "all": "All",
+      "new": "New",
+      "shortlisted": "Shortlisted",
+      "dismissed": "Dismissed",
+      "pursued": "Pursuing",
+      "minScore": "Minimum score"
+    },
+    "sourcesLabel": "Published on",
+    "scoreLabel": "Match score",
+    "breakdown": "Score breakdown",
+    "actions": {
+      "shortlist": "Shortlist",
+      "dismiss": "Dismiss",
+      "pursue": "Pursue",
+      "open": "Open notice"
+    },
+    "dismissReasons": {
+      "too_big": "Too big for us",
+      "too_small": "Too small",
+      "wrong_activity": "Outside our activity",
+      "no_time": "No capacity",
+      "bad_buyer": "Buyer to avoid",
+      "other": "Other reason"
+    },
+    "keyboardHint": "Shortcuts: j/k to navigate, s shortlist, d dismiss, p pursue."
+  },
+  "tenders": {
+    "title": "My tenders",
+    "subtitle": "Your live consultations, by stage.",
+    "stages": {
+      "analysis": "Analysis",
+      "decision": "Go/No-Go",
+      "response": "Drafting",
+      "submitted": "Submitted",
+      "closed": "Closed"
+    },
+    "nextAction": "Next action"
+  },
+  "library": {
+    "title": "Library",
+    "subtitle": "Your proofs, references and reusable content.",
+    "vaultHealth": "Library health",
+    "expiring": "{count, plural, =0 {No documents expire} one {# document expires} other {# documents expire}} within 30 days",
+    "expired": "{count, plural, =0 {No expired documents} one {# expired document} other {# expired documents}}"
+  },
+  "notice": {
+    "buyer": "Buyer",
+    "deadline": "Submission deadline",
+    "questionsDeadline": "Questions deadline",
+    "amount": "Estimated amount",
+    "amountUnknown": "Amount not published",
+    "cpv": "CPV codes",
+    "place": "Place of performance",
+    "published": "Published",
+    "noDeadline": "Deadline not published",
+    "deadlinePassed": "Deadline passed",
+    "daysLeft": "{days, plural, one {# day left} other {# days left}}",
+    "buyerClockWarning": "Buyer's clock: {tz}"
+  },
+  "common": {
+    "loading": "Loading…",
+    "error": "Something went wrong",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "aiDraft": "AI draft — needs review",
+    "verify": "Verify",
+    "eliminatory": "Eliminatory",
+    "language": "Language",
+    "theme": "Theme"
+  },
+  "empty": {
+    "matches": {
+      "title": "No notices yet",
+      "body": "As soon as a notice matches your profile it will appear here. Check your watch profiles if you were expecting results.",
+      "action": "Configure monitoring"
+    },
+    "tenders": {
+      "title": "No live consultations",
+      "body": "Choose \"Pursue\" on a notice to open its workspace: analysis, then decision, then drafting.",
+      "action": "See opportunities"
+    },
+    "library": {
+      "title": "Your library is empty",
+      "body": "Add your first three proofs — company registration, social and tax attestations. Eligibility stays \"unknown\" until they exist.",
+      "action": "Add a document"
+    }
+  },
+  "signIn": {
+    "title": "Choose a demo organisation",
+    "body": "This demo environment contains three organisations, one per persona in the specification. Auth.js sign-in is not wired yet.",
+    "continueAs": "Continue as {name}"
+  }
+}

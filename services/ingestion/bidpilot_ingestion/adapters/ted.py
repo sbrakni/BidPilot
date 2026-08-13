@@ -78,6 +78,11 @@ TED_TITLE_SEPARATOR = " – "
 # ("DMOW/MT/03110 - 1", "WS2848982494 - 1") rather than a description.
 MIN_MEANINGFUL_TITLE_LEN = 25
 
+# Above this length it is the opposite problem: some buyers paste the entire object
+# description into the lot title ("La presente consultation a pour objet ... 300 chars").
+# Neither extreme is a usable inbox title, so both ends fall back to `notice-title`.
+MAX_MEANINGFUL_TITLE_LEN = 180
+
 # TED `form-type` is the reliable discriminator; `notice-type` is the finer subtype.
 FORM_TYPE_TO_NOTICE_TYPE = {
     "planning": NoticeType.PLANNING,
@@ -182,7 +187,7 @@ def _amount(value: Any) -> float | None:
 @register
 class TedAdapter(BaseAdapter):
     name = "ted"
-    version = "1.0.0"
+    version = "1.1.0"
 
     #: Countries whose notices we ingest. Widening this is a config change (SPEC §4.1).
     DEFAULT_COUNTRIES = ("FRA", "BEL", "LUX")
@@ -316,13 +321,14 @@ class TedAdapter(BaseAdapter):
     def _title(cls, payload: dict[str, Any], language: str | None) -> str | None:
         """Pick the most informative title available.
 
-        Neither candidate is reliable alone: `title-lot` is often just an internal
-        reference ("WS2848982494 - 1"), while `notice-title` is TED's composed
-        "<Country> – <CPV label> – <real title>". So take the lot title when it reads
-        like a description, and otherwise strip the composed prefix off `notice-title`.
+        Neither candidate is reliable alone: `title-lot` is sometimes an internal
+        reference ("WS2848982494 - 1") and sometimes the entire object description, while
+        `notice-title` is TED's composed "<Country> – <CPV label> – <real title>". So take
+        the lot title when its length suggests it is actually a title, and otherwise strip
+        the composed prefix off `notice-title`.
         """
         lot_title = pick_lang(payload.get("title-lot"), language)
-        if lot_title and len(lot_title) >= MIN_MEANINGFUL_TITLE_LEN:
+        if lot_title and MIN_MEANINGFUL_TITLE_LEN <= len(lot_title) <= MAX_MEANINGFUL_TITLE_LEN:
             return lot_title
         notice_title = pick_lang(payload.get("notice-title"), language)
         if notice_title:

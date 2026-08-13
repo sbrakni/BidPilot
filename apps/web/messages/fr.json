@@ -1,0 +1,123 @@
+{
+  "app": {
+    "name": "BidPilot",
+    "tagline": "Trouvez, décidez, répondez."
+  },
+  "nav": {
+    "today": "Aujourd'hui",
+    "opportunities": "Opportunités",
+    "tenders": "Mes AO",
+    "library": "Bibliothèque",
+    "intel": "Veille marché",
+    "settings": "Réglages",
+    "signedInAs": "Connecté en tant que",
+    "switchOrg": "Changer d'organisation"
+  },
+  "today": {
+    "title": "Aujourd'hui",
+    "subtitle": "Nouveaux avis, échéances de la semaine et alertes de votre bibliothèque.",
+    "newMatches": "Nouveaux avis pertinents",
+    "deadlinesThisWeek": "Échéances cette semaine",
+    "vaultAlerts": "Documents à renouveler",
+    "decisionsPending": "Décisions en attente",
+    "topMatches": "Vos meilleures correspondances",
+    "seeAll": "Voir tout"
+  },
+  "opportunities": {
+    "title": "Opportunités",
+    "subtitle": "{count, plural, =0 {Aucun avis} one {# avis} other {# avis}} correspondant à votre profil.",
+    "filters": {
+      "all": "Tous",
+      "new": "Nouveaux",
+      "shortlisted": "Retenus",
+      "dismissed": "Écartés",
+      "pursued": "En cours",
+      "minScore": "Score minimum"
+    },
+    "sourcesLabel": "Publié sur",
+    "scoreLabel": "Score de correspondance",
+    "breakdown": "Détail du score",
+    "actions": {
+      "shortlist": "Retenir",
+      "dismiss": "Écarter",
+      "pursue": "Répondre",
+      "open": "Ouvrir l'avis"
+    },
+    "dismissReasons": {
+      "too_big": "Trop gros pour nous",
+      "too_small": "Trop petit",
+      "wrong_activity": "Hors de notre activité",
+      "no_time": "Pas le temps",
+      "bad_buyer": "Acheteur à éviter",
+      "other": "Autre raison"
+    },
+    "keyboardHint": "Raccourcis : j/k pour naviguer, s retenir, d écarter, p répondre."
+  },
+  "tenders": {
+    "title": "Mes AO",
+    "subtitle": "Vos consultations en cours, par étape.",
+    "stages": {
+      "analysis": "Analyse",
+      "decision": "Go/No-Go",
+      "response": "Rédaction",
+      "submitted": "Déposé",
+      "closed": "Clôturé"
+    },
+    "nextAction": "Prochaine action"
+  },
+  "library": {
+    "title": "Bibliothèque",
+    "subtitle": "Vos preuves, références et contenus réutilisables.",
+    "vaultHealth": "Santé de la bibliothèque",
+    "expiring": "{count, plural, =0 {Aucun document n'expire} one {# document expire} other {# documents expirent}} dans les 30 jours",
+    "expired": "{count, plural, =0 {Aucun document expiré} one {# document expiré} other {# documents expirés}}"
+  },
+  "notice": {
+    "buyer": "Acheteur",
+    "deadline": "Date limite",
+    "questionsDeadline": "Limite des questions",
+    "amount": "Montant estimé",
+    "amountUnknown": "Montant non publié",
+    "cpv": "Codes CPV",
+    "place": "Lieu d'exécution",
+    "published": "Publié le",
+    "noDeadline": "Date limite non publiée",
+    "deadlinePassed": "Date limite dépassée",
+    "daysLeft": "{days, plural, one {# jour restant} other {# jours restants}}",
+    "buyerClockWarning": "Heure de l'acheteur : {tz}"
+  },
+  "common": {
+    "loading": "Chargement…",
+    "error": "Une erreur est survenue",
+    "retry": "Réessayer",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "aiDraft": "Brouillon IA — à relire",
+    "verify": "À vérifier",
+    "eliminatory": "Éliminatoire",
+    "language": "Langue",
+    "theme": "Thème"
+  },
+  "empty": {
+    "matches": {
+      "title": "Aucun avis pour l'instant",
+      "body": "Dès qu'un avis correspondra à votre profil, il apparaîtra ici. Vérifiez vos profils de veille si vous attendiez des résultats.",
+      "action": "Configurer la veille"
+    },
+    "tenders": {
+      "title": "Aucune consultation en cours",
+      "body": "Choisissez « Répondre » sur un avis pour ouvrir son espace de travail : analyse, décision, puis rédaction.",
+      "action": "Voir les opportunités"
+    },
+    "library": {
+      "title": "Votre bibliothèque est vide",
+      "body": "Ajoutez vos trois premières preuves — KBIS, attestation URSSAF, attestation fiscale. L'éligibilité restera « inconnue » tant qu'elles manquent.",
+      "action": "Ajouter un document"
+    }
+  },
+  "signIn": {
+    "title": "Choisir une démonstration",
+    "body": "Cet environnement de démonstration contient trois organisations, une par persona du cahier des charges. L'authentification Auth.js n'est pas encore branchée.",
+    "continueAs": "Continuer en tant que {name}"
+  }
+}
