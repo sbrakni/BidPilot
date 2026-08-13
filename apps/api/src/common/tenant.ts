@@ -5,9 +5,14 @@
  * decision. This module is only the first half - it resolves and verifies membership, then
  * hands the org id to `withOrgContext`, which is where isolation actually happens.
  *
- * Phase 0 accepts an `x-bidpilot-user` header in development so the API is exercisable
- * before Auth.js sessions land in Phase 1. It is refused outright when NODE_ENV=production:
- * a dev shortcut that survives into production is an authentication bypass.
+ * Authentication is an Auth.js session token, presented as a bearer credential and verified
+ * here by looking it up. Verifying rather than trusting is the point: the web app holds the
+ * session cookie, but nothing about a forwarded value proves it came from a real sign-in.
+ *
+ * Lookup, not signature check, because sessions are rows (see `apps/web/src/auth.ts`). It costs
+ * one indexed query per request and buys immediate revocation - deleting the row ends the
+ * session now, where a JWT would stay valid until it expired. The API's role holds SELECT on
+ * `sessions` and nothing more, so this path cannot mint one.
  */
 
 import { ForbiddenException, Injectable, UnauthorizedException } from "@nestjs/common";
@@ -21,7 +26,6 @@ export type Principal = {
   role: OrgRole;
 };
 
-const DEV_USER_HEADER = "x-bidpilot-user";
 const ORG_HEADER = "x-bidpilot-org";
 
 @Injectable()
@@ -34,7 +38,7 @@ export class TenantService {
    * `org_members` policy permits a user to read their own membership rows and nothing else.
    */
   async resolve(request: Request): Promise<Principal> {
-    const userId = this.resolveUserId(request);
+    const userId = await this.resolveUserId(request);
     const requestedOrgId = request.header(ORG_HEADER) ?? undefined;
 
     const memberships = await withUserContext(
@@ -62,18 +66,48 @@ export class TenantService {
     return { userId, orgId: membership.orgId, role: membership.role };
   }
 
-  private resolveUserId(request: Request): string {
-    const devUser = request.header(DEV_USER_HEADER);
-    if (devUser) {
-      if (process.env.NODE_ENV === "production") {
-        throw new UnauthorizedException(`${DEV_USER_HEADER} is not accepted in production`);
-      }
-      return devUser;
+  /**
+   * The user behind a presented session token, or an explicit refusal.
+   *
+   * Expiry is filtered in the query rather than compared afterwards, so an expired session is
+   * indistinguishable from one that never existed - both simply match no row. That also means a
+   * forgotten expiry check cannot become an accepted-forever session.
+   */
+  private async resolveUserId(request: Request): Promise<string> {
+    const token = bearerToken(request);
+    if (!token) {
+      throw new UnauthorizedException("authentication required");
     }
-    // Auth.js session wiring lands in Phase 1; until then there is no other credential,
-    // and pretending otherwise would be worse than an explicit failure.
-    throw new UnauthorizedException("authentication required");
+
+    // No tenant context: this runs before an org is known, and `sessions` is not org-scoped.
+    const session = await getPrisma().session.findFirst({
+      where: { sessionToken: token, expires: { gt: new Date() } },
+      select: { userId: true },
+    });
+
+    if (!session) {
+      // One message for absent, unknown and expired alike. Telling them apart would confirm
+      // that a token exists to whoever is guessing at them.
+      throw new UnauthorizedException("invalid or expired session");
+    }
+    return session.userId;
   }
+}
+
+/**
+ * The bearer credential, if one was presented.
+ *
+ * Case-insensitive on the scheme because `Bearer`, `bearer` and `BEARER` are all valid per
+ * RFC 6750, and a client that picks the wrong case should get "unauthenticated", not a
+ * confusing "no credential".
+ */
+function bearerToken(request: Request): string | undefined {
+  const header = request.header("authorization");
+  if (!header) return undefined;
+  const [scheme, ...rest] = header.split(" ");
+  if (scheme?.toLowerCase() !== "bearer") return undefined;
+  const token = rest.join(" ").trim();
+  return token.length > 0 ? token : undefined;
 }
 
 /** Roles allowed to override a submission gate or change billing (SPEC §11.1, §15.1). */

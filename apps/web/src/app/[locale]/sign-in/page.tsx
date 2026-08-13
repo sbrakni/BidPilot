@@ -1,63 +1,47 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 import { AppShell, PageHeader } from "@/components/shell";
+import { SignInForm } from "@/components/sign-in-form";
+import { configuredOAuthProviders } from "@/auth";
 import type { Locale } from "@/i18n/routing";
-import { DEMO_USER_COOKIE } from "@/lib/api";
-import { DEMO_USERS } from "@/lib/session";
 
 /**
- * Demo organisation picker, standing in for Auth.js (SPEC §17.1).
+ * Sign-in (SPEC §17.1): magic link, plus whichever OAuth providers this deployment configures.
  *
- * It only chooses which seeded user to act as; the API still verifies org membership, so
- * this cannot grant access to anything. The API refuses the header when
- * NODE_ENV=production, which is what keeps the shortcut from becoming a bypass.
+ * There is no password field and no registration step. Both are deliberate: §15.3 puts SIRET
+ * entry first and targets five minutes to a live match (P5), and a password nobody set is a
+ * password nobody can leak. A first magic link creates the account.
  */
-export default async function SignInPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function SignInPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ error?: string }>;
+}) {
   const { locale } = await params;
+  const { error } = await searchParams;
   setRequestLocale(locale as Locale);
   const t = await getTranslations("signIn");
 
-  async function chooose(formData: FormData) {
-    "use server";
-    const userId = String(formData.get("userId") ?? "");
-    if (!DEMO_USERS.some((user) => user.id === userId)) return;
-    const store = await cookies();
-    store.set(DEMO_USER_COOKIE, userId, {
-      httpOnly: true,
-      sameSite: "lax",
-      path: "/",
-      maxAge: 60 * 60 * 24 * 7,
-    });
-    redirect("/today");
-  }
-
   return (
-    <AppShell active="settings">
+    <AppShell active="settings" signedOut>
       <PageHeader title={t("title")} subtitle={t("body")} />
-      <ul className="grid gap-3 sm:grid-cols-3">
-        {DEMO_USERS.map((user) => (
-          <li key={user.id} className="bp-card p-4">
-            <p className="text-sm font-medium">{user.name}</p>
-            <p className="text-xs text-text-muted">
-              {user.role} · {user.org}
-            </p>
-            <p className="mt-2 text-xs text-text-subtle">
-              {locale === "fr" ? user.descriptionFr : user.descriptionEn}
-            </p>
-            <form action={chooose} className="mt-3">
-              <input type="hidden" name="userId" value={user.id} />
-              <button
-                type="submit"
-                className="w-full rounded-md bg-accent px-3 py-1.5 text-xs font-medium text-white hover:bg-accent-hover"
-              >
-                {t("continueAs", { name: user.name })}
-              </button>
-            </form>
-          </li>
-        ))}
-      </ul>
+      <div className="max-w-md">
+        <SignInForm
+          providers={configuredOAuthProviders()}
+          error={error ? t("error") : null}
+          labels={{
+            email: t("email"),
+            emailPlaceholder: t("emailPlaceholder"),
+            submit: t("submit"),
+            or: t("or"),
+            google: t("google"),
+            microsoft: t("microsoft"),
+            noPassword: t("noPassword"),
+          }}
+        />
+      </div>
     </AppShell>
   );
 }

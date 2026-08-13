@@ -7,6 +7,7 @@
 --
 --   psql "$SUPERUSER_URL" -v owner_password="$DATABASE_PASSWORD" \
 --                         -v app_password="$DATABASE_APP_PASSWORD" \
+--                         -v auth_password="$DATABASE_AUTH_PASSWORD" \
 --        -f packages/db/sql/bootstrap_roles.sql
 --
 -- It creates all three roles the schema needs, and none of them is the superuser you run it as:
@@ -16,6 +17,9 @@
 --                      SECURITY` reaches it (ADR-0014).
 --   bidpilot_app       the tenant role; `DATABASE_APP_URL`. Owns nothing, denied DML on market
 --                      data by the migration.
+--   bidpilot_auth      the web app's Auth.js adapter; `DATABASE_AUTH_URL`. Reaches the four
+--                      authentication tables and nothing else, which is what keeps §17.2 true
+--                      while Auth.js has the database access it requires (ADR-0015).
 --   bidpilot_platform  NOLOGIN BYPASSRLS, owns exactly one function - `app_all_org_ids()`.
 --
 -- In local development docker-compose mounts this into the Postgres init directory as
@@ -33,6 +37,12 @@
 \if :{?app_password}
 \else
   \set app_password :app_password_default
+\endif
+
+\set auth_password_default 'bidpilot_auth'
+\if :{?auth_password}
+\else
+  \set auth_password :auth_password_default
 \endif
 
 -- The role that owns the schema, and the one `DATABASE_URL` points at.
@@ -86,6 +96,23 @@ END
 $$;
 
 ALTER ROLE bidpilot_app WITH PASSWORD :'app_password';
+
+-- The web app's role. Same attributes as the tenant role and for the same reason: it must be
+-- subject to the policies, because the one table it can read that holds anything personal -
+-- `users` - is RLS-protected, and its access there is granted by a policy scoped to this role
+-- rather than by an exemption (ADR-0015).
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'bidpilot_auth') THEN
+    CREATE ROLE bidpilot_auth LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT NOBYPASSRLS;
+    RAISE NOTICE 'created role bidpilot_auth';
+  ELSE
+    RAISE NOTICE 'role bidpilot_auth already exists';
+  END IF;
+END
+$$;
+
+ALTER ROLE bidpilot_auth WITH PASSWORD :'auth_password';
 
 -- A third role whose only purpose is to OWN the platform helper function.
 --

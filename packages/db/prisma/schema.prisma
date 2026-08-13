@@ -483,14 +483,76 @@ model User {
   email     String   @unique
   name      String?
   locale    String   @default("fr")
+  /// Set by Auth.js when a magic link is followed or an OAuth account is linked. Null means
+  /// the address has been claimed but never proven, which is why it is not a boolean.
+  emailVerified DateTime? @map("email_verified") @db.Timestamptz
+  image     String?
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz
 
   memberships   OrgMember[]
   assignedTasks Task[]       @relation("TaskAssignee")
   notifications Notification[]
+  accounts      Account[]
+  sessions      Session[]
 
   @@map("users")
+}
+
+// ---------------------------------------------------------------------------
+// Auth.js (SPEC §17.1). Shapes are dictated by @auth/prisma-adapter, not by us: the column
+// names below are what the adapter queries, so they are camelCase where every other table in
+// this schema is snake_case. Renaming them would mean forking the adapter (ADR-0015).
+//
+// These four tables - with `users` - are the only ones the web app's database role may touch,
+// and it is the database that enforces that, not convention. See the 20260813010000 migration.
+// ---------------------------------------------------------------------------
+
+/// A linked OAuth identity (Google, Microsoft). Magic-link users have no row here.
+model Account {
+  id                String  @id
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+  @@map("accounts")
+}
+
+/// Database-backed sessions rather than JWTs, so that signing out or removing a user takes
+/// effect immediately - and so the API can verify a session by looking it up rather than by
+/// sharing a signing secret with the web app.
+model Session {
+  sessionToken String   @id @map("session_token")
+  userId       String   @map("user_id")
+  expires      DateTime @db.Timestamptz
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("sessions")
+}
+
+/// Single-use magic-link tokens. Auth.js stores a hash, deletes the row on use, and treats an
+/// expired row as absent.
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime @db.Timestamptz
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
 }
 
 /// Multi-org membership is supported: consultants work across clients (SPEC §15.1).

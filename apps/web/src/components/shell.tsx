@@ -8,7 +8,8 @@
 import { getTranslations } from "next-intl/server";
 
 import { Link } from "@/i18n/routing";
-import { getCurrentUser } from "@/lib/session";
+import { displayName, getCurrentUser } from "@/lib/session";
+import { endSession } from "@/app/actions";
 
 const NAV = [
   { key: "today", href: "/today" },
@@ -22,13 +23,17 @@ const NAV = [
 export async function AppShell({
   children,
   active,
+  signedOut = false,
 }: {
   children: React.ReactNode;
   active: (typeof NAV)[number]["key"];
+  /** Set on the sign-in pages: navigation to org-scoped screens is noise when there is no session. */
+  signedOut?: boolean;
 }) {
   const t = await getTranslations("nav");
   const tApp = await getTranslations("app");
-  const user = await getCurrentUser();
+  const tAuth = await getTranslations("signIn");
+  const user = signedOut ? null : await getCurrentUser();
 
   return (
     <div className="flex min-h-screen">
@@ -64,11 +69,13 @@ export async function AppShell({
         {user && (
           <div className="border-t border-border px-5 py-4">
             <p className="text-xs text-text-subtle">{t("signedInAs")}</p>
-            <p className="truncate text-sm font-medium">{user.name}</p>
-            <p className="truncate text-xs text-text-muted">{user.org}</p>
-            <Link href="/sign-in" className="mt-2 inline-block text-xs text-accent hover:underline">
-              {t("switchOrg")}
-            </Link>
+            <p className="truncate text-sm font-medium">{displayName(user)}</p>
+            {user.email && <p className="truncate text-xs text-text-muted">{user.email}</p>}
+            <form action={endSession} className="mt-2">
+              <button type="submit" className="text-xs text-accent hover:underline">
+                {tAuth("signOut")}
+              </button>
+            </form>
           </div>
         )}
       </aside>

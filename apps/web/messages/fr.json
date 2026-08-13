@@ -116,9 +116,23 @@
     }
   },
   "signIn": {
-    "title": "Choisir une démonstration",
-    "body": "Cet environnement de démonstration contient trois organisations, une par persona du cahier des charges. L'authentification Auth.js n'est pas encore branchée.",
-    "continueAs": "Continuer en tant que {name}"
+    "title": "Connexion",
+    "body": "Saisissez votre adresse professionnelle : nous vous envoyons un lien de connexion. Pas de mot de passe à retenir.",
+    "email": "Adresse e-mail",
+    "emailPlaceholder": "vous@entreprise.fr",
+    "submit": "Recevoir le lien",
+    "noPassword": "Un premier lien crée votre compte.",
+    "or": "ou",
+    "google": "Continuer avec Google",
+    "microsoft": "Continuer avec Microsoft",
+    "error": "La connexion a échoué. Le lien a peut-être expiré : demandez-en un nouveau.",
+    "signOut": "Se déconnecter",
+    "checkEmail": {
+      "title": "Vérifiez votre boîte mail",
+      "body": "Si un compte peut être créé ou retrouvé pour cette adresse, un lien de connexion vient d'être envoyé.",
+      "expiry": "Le lien est valable 15 minutes et ne fonctionne qu'une fois.",
+      "spam": "Rien reçu ? Regardez dans les indésirables avant de redemander un lien."
+    }
   },
   "onboarding": {
     "title": "Bienvenue sur BidPilot",

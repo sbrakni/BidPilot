@@ -11,7 +11,7 @@ Last updated: 2026-08-13.
 
 | Phase | State |
 |---|---|
-| **Phase 0 — Foundations** | Complete except Auth.js (a demo session picker stands in) |
+| **Phase 0 — Foundations** | Complete |
 | **Phase 1 — "Radar"** | **Exit demo passes**: signup → SIREN → live matches → pursue → digest. Email connector and remaining Tier-1/2 adapters outstanding |
 | Phase 2 — "Decision" | Not started |
 | Phase 3 — "Studio" | Not started |
@@ -61,7 +61,7 @@ exercised against a real Postgres and, for the adapters, against live source pay
 | Item | State | Evidence |
 |---|---|---|
 | Full core schema (§18) | ✅ | migrations apply from scratch |
-| **Cross-tenant isolation (§15.5)** | ✅ | 19 tests: reads, writes, aggregates, relation traversal, raw SQL, fail-closed default - and, first, that the connected role is itself subject to the policies (ADR-0014) |
+| **Cross-tenant isolation (§15.5)** | ✅ | 27 tests: reads, writes, aggregates, relation traversal, raw SQL, fail-closed default - and, first, that the connected role is itself subject to the policies (ADR-0014) |
 | Worker role cannot be exempt from RLS | ✅ | `set_org_context` refuses a SUPERUSER/BYPASSRLS connection rather than silently processing every tenant under one org's context |
 | Market data read-only for tenants | ✅ | tested; the seeder connects as owner (ADR-0007) |
 | Append-only decision log (§10.6) | ✅ | trigger-enforced, with an audited erasure path for GDPR (ADR-0009) |
@@ -70,7 +70,8 @@ exercised against a real Postgres and, for the adapters, against live source pay
 | Deadline alerts (§12.4, P3) | ✅ | J-14/7/3/1 in **working days**, computed each tick so a moved deadline self-corrects; escalation to Owner after 24h unacknowledged |
 | Vault freshness engine (§7.2) | ✅ | expiry recomputed per org rather than trusted, since eligibility reads this status |
 | Notification delivery (§12.4) | ✅ | SMTP, localised from the UI catalogue; `sent_at` set only after the transport accepts, so a failed send is retried rather than lost. Verified against a real SMTP server (ADR-0013) |
-| Auth.js sessions (§17.1) | ❌ | a demo persona picker stands in; the API refuses its header when `NODE_ENV=production` |
+| Auth.js sessions (§17.1) | ✅ | magic link + optional Google/Microsoft; database sessions, so sign-out revokes immediately. Verified in a browser against a real SMTP server: link works once, sign-out deletes the row and the API then refuses the token |
+| Web app confined to authentication (ADR-0015) | ✅ | its database role is refused by Postgres on every tenant table; asserted for six of them |
 | Stripe billing (§15.2) | ❌ | schema only |
 
 ### Web app — §20
@@ -83,6 +84,7 @@ exercised against a real Postgres and, for the adapters, against live source pay
 | Design tokens (§20.3) | ✅ red reserved for eliminatory/deadline danger only |
 | i18n, French-first (§20.6) | ✅ FR + EN via next-intl |
 | Onboarding wizard (§15.3) | ✅ SIREN → confirm → scope → inbox, verified in a browser against the live registry |
+| Sign-in (§17.1) | ✅ magic link, no password field; OAuth buttons appear only where configured |
 | Tender workspace (§12.1), compliance matrix, studio | ❌ sections render honest empty states rather than 404s |
 
 ### API — §19
@@ -90,7 +92,7 @@ exercised against a real Postgres and, for the adapters, against live source pay
 | Item | State |
 |---|---|
 | `/health`, `/health/ready` | ✅ version-neutral |
-| `/v1/org`, `/v1/matches` (+ shortlist/dismiss/pursue), `/v1/notices/{id}`, `/v1/status/coverage`, `/v1/profile` (+ bootstrap) | ✅ 33 API tests |
+| `/v1/org`, `/v1/matches` (+ shortlist/dismiss/pursue), `/v1/notices/{id}`, `/v1/status/coverage`, `/v1/profile` (+ bootstrap) | ✅ 39 API tests, including session verification |
 | OpenAPI document at `/docs` | ✅ generated |
 | Everything else in §19 | ❌ |
 
@@ -100,7 +102,7 @@ exercised against a real Postgres and, for the adapters, against live source pay
 |---|---|
 | Typecheck, build, lint (TS) | ✅ |
 | ruff check + format (Python) | ✅ |
-| Unit + integration tests | ✅ 156 Python, 62 TypeScript |
+| Unit + integration tests | ✅ 156 Python, 76 TypeScript |
 | CI running all of the above | ✅ `.github/workflows/ci.yml`, as a **non-superuser** owner - the default service-container role is a superuser, under which RLS does not apply and the isolation suite proves nothing (ADR-0014) |
 | E2E happy paths (Playwright) | ❌ the app is built and manually verified; the automated pass is not written |
 | **AI eval harness (Annex E.4)** | ❌ **placeholder job in CI**; must become blocking before any extraction prompt ships |
@@ -109,13 +111,11 @@ exercised against a real Postgres and, for the adapters, against live source pay
 
 ## Known gaps, in the order they should be closed
 
-1. **Auth.js** (§17.1), replacing the demo persona picker. The tenant-resolution seam already
-   exists and is tested, so this is contained.
-2. **Email inbox connector** (§6.5), which §21 requires in Phase 1. It is the universal
+1. **Email inbox connector** (§6.5), which §21 requires in Phase 1. It is the universal
    fallback that "covers" any portal able to send an alert mail, including authenticated ones.
-3. **Remaining Tier-1/2 adapters**: BOAMP is live, PLACE, BOSA (BE) and the atexo family are
+2. **Remaining Tier-1/2 adapters**: BOAMP is live, PLACE, BOSA (BE) and the atexo family are
    seeded as rows but disabled pending the legal review §24.7 requires.
-4. Then Phase 2: the DCE document pipeline, extractions with page-anchored citations, the
+3. Then Phase 2: the DCE document pipeline, extractions with page-anchored citations, the
    eval harness with its Annex E.4 gates enforced in CI, and the Go/No-Go brief.
 
 ## Phase 1 exit demo (§21)
@@ -126,21 +126,25 @@ Each step now runs, and was checked rather than assumed:
 
 | Step | How it was verified |
 |---|---|
+| fresh signup | Magic link to a real SMTP server, followed in a browser; the first link creates the account |
 | SIRET → profile | Live lookup of a real SIREN through the API; identity pre-filled and confirmed in a browser |
 | → live matches | 22 real matches for the seeded IT org, from a 48h TED+BOAMP window |
 | → pursue | Creates the tender workspace in `analysis`, idempotently (P2) |
 | → digest | Rendered and delivered to a real SMTP server, once per org per day in its own timezone |
 
 What is *not* claimed: the "20" is corpus-dependent (a narrow profile against a 48h window draws
-14-22), and signup itself is still the demo persona picker rather than Auth.js.
+14-22, and showed 20 on the run screenshotted during verification).
 
 ## Deliberate scope choices
 
 - Fixtures are captured from live APIs, never authored (ADR-0001).
-- Deviations from the spec are recorded in [`DECISIONS.md`](DECISIONS.md); there are fourteen so
+- Deviations from the spec are recorded in [`DECISIONS.md`](DECISIONS.md); there are fifteen so
   far, several forced by facts the spec marked `[VERIFY]` and several by problems that only
   appeared once the code ran against a real database - or, in ADR-0014's case, against a database
   configured the way CI configures one.
+- The web app now holds a database connection, which §17.2 otherwise forbids, because Auth.js
+  needs an adapter. What that connection can reach is one authentication role's worth of tables,
+  enforced by Postgres and asserted by tests, so the reason for §17.2 still holds (ADR-0015).
 - Tier-2 scraping sources are seeded **disabled**, because §24.7 requires a per-source legal
   review before they run and the adapter refuses to start without one.
 - No LLM code has been written yet. §17.4 requires all model access to go through the

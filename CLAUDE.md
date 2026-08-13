@@ -91,6 +91,11 @@ docs/                SPEC.md, DECISIONS.md
   by pointing `DATABASE_URL` at `postgres`, and do not try to demote it either — Postgres refuses
   to remove SUPERUSER from the role `initdb` created. If a fresh database makes the worker abort
   with `RlsBypassError`, that is this, and the fix is the role, never the guard.
+- **The web app's database connection is `DATABASE_AUTH_URL`, and only Auth.js may use it**
+  (ADR-0015). Its role holds privileges on the four authentication tables and nothing else, which
+  is what keeps §17.2's "web ↔ api only" true — tenant data still reaches the UI solely through
+  the API. Do not widen those grants, and do not reach for `getPrisma()` in `apps/web`: Postgres
+  will refuse it, which is the point.
 - **A job kind with no handler fails loudly**, on purpose. Do not add a stage to the scheduler
   before its handler exists: a queue that looks healthy while nothing happens is worse than a
   visible dead-letter.

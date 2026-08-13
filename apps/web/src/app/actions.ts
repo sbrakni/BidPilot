@@ -12,8 +12,33 @@
 import { revalidatePath } from "next/cache";
 
 import { api, ApiError } from "@/lib/api";
+import { signIn, signOut } from "@/auth";
 
 type Result = { ok: boolean; error?: string };
+
+/**
+ * Send a magic link (SPEC §17.1).
+ *
+ * Auth.js redirects to the "check your email" page on success and back to sign-in with an
+ * `error` query parameter otherwise - so this deliberately does not report whether the address
+ * belongs to an existing account. That distinction is exactly what makes a sign-in form an
+ * account-enumeration oracle.
+ */
+export async function startEmailSignIn(formData: FormData): Promise<void> {
+  const email = String(formData.get("email") ?? "").trim();
+  if (!email) return;
+  await signIn("nodemailer", { email, redirectTo: "/today" });
+}
+
+export async function startOAuthSignIn(formData: FormData): Promise<void> {
+  const provider = String(formData.get("provider") ?? "");
+  if (provider !== "google" && provider !== "microsoft-entra-id") return;
+  await signIn(provider, { redirectTo: "/today" });
+}
+
+export async function endSession(): Promise<void> {
+  await signOut({ redirectTo: "/sign-in" });
+}
 
 async function run(action: () => Promise<unknown>): Promise<Result> {
   try {

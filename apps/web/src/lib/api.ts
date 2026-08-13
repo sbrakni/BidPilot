@@ -10,8 +10,28 @@ import { cookies } from "next/headers";
 
 const API_BASE = process.env.API_PUBLIC_URL ?? "http://localhost:3001";
 
-/** Set by the demo sign-in page until Auth.js lands. See `session.ts`. */
-export const DEMO_USER_COOKIE = "bp_demo_user";
+/**
+ * Auth.js session cookie names. The `__Secure-` form is used whenever the site is served over
+ * HTTPS, so both have to be looked for rather than deciding from NODE_ENV - a preview
+ * deployment is production-built and may be either.
+ */
+const SESSION_COOKIES = ["__Secure-authjs.session-token", "authjs.session-token"] as const;
+
+/**
+ * The credential this app presents to the API.
+ *
+ * With database sessions the cookie value *is* the session token, so forwarding it lets the API
+ * verify identity by looking the session up - no signing secret shared between the two services,
+ * and revocation is immediate because it is a row.
+ */
+async function sessionToken(): Promise<string | undefined> {
+  const store = await cookies();
+  for (const name of SESSION_COOKIES) {
+    const value = store.get(name)?.value;
+    if (value) return value;
+  }
+  return undefined;
+}
 
 export type ScoreFactor = {
   key: string;
@@ -79,14 +99,13 @@ export class ApiError extends Error {
 }
 
 async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
-  const store = await cookies();
-  const demoUser = store.get(DEMO_USER_COOKIE)?.value;
+  const token = await sessionToken();
 
   const response = await fetch(`${API_BASE}${path}`, {
     ...init,
     headers: {
       "Content-Type": "application/json",
-      ...(demoUser ? { "x-bidpilot-user": demoUser } : {}),
+      ...(token ? { authorization: `Bearer ${token}` } : {}),
       ...init.headers,
     },
     // Tender data changes as ingestion runs and deadlines tick down, so nothing here is

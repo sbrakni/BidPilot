@@ -16,16 +16,43 @@ import { Test } from "@nestjs/testing";
 import request from "supertest";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
+import { PrismaClient, withUserContext } from "@bidpilot/db";
+
 import { AppModule } from "./app.module.js";
 
-// Seeded personas (SPEC §3.1): Léa runs the ESN, Sofia the facilities company.
-const LEA = "user_lea";
-const SOFIA = "user_sofia";
+// Seeded personas (SPEC §3.1): Léa runs the ESN, Sofia the facilities company. The constants
+// hold session *tokens* now, not user ids - the API accepts no credential it cannot verify.
+const LEA = "sess_test_lea";
+const SOFIA = "sess_test_sofia";
+const EXPIRED = "sess_test_expired";
+const ORPHANED = "sess_test_unknown";
+
+const HOUR = 60 * 60 * 1000;
 
 let app: INestApplication;
 let server: ReturnType<INestApplication["getHttpServer"]>;
+let owner: PrismaClient;
 
+/**
+ * Sessions are written with the owner connection, not the API's.
+ *
+ * Not incidental: the application role is granted SELECT on `sessions` and nothing else, so it
+ * *cannot* create one (ADR-0015). A fixture that could would be proving something the running
+ * system does not allow.
+ */
 beforeAll(async () => {
+  owner = new PrismaClient({ datasources: { db: { url: process.env.DATABASE_URL } } });
+  await owner.session.deleteMany({
+    where: { sessionToken: { in: [LEA, SOFIA, EXPIRED, ORPHANED] } },
+  });
+  await owner.session.createMany({
+    data: [
+      { sessionToken: LEA, userId: "user_lea", expires: new Date(Date.now() + HOUR) },
+      { sessionToken: SOFIA, userId: "user_sofia", expires: new Date(Date.now() + HOUR) },
+      { sessionToken: EXPIRED, userId: "user_lea", expires: new Date(Date.now() - HOUR) },
+    ],
+  });
+
   const moduleRef = await Test.createTestingModule({ imports: [AppModule] }).compile();
   app = moduleRef.createNestApplication();
   app.enableVersioning({ type: VersioningType.URI, defaultVersion: "1" });
@@ -34,6 +61,10 @@ beforeAll(async () => {
 }, 60_000);
 
 afterAll(async () => {
+  await owner?.session.deleteMany({
+    where: { sessionToken: { in: [LEA, SOFIA, EXPIRED, ORPHANED] } },
+  });
+  await owner?.$disconnect();
   await app?.close();
 });
 
@@ -54,14 +85,59 @@ describe("authentication", () => {
     await request(server).get("/v1/org").expect(401);
   });
 
-  it("refuses a user with no organisation", async () => {
-    await request(server).get("/v1/org").set("x-bidpilot-user", "user_nobody").expect(403);
+  it("accepts a live session", async () => {
+    await request(server).get("/v1/org").set("authorization", `Bearer ${LEA}`).expect(200);
+  });
+
+  it("refuses a token that matches no session", async () => {
+    await request(server).get("/v1/org").set("authorization", `Bearer ${ORPHANED}`).expect(401);
+  });
+
+  it("refuses an expired session", async () => {
+    // The row exists and names a real user; only `expires` is in the past. This is the case a
+    // hand-written expiry comparison gets wrong, so it is asserted rather than assumed.
+    await request(server).get("/v1/org").set("authorization", `Bearer ${EXPIRED}`).expect(401);
+  });
+
+  it("refuses a user id presented as though it were a session token", async () => {
+    // The credential the API used to accept. It must now be worth nothing.
+    await request(server).get("/v1/org").set("authorization", "Bearer user_lea").expect(401);
+  });
+
+  it("ignores a credential in a scheme it does not implement", async () => {
+    await request(server).get("/v1/org").set("authorization", `Basic ${LEA}`).expect(401);
+  });
+
+  it("accepts the bearer scheme case-insensitively, per RFC 6750", async () => {
+    await request(server).get("/v1/org").set("authorization", `bEaReR ${LEA}`).expect(200);
+  });
+
+  it("refuses a session whose user belongs to no organisation", async () => {
+    const token = "sess_test_orgless";
+    const userId = "usr_test_orgless";
+    // Created inside its own user context: `users` is FORCE-RLS'd, and Prisma's create issues
+    // INSERT ... RETURNING, so the row has to be visible to the SELECT policy to come back.
+    await withUserContext(
+      userId,
+      (tx) => tx.user.create({ data: { id: userId, email: "orgless@example.test", name: "No Org" } }),
+      owner,
+    );
+    await owner.session.create({
+      data: { sessionToken: token, userId, expires: new Date(Date.now() + HOUR) },
+    });
+    try {
+      // 403, not 401: they are who they say they are, they just have nothing to act on.
+      await request(server).get("/v1/org").set("authorization", `Bearer ${token}`).expect(403);
+    } finally {
+      await owner.session.delete({ where: { sessionToken: token } });
+      await withUserContext(userId, (tx) => tx.user.delete({ where: { id: userId } }), owner);
+    }
   });
 });
 
 describe("org scoping", () => {
   it("returns the acting user's own org", async () => {
-    const response = await request(server).get("/v1/org").set("x-bidpilot-user", LEA).expect(200);
+    const response = await request(server).get("/v1/org").set("authorization", `Bearer ${LEA}`).expect(200);
     expect(response.body.id).toBe("org_demo_esn");
     expect(response.body.role).toBe("owner");
     expect(response.body.counters.newMatches).toBeGreaterThan(0);
@@ -71,7 +147,7 @@ describe("org scoping", () => {
     // Even naming a real org id must fail: membership is checked, not trusted.
     await request(server)
       .get("/v1/org")
-      .set("x-bidpilot-user", LEA)
+      .set("authorization", `Bearer ${LEA}`)
       .set("x-bidpilot-org", "org_demo_maintenance")
       .expect(403);
   });
@@ -81,7 +157,7 @@ describe("match inbox", () => {
   it("returns scored matches whose factors sum to the displayed score (SPEC §8.4)", async () => {
     const response = await request(server)
       .get("/v1/matches?limit=10")
-      .set("x-bidpilot-user", LEA)
+      .set("authorization", `Bearer ${LEA}`)
       .expect(200);
 
     expect(response.body.data.length).toBeGreaterThan(0);
@@ -96,16 +172,16 @@ describe("match inbox", () => {
   });
 
   it("rejects an out-of-range minScore", async () => {
-    await request(server).get("/v1/matches?minScore=900").set("x-bidpilot-user", LEA).expect(400);
+    await request(server).get("/v1/matches?minScore=900").set("authorization", `Bearer ${LEA}`).expect(400);
   });
 
   it("paginates by cursor", async () => {
-    const first = await request(server).get("/v1/matches?limit=2").set("x-bidpilot-user", LEA).expect(200);
+    const first = await request(server).get("/v1/matches?limit=2").set("authorization", `Bearer ${LEA}`).expect(200);
     expect(first.body.nextCursor).toBeTruthy();
 
     const second = await request(server)
       .get(`/v1/matches?limit=2&cursor=${first.body.nextCursor}`)
-      .set("x-bidpilot-user", LEA)
+      .set("authorization", `Bearer ${LEA}`)
       .expect(200);
 
     const firstIds = first.body.data.map((m: { id: string }) => m.id);
@@ -114,10 +190,10 @@ describe("match inbox", () => {
   });
 
   it("never returns another org's matches", async () => {
-    const lea = await request(server).get("/v1/matches?limit=100").set("x-bidpilot-user", LEA).expect(200);
+    const lea = await request(server).get("/v1/matches?limit=100").set("authorization", `Bearer ${LEA}`).expect(200);
     const sofia = await request(server)
       .get("/v1/matches?limit=100")
-      .set("x-bidpilot-user", SOFIA)
+      .set("authorization", `Bearer ${SOFIA}`)
       .expect(200);
 
     const leaIds = new Set(lea.body.data.map((m: { id: string }) => m.id));
@@ -128,51 +204,51 @@ describe("match inbox", () => {
   });
 
   it("refuses to act on another org's match, and does not reveal that it exists", async () => {
-    const lea = await request(server).get("/v1/matches?limit=1").set("x-bidpilot-user", LEA).expect(200);
+    const lea = await request(server).get("/v1/matches?limit=1").set("authorization", `Bearer ${LEA}`).expect(200);
     const foreignId = lea.body.data[0].id;
 
     // 404, not 403: a 403 would confirm the id is real to someone with no right to know.
-    await request(server).post(`/v1/matches/${foreignId}/shortlist`).set("x-bidpilot-user", SOFIA).expect(404);
+    await request(server).post(`/v1/matches/${foreignId}/shortlist`).set("authorization", `Bearer ${SOFIA}`).expect(404);
     await request(server)
       .post(`/v1/matches/${foreignId}/dismiss`)
-      .set("x-bidpilot-user", SOFIA)
+      .set("authorization", `Bearer ${SOFIA}`)
       .send({ reason: "no_time" })
       .expect(404);
-    await request(server).post(`/v1/matches/${foreignId}/pursue`).set("x-bidpilot-user", SOFIA).expect(404);
+    await request(server).post(`/v1/matches/${foreignId}/pursue`).set("authorization", `Bearer ${SOFIA}`).expect(404);
   });
 
   it("requires a known dismissal reason (SPEC §8.3)", async () => {
-    const lea = await request(server).get("/v1/matches?limit=1").set("x-bidpilot-user", LEA).expect(200);
+    const lea = await request(server).get("/v1/matches?limit=1").set("authorization", `Bearer ${LEA}`).expect(200);
     const matchId = lea.body.data[0].id;
 
     await request(server)
       .post(`/v1/matches/${matchId}/dismiss`)
-      .set("x-bidpilot-user", LEA)
+      .set("authorization", `Bearer ${LEA}`)
       .send({ reason: "just because" })
       .expect(400);
 
     const ok = await request(server)
       .post(`/v1/matches/${matchId}/dismiss`)
-      .set("x-bidpilot-user", LEA)
+      .set("authorization", `Bearer ${LEA}`)
       .send({ reason: "too_big" })
       .expect(201);
     expect(ok.body).toMatchObject({ state: "dismissed", dismissReason: "too_big" });
 
     // Restore the seeded state so the suite stays re-runnable.
-    await request(server).post(`/v1/matches/${matchId}/shortlist`).set("x-bidpilot-user", LEA).expect(201);
+    await request(server).post(`/v1/matches/${matchId}/shortlist`).set("authorization", `Bearer ${LEA}`).expect(201);
   });
 
   it("creates at most one tender per notice when pursued twice (P2: starts in analysis)", async () => {
-    const lea = await request(server).get("/v1/matches?limit=5").set("x-bidpilot-user", LEA).expect(200);
+    const lea = await request(server).get("/v1/matches?limit=5").set("authorization", `Bearer ${LEA}`).expect(200);
     const matchId = lea.body.data[lea.body.data.length - 1].id;
 
     const first = await request(server)
       .post(`/v1/matches/${matchId}/pursue`)
-      .set("x-bidpilot-user", LEA)
+      .set("authorization", `Bearer ${LEA}`)
       .expect(201);
     const second = await request(server)
       .post(`/v1/matches/${matchId}/pursue`)
-      .set("x-bidpilot-user", LEA)
+      .set("authorization", `Bearer ${LEA}`)
       .expect(201);
 
     expect(second.body.tenderId).toBe(first.body.tenderId);
@@ -182,7 +258,7 @@ describe("match inbox", () => {
 
 describe("global market data (SPEC §18.1)", () => {
   it("serves a notice by id", async () => {
-    const lea = await request(server).get("/v1/matches?limit=1").set("x-bidpilot-user", LEA).expect(200);
+    const lea = await request(server).get("/v1/matches?limit=1").set("authorization", `Bearer ${LEA}`).expect(200);
     const noticeId = lea.body.data[0].notice.id;
     const response = await request(server).get(`/v1/notices/${noticeId}`).expect(200);
     expect(response.body.id).toBe(noticeId);

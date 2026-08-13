@@ -6,6 +6,9 @@
     "build": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+      // No `env` here on purpose. The build must not need a database URL or an auth secret:
+      // Auth.js is configured lazily per request (apps/web/src/auth.ts) precisely so that
+      // building requires no runtime credential.
     },
     "typecheck": {
       "dependsOn": ["^build"]
@@ -16,7 +19,7 @@
       // Turbo hides the ambient environment by default. The suites that prove tenant
       // isolation need both connections: the owner to set fixtures up, and the non-owner
       // application role that RLS actually applies to.
-      "env": ["DATABASE_URL", "DATABASE_APP_URL", "API_PORT"],
+      "env": ["DATABASE_URL", "DATABASE_APP_URL", "DATABASE_AUTH_URL", "API_PORT"],
       // Not cached: these suites assert against live database state, so a cached "pass"
       // would be meaningless. Serialisation across packages is set with `--concurrency=1`
       // in the root `test` script, since they share one Postgres.
@@ -24,7 +27,23 @@
     },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "env": [
+        "DATABASE_URL",
+        "DATABASE_APP_URL",
+        "DATABASE_AUTH_URL",
+        "API_PORT",
+        "API_PUBLIC_URL",
+        "AUTH_SECRET",
+        "AUTH_URL",
+        "EMAIL_SERVER",
+        "EMAIL_FROM",
+        "AUTH_GOOGLE_ID",
+        "AUTH_GOOGLE_SECRET",
+        "AUTH_MICROSOFT_ENTRA_ID_ID",
+        "AUTH_MICROSOFT_ENTRA_ID_SECRET",
+        "AUTH_MICROSOFT_ENTRA_ID_ISSUER"
+      ]
     }
   }
 }

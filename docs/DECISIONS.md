@@ -382,3 +382,58 @@ against a database holding the old checksum reports no pending migrations and ap
 
 **Not chosen: making the test tolerant of a superuser.** It would have turned a real production
 hazard into a green build, which is the outcome this whole entry exists to prevent.
+
+---
+
+## ADR-0015 — The web app gets a database role that can only authenticate
+
+**Date:** 2026-08-13 · **Status:** accepted · **Relates to:** §17.1, §17.2, §15.1
+
+**Decision.** Auth.js runs in the web app with the Prisma adapter, connecting as `bidpilot_auth`
+via `DATABASE_AUTH_URL`. That role is granted DML on `accounts`, `sessions` and
+`verification_tokens`, and SELECT/INSERT/UPDATE on `users`. It holds no grant on any other
+table. Sessions are rows, not JWTs, and the API authenticates a request by looking the presented
+token up rather than by verifying a signature.
+
+**The tension.** §17.1 requires Auth.js; its email provider needs somewhere to keep single-use
+tokens, so it needs an adapter, so the web app needs a database connection. §17.2 says
+"web ↔ api only", and the reason given for it is real: tenant isolation should have exactly one
+enforcement point.
+
+**Why this resolves it rather than trading it away.** The reason §17.2 exists is that the web
+app must not be able to read tenant data. Previously that was true because it had no connection
+string - a property of configuration, held in place by discipline. Now it is true because
+Postgres refuses: `SELECT count(*) FROM matches` as `bidpilot_auth` is `permission denied`, and
+the RLS suite asserts exactly that for six tenant tables. The invariant did not weaken; its
+enforcement moved from convention into the database, which is where the rest of this schema's
+guarantees already live.
+
+`users` is the one table holding anything personal that this role can reach, and it is
+RLS-protected. The role's access is granted by three policies scoped `TO bidpilot_auth` rather
+than by an exemption, so the tenant-facing policies on that table are untouched and the role
+still cannot see a single row of org data. Authentication has to be able to find a person by
+email before any org exists - that is what makes it authentication.
+
+**Alternatives rejected.**
+
+- **A custom adapter calling the API over HTTP.** Preserves §17.2 literally, but the endpoints it
+  needs - create user, create session, consume verification token - are unauthenticated by
+  nature, since they are what establish authentication. It converts a Postgres grant into a
+  larger HTTP surface that would need its own shared secret. More moving parts, less enforcement.
+- **JWT sessions with no adapter.** Would not remove the adapter (the email provider still needs
+  one) and would make sign-out advisory until expiry. A session that cannot be revoked is a poor
+  trade for one saved query.
+- **Giving the auth role BYPASSRLS to read `users`.** Forbidden by ADR-0014 and unnecessary: a
+  role-scoped policy is narrower and says what it means.
+
+**What this bought, verified rather than assumed.** Sign-out deletes the session row, after which
+the same token is refused by the API with 401. A magic link works once - the second use lands
+back on sign-in, and `verification_tokens` is empty afterwards. The credential the API previously
+accepted, a bare user id in a header, is now worth nothing; there is a test that asserts it.
+
+**On the dependency.** `next-auth@5.0.0-beta.32`. Auth.js v5 is the App Router line and the only
+one that works with Next 15 and React 19; v4 does not. The version is pinned exactly rather than
+floated on a range, because a beta's patch releases are not bound by semver.
+
+**Revisit when** SSO/SAML arrives (§15.1 puts it in Enterprise, P4). That is a bigger identity
+story and the right moment to ask whether authentication should become its own service.

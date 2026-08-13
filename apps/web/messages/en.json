@@ -116,9 +116,23 @@
     }
   },
   "signIn": {
-    "title": "Choose a demo organisation",
-    "body": "This demo environment contains three organisations, one per persona in the specification. Auth.js sign-in is not wired yet.",
-    "continueAs": "Continue as {name}"
+    "title": "Sign in",
+    "body": "Enter your work address and we'll send you a sign-in link. No password to remember.",
+    "email": "Email address",
+    "emailPlaceholder": "you@company.com",
+    "submit": "Send the link",
+    "noPassword": "A first link creates your account.",
+    "or": "or",
+    "google": "Continue with Google",
+    "microsoft": "Continue with Microsoft",
+    "error": "Sign-in failed. The link may have expired — request a new one.",
+    "signOut": "Sign out",
+    "checkEmail": {
+      "title": "Check your email",
+      "body": "If an account can be created or found for that address, a sign-in link is on its way.",
+      "expiry": "The link is valid for 15 minutes and works once.",
+      "spam": "Nothing yet? Check your spam folder before requesting another."
+    }
   },
   "onboarding": {
     "title": "Welcome to BidPilot",

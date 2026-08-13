@@ -44,6 +44,31 @@ export function getPrisma(): PrismaClient {
   return client;
 }
 
+let authClient: PrismaClient | undefined;
+
+/**
+ * The client Auth.js's adapter uses, connecting as `bidpilot_auth` (SPEC §17.1, ADR-0015).
+ *
+ * Deliberately separate from {@link getPrisma}: that role holds privileges on the four
+ * authentication tables and nothing else, so this client physically cannot read tenant data.
+ * That is what keeps §17.2's "web ↔ api only" true while Auth.js has the database access its
+ * adapter requires - the confinement is a Postgres grant, not a convention.
+ *
+ * There is no fallback to `DATABASE_URL` here, unlike above. Falling back would silently hand
+ * the web app the owner's connection - every table, no confinement - which is the one outcome
+ * this separation exists to prevent.
+ */
+export function getAuthPrisma(): PrismaClient {
+  if (!authClient) {
+    const url = process.env.DATABASE_AUTH_URL;
+    if (!url) {
+      throw new Error("DATABASE_AUTH_URL must be set for authentication");
+    }
+    authClient = new PrismaClient({ datasources: { db: { url } } });
+  }
+  return authClient;
+}
+
 export type OrgScopedClient = Omit<
   PrismaClient,
   "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends"

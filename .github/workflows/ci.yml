@@ -19,6 +19,9 @@ env:
   DATABASE_URL: postgresql://bidpilot:bidpilot@localhost:5432/bidpilot?schema=public
   # Application connection: the non-owner role RLS actually applies to (SPEC §17.6).
   DATABASE_APP_URL: postgresql://bidpilot_app:bidpilot_app@localhost:5432/bidpilot?schema=public
+  # The web app's Auth.js connection, confined to the authentication tables (ADR-0015). The
+  # RLS suite asserts that confinement, so CI has to be able to connect as it.
+  DATABASE_AUTH_URL: postgresql://bidpilot_auth:bidpilot_auth@localhost:5432/bidpilot?schema=public
 
 jobs:
   python:
@@ -77,7 +80,7 @@ jobs:
           psql -v ON_ERROR_STOP=1 -h localhost -U postgres -d bidpilot -c \
             "CREATE EXTENSION IF NOT EXISTS vector; CREATE EXTENSION IF NOT EXISTS pg_trgm; CREATE EXTENSION IF NOT EXISTS unaccent;"
           psql -v ON_ERROR_STOP=1 -h localhost -U postgres -d bidpilot \
-            -v owner_password=bidpilot -v app_password=bidpilot_app \
+            -v owner_password=bidpilot -v app_password=bidpilot_app -v auth_password=bidpilot_auth \
             -f packages/db/sql/bootstrap_roles.sql
           pnpm install --frozen-lockfile
           pnpm db:generate
@@ -138,7 +141,7 @@ jobs:
           psql -v ON_ERROR_STOP=1 -h localhost -U postgres -d bidpilot -c \
             "CREATE EXTENSION IF NOT EXISTS vector; CREATE EXTENSION IF NOT EXISTS pg_trgm; CREATE EXTENSION IF NOT EXISTS unaccent;"
           psql -v ON_ERROR_STOP=1 -h localhost -U postgres -d bidpilot \
-            -v owner_password=bidpilot -v app_password=bidpilot_app \
+            -v owner_password=bidpilot -v app_password=bidpilot_app -v auth_password=bidpilot_auth \
             -f packages/db/sql/bootstrap_roles.sql
 
       - name: Generate Prisma client

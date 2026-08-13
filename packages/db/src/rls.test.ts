@@ -118,6 +118,49 @@ describe("the roles these tests depend on", () => {
   });
 });
 
+describe("the web app's auth role is confined to authentication", () => {
+  /**
+   * Auth.js needs a database adapter, which puts a connection string in the web app that §17.2
+   * otherwise forbids. What makes that acceptable is that the role it uses cannot reach tenant
+   * data - so that claim is tested rather than asserted in a comment (ADR-0015).
+   *
+   * Skipped rather than failed when `DATABASE_AUTH_URL` is absent, because the rest of this
+   * suite is still meaningful without it; CI always sets it.
+   */
+  const authUrl = process.env.DATABASE_AUTH_URL;
+  let authClient: PrismaClient | undefined;
+
+  beforeAll(() => {
+    if (authUrl) authClient = new PrismaClient({ datasources: { db: { url: authUrl } } });
+  });
+
+  afterAll(async () => {
+    await authClient?.$disconnect();
+  });
+
+  it.runIf(authUrl).each([
+    ["matches", (tx: PrismaClient) => tx.match.findMany()],
+    ["notices", (tx: PrismaClient) => tx.notice.findMany()],
+    ["tenders", (tx: PrismaClient) => tx.tender.findMany()],
+    ["orgs", (tx: PrismaClient) => tx.org.findMany()],
+    ["org_members", (tx: PrismaClient) => tx.orgMember.findMany()],
+    ["evidences", (tx: PrismaClient) => tx.evidence.findMany()],
+  ])("is refused by Postgres when reading %s", async (_table, read) => {
+    // Refused by privilege, not filtered to empty by a policy: an empty result would be
+    // indistinguishable from a table that happens to have no rows.
+    await expect(read(authClient!)).rejects.toThrow(/permission denied/i);
+  });
+
+  it.runIf(authUrl)("can still read the users it must authenticate", async () => {
+    await expect(authClient!.user.count()).resolves.toBeGreaterThanOrEqual(0);
+  });
+
+  it.runIf(authUrl)("can manage its own session store", async () => {
+    await expect(authClient!.session.count()).resolves.toBeGreaterThanOrEqual(0);
+    await expect(authClient!.verificationToken.count()).resolves.toBeGreaterThanOrEqual(0);
+  });
+});
+
 describe("tenant isolation", () => {
   it("shows an org only its own tenders", async () => {
     const rows = await withOrgContext(ORG_A, (tx) => tx.tender.findMany(), app);
