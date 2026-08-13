@@ -1,0 +1,102 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["procedure_type", "submission_deadline", "questions_deadline", "site_visit", "lots", "award_criteria", "variants_allowed", "submission_channel"],
+  "properties": {
+    "procedure_type": {
+      "type": "object",
+      "nullable": true,
+      "additionalProperties": false,
+      "required": ["value", "page", "quote"],
+      "properties": {
+        "value": { "type": "string", "minLength": 1 },
+        "page": { "type": "integer", "minimum": 1 },
+        "quote": { "type": "string", "minLength": 1 }
+      }
+    },
+    "submission_deadline": {
+      "type": "object",
+      "nullable": true,
+      "additionalProperties": false,
+      "required": ["value", "page", "quote"],
+      "properties": {
+        "value": { "type": "string", "minLength": 1 },
+        "page": { "type": "integer", "minimum": 1 },
+        "quote": { "type": "string", "minLength": 1 }
+      }
+    },
+    "questions_deadline": {
+      "type": "object",
+      "nullable": true,
+      "additionalProperties": false,
+      "required": ["value", "page", "quote"],
+      "properties": {
+        "value": { "type": "string", "minLength": 1 },
+        "page": { "type": "integer", "minimum": 1 },
+        "quote": { "type": "string", "minLength": 1 }
+      }
+    },
+    "site_visit": {
+      "type": "object",
+      "nullable": true,
+      "additionalProperties": false,
+      "required": ["mandatory", "page", "quote"],
+      "properties": {
+        "mandatory": { "type": "boolean" },
+        "when": { "type": "string", "nullable": true },
+        "page": { "type": "integer", "minimum": 1 },
+        "quote": { "type": "string", "minLength": 1 }
+      }
+    },
+    "lots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["number", "title", "page", "quote"],
+        "properties": {
+          "number": { "type": "string", "minLength": 1 },
+          "title": { "type": "string", "minLength": 1 },
+          "page": { "type": "integer", "minimum": 1 },
+          "quote": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "award_criteria": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "weight", "page", "quote"],
+        "properties": {
+          "label": { "type": "string", "minLength": 1 },
+          "weight": { "type": "number", "nullable": true, "minimum": 0, "maximum": 100 },
+          "page": { "type": "integer", "minimum": 1 },
+          "quote": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "variants_allowed": {
+      "type": "object",
+      "nullable": true,
+      "additionalProperties": false,
+      "required": ["value", "page", "quote"],
+      "properties": {
+        "value": { "type": "boolean" },
+        "page": { "type": "integer", "minimum": 1 },
+        "quote": { "type": "string", "minLength": 1 }
+      }
+    },
+    "submission_channel": {
+      "type": "object",
+      "nullable": true,
+      "additionalProperties": false,
+      "required": ["value", "page", "quote"],
+      "properties": {
+        "value": { "type": "string", "minLength": 1 },
+        "page": { "type": "integer", "minimum": 1 },
+        "quote": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "description": "Administrative facts from a DCE: procedure, deadlines, lots, award criteria (SPEC F4, §9.1).",
+  "tier": "M",
+  "max_tokens": 4096,
+  "temperature": 0
+}

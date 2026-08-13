@@ -9,10 +9,21 @@ dependencies = [
   "python-dateutil>=2.9",
   "psycopg[binary]>=3.2",
   "sqlalchemy>=2.0",
+  # DCE text extraction, page by page, so every citation can name a page (SPEC §9.1).
+  "pypdf>=5.1",
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8", "pytest-cov>=5", "jsonschema>=4", "respx>=0.21", "ruff>=0.7", "aiosmtpd>=1.4"]
+dev = [
+  "pytest>=8",
+  "pytest-cov>=5",
+  "jsonschema>=4",
+  "respx>=0.21",
+  "ruff>=0.7",
+  "aiosmtpd>=1.4",
+  # Builds the DCE test document from real corpus prose (scripts/build_dce_fixture.py).
+  "reportlab>=4.2",
+]
 
 [build-system]
 requires = ["setuptools>=68"]

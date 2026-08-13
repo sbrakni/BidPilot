@@ -52,7 +52,11 @@ def connection(db):
 
 @pytest.fixture
 def test_source(connection):
-    """A disposable source row, rolled back with the test's transaction."""
+    """A disposable source row, rolled back with the test's transaction.
+
+    Carries a cron on purpose: this stands in for a polled Tier-1 API, and a source with no
+    schedule is a *push* source, which is exempt from the silence budget it has no way to fail.
+    """
     from bidpilot_ingestion.ids import new_id
 
     code = f"test-src-{new_id('x')[-8:]}"
@@ -62,7 +66,7 @@ def test_source(connection):
             """
             INSERT INTO sources (id, code, country, tier, kind, adapter, config, schedule,
                                  legal, health, enabled, cursor, created_at, updated_at)
-            VALUES (:id, :code, 'FR', 'official_api', 'api', 'ted', '{}'::jsonb, '',
+            VALUES (:id, :code, 'FR', 'official_api', 'api', 'ted', '{}'::jsonb, '*/15 * * * *',
                     CAST(:legal AS jsonb), 'green', true, '{}'::jsonb, now(), now())
             """
         ),
@@ -963,3 +967,97 @@ def test_inbound_email_candidates_stay_inside_their_org(connection):
     connection.execute(text("SELECT set_config('app.org_id', :org, true)"), {"org": beta})
     visible = connection.execute(text("SELECT count(*) FROM tenders")).scalar()
     assert visible == 0, "beta must not see a candidate created from alpha's mail"
+
+
+# ---------------------------------------------------------------- LLM gateway (§17.4)
+
+
+def test_gateway_records_usage_against_the_calling_org(connection):
+    """Per-org token accounting (§17.4), which billing and the credit balance (§15.2) read."""
+    from bidpilot_ingestion.ai import Gateway, PromptSpec, ScriptedTransport
+
+    org_id = _make_org(connection, "ai-usage")
+    prompt = PromptSpec(
+        id="test_prompt",
+        version="v1",
+        system="s",
+        schema={"type": "object", "required": ["answer"], "properties": {"answer": {"type": "string"}}},
+        tier="M",
+        max_tokens=64,
+        temperature=0.0,
+        description="",
+    )
+    transport = ScriptedTransport(responses=['{"answer": "ok"}'], tokens_in=1200, tokens_out=300)
+
+    os.environ.setdefault("LLM_MODEL_TIER_M", "model-medium")
+    Gateway(transport=transport).complete(
+        prompt, "question", org_id=org_id, feature="extract_admin", connection=connection
+    )
+
+    row = (
+        connection.execute(
+            text(
+                """
+                SELECT feature, tokens_in, tokens_out
+                  FROM ai_usage WHERE org_id = :org AND month = to_char(now(), 'YYYY-MM')
+                """
+            ),
+            {"org": org_id},
+        )
+        .mappings()
+        .first()
+    )
+    assert row["feature"] == "extract_admin"
+    assert (row["tokens_in"], row["tokens_out"]) == (1200, 300)
+
+
+def test_gateway_usage_accumulates_within_the_month(connection):
+    """One row per (org, month, feature): the question is monthly spend, not a call log."""
+    from bidpilot_ingestion.ai import Gateway, PromptSpec, ScriptedTransport
+
+    org_id = _make_org(connection, "ai-usage-accumulate")
+    prompt = PromptSpec(
+        id="test_prompt",
+        version="v1",
+        system="s",
+        schema={"type": "object", "required": ["answer"], "properties": {"answer": {"type": "string"}}},
+        tier="M",
+        max_tokens=64,
+        temperature=0.0,
+        description="",
+    )
+    os.environ.setdefault("LLM_MODEL_TIER_M", "model-medium")
+    gateway = Gateway(
+        transport=ScriptedTransport(
+            responses=['{"answer": "one"}', '{"answer": "two"}'], tokens_in=100, tokens_out=10
+        )
+    )
+    for question in ("q1", "q2"):
+        gateway.complete(prompt, question, org_id=org_id, feature="extract_admin", connection=connection)
+
+    row = (
+        connection.execute(
+            text("SELECT count(*) AS rows, sum(tokens_in) AS tin FROM ai_usage WHERE org_id = :org"),
+            {"org": org_id},
+        )
+        .mappings()
+        .first()
+    )
+    assert row["rows"] == 1
+    assert row["tin"] == 200
+
+
+def test_gateway_usage_stays_inside_its_org(connection):
+    """`ai_usage` is org-scoped, and it is written from a path that takes an org id as an
+    argument - exactly the shape where a wrong id would go unnoticed."""
+    from bidpilot_ingestion.ai.gateway import record_usage
+
+    alpha = _make_org(connection, "ai-alpha")
+    beta = _make_org(connection, "ai-beta")
+
+    connection.execute(text("SELECT set_config('app.org_id', :org, true)"), {"org": alpha})
+    record_usage(connection, org_id=alpha, feature="extract_admin", tokens_in=10, tokens_out=1)
+
+    connection.execute(text("SELECT set_config('app.org_id', :org, true)"), {"org": beta})
+    visible = connection.execute(text("SELECT count(*) FROM ai_usage")).scalar()
+    assert visible == 0, "beta must not see alpha's usage"
