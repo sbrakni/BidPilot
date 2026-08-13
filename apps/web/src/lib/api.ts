@@ -99,6 +99,41 @@ export type TenderCard = {
 
 export type TenderList = { data: TenderCard[]; countsByStage: Record<string, number> };
 
+export type EvidenceCard = {
+  id: string;
+  kind: "admin" | "certification" | "reference" | "people" | "content" | "template";
+  title: string;
+  issuer: string | null;
+  issuedAt: string | null;
+  expiresAt: string | null;
+  status: "valid" | "expiring" | "expired";
+  tags: string[];
+  daysUntilExpiry: number | null;
+};
+
+export type VaultHealth = {
+  total: number;
+  valid: number;
+  expiring: number;
+  expired: number;
+  byKind: Record<string, number>;
+};
+
+export type LibraryPage = { data: EvidenceCard[]; health: VaultHealth };
+
+export type ReferenceCard = {
+  id: string;
+  title: string;
+  client: string;
+  clientType: string;
+  cpv: string[];
+  amount: number | null;
+  periodStart: string | null;
+  periodEnd: string | null;
+  location: string | null;
+  matchedCpv: string[];
+};
+
 export type OrgSummary = {
   id: string;
   name: string;
@@ -155,6 +190,19 @@ export const api = {
   org: () => request<OrgSummary>("/v1/org"),
 
   tenders: () => request<TenderList>("/v1/tenders"),
+
+  library: (params: { kind?: string; status?: string } = {}) => {
+    const query = new URLSearchParams();
+    if (params.kind) query.set("kind", params.kind);
+    if (params.status) query.set("status", params.status);
+    const suffix = query.toString();
+    return request<LibraryPage>(`/v1/library/evidence${suffix ? `?${suffix}` : ""}`);
+  },
+
+  references: (cpv?: string[]) =>
+    request<{ data: ReferenceCard[] }>(
+      `/v1/library/references${cpv?.length ? `?cpv=${cpv.join(",")}` : ""}`,
+    ),
 
   matches: (params: { state?: string; minScore?: number; limit?: number; cursor?: string } = {}) => {
     const query = new URLSearchParams();

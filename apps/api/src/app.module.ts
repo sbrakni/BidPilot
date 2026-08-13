@@ -3,6 +3,7 @@ import { Module } from "@nestjs/common";
 import { TenantService } from "./common/tenant.js";
 import { HealthController } from "./health/health.controller.js";
 import { InboundController } from "./inbound/inbound.controller.js";
+import { LibraryController } from "./library/library.controller.js";
 import { MatchesController, NoticesController } from "./matches/matches.controller.js";
 import { OrgsController } from "./orgs/orgs.controller.js";
 import { ProfileController } from "./profile/profile.controller.js";
@@ -23,6 +24,7 @@ import { TendersController } from "./tenders/tenders.controller.js";
     SourcesController,
     InboundController,
     TendersController,
+    LibraryController,
   ],
   providers: [TenantService],
 })

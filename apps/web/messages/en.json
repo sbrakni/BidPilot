@@ -71,7 +71,23 @@
     "subtitle": "Your proofs, references and reusable content.",
     "vaultHealth": "Library health",
     "expiring": "{count, plural, =0 {No documents expire} one {# document expires} other {# documents expire}} within 30 days",
-    "expired": "{count, plural, =0 {No expired documents} one {# expired document} other {# expired documents}}"
+    "expired": "{count, plural, =0 {No expired documents} one {# expired document} other {# expired documents}}",
+    "noExpiry": "No expiry",
+    "expiresIn": "Expires in {days} d",
+    "expiredFor": "Expired {days} d ago",
+    "statuses": {
+      "valid": "Up to date",
+      "expiring": "Expiring",
+      "expired": "Expired"
+    },
+    "kinds": {
+      "admin": "Administrative",
+      "certification": "Certification",
+      "reference": "Reference",
+      "people": "People",
+      "content": "Content",
+      "template": "Template"
+    }
   },
   "notice": {
     "buyer": "Buyer",

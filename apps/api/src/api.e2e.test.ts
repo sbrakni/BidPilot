@@ -423,3 +423,103 @@ describe("tender list (SPEC §20.1)", () => {
     await request(server).get("/v1/tenders").expect(401);
   });
 });
+
+describe("evidence vault (SPEC §7.2, §7.4)", () => {
+  it("returns the org's evidence with health counters over the whole vault", async () => {
+    const response = await request(server)
+      .get("/v1/library/evidence")
+      .set("authorization", `Bearer ${LEA}`)
+      .expect(200);
+
+    expect(response.body.data.length).toBeGreaterThan(0);
+    const { health } = response.body;
+    // The §7.4 criterion: the counters must add up, or the widget is decoration.
+    expect(health.valid + health.expiring + health.expired).toBe(health.total);
+    expect(health.total).toBe(response.body.data.length);
+  });
+
+  it("keeps the health counters over the whole vault when the list is filtered", async () => {
+    // A widget that changed when you clicked a filter would be reporting the filter.
+    const [all, filtered] = await Promise.all([
+      request(server).get("/v1/library/evidence").set("authorization", `Bearer ${LEA}`).expect(200),
+      request(server)
+        .get("/v1/library/evidence?kind=certification")
+        .set("authorization", `Bearer ${LEA}`)
+        .expect(200),
+    ]);
+    expect(filtered.body.health.total).toBe(all.body.health.total);
+    expect(filtered.body.data.every((e: { kind: string }) => e.kind === "certification")).toBe(true);
+  });
+
+  it("orders by what expires soonest, because the list is a worklist", async () => {
+    const response = await request(server)
+      .get("/v1/library/evidence")
+      .set("authorization", `Bearer ${LEA}`)
+      .expect(200);
+    const withExpiry: string[] = response.body.data
+      .map((e: { expiresAt: string | null }) => e.expiresAt)
+      .filter(Boolean);
+    expect(withExpiry).toEqual([...withExpiry].sort());
+  });
+
+  it("rejects an unknown kind rather than silently returning everything", async () => {
+    await request(server)
+      .get("/v1/library/evidence?kind=nonsense")
+      .set("authorization", `Bearer ${LEA}`)
+      .expect(400);
+  });
+
+  it("never shows another org's evidence", async () => {
+    const [lea, sofia] = await Promise.all([
+      request(server).get("/v1/library/evidence").set("authorization", `Bearer ${LEA}`).expect(200),
+      request(server).get("/v1/library/evidence").set("authorization", `Bearer ${SOFIA}`).expect(200),
+    ]);
+    const leaIds = new Set(lea.body.data.map((e: { id: string }) => e.id));
+    expect(sofia.body.data.filter((e: { id: string }) => leaIds.has(e.id))).toEqual([]);
+  });
+
+  it("requires authentication", async () => {
+    await request(server).get("/v1/library/evidence").expect(401);
+  });
+});
+
+describe("reference suggestions (SPEC §7.4)", () => {
+  it("surfaces a 72* reference for a 72* tender, matching on the family", async () => {
+    // The acceptance criterion verbatim: exact-code matching would suggest almost nothing,
+    // because a reference's CPV rarely equals the notice's.
+    const response = await request(server)
+      .get("/v1/library/references?cpv=72")
+      .set("authorization", `Bearer ${LEA}`)
+      .expect(200);
+
+    expect(response.body.data.length).toBeGreaterThan(0);
+    for (const reference of response.body.data) {
+      expect(reference.matchedCpv.length).toBeGreaterThan(0);
+      // And it says *why* it was suggested, per P4.
+      expect(reference.matchedCpv.every((code: string) => code.startsWith("72"))).toBe(true);
+    }
+  });
+
+  it("returns nothing for a family the org has no reference in", async () => {
+    const response = await request(server)
+      .get("/v1/library/references?cpv=45")
+      .set("authorization", `Bearer ${LEA}`)
+      .expect(200);
+    expect(response.body.data).toEqual([]);
+  });
+
+  it("returns the whole library when no family is asked for", async () => {
+    const response = await request(server)
+      .get("/v1/library/references")
+      .set("authorization", `Bearer ${LEA}`)
+      .expect(200);
+    expect(response.body.data.length).toBeGreaterThan(0);
+  });
+
+  it("rejects a CPV that is not a code or a family prefix", async () => {
+    await request(server)
+      .get("/v1/library/references?cpv=abc")
+      .set("authorization", `Bearer ${LEA}`)
+      .expect(400);
+  });
+});

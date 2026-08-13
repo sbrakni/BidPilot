@@ -80,6 +80,8 @@ exercised against a real Postgres and, for the adapters, against live source pay
 | Seed creates a full demo org | ✅ | 3 persona orgs, real notices, computed matches; idempotent |
 | Deadline alerts (§12.4, P3) | ✅ | J-14/7/3/1 in **working days**, computed each tick so a moved deadline self-corrects; escalation to Owner after 24h unacknowledged |
 | Vault freshness engine (§7.2) | ✅ | expiry recomputed per org rather than trusted, since eligibility reads this status |
+| **§7.4 acceptance: vault-health counts** | ✅ | counters add up and stay whole-vault under a filter, asserted at the API |
+| **§7.4 acceptance: a 72\* reference surfaces for a 72\* tender** | ✅ | CPV *family* prefix matching, and each suggestion says which family it matched (P4) |
 | Notification delivery (§12.4) | ✅ | SMTP, localised from the UI catalogue; `sent_at` set only after the transport accepts, so a failed send is retried rather than lost. Verified against a real SMTP server (ADR-0013) |
 | Auth.js sessions (§17.1) | ✅ | magic link + optional Google/Microsoft; database sessions, so sign-out revokes immediately. Verified in a browser against a real SMTP server: link works once, sign-out deletes the row and the API then refuses the token |
 | Web app confined to authentication (ADR-0015) | ✅ | its database role is refused by Postgres on every tenant table; asserted for six of them |
@@ -98,6 +100,7 @@ exercised against a real Postgres and, for the adapters, against live source pay
 | Sign-in (§17.1) | ✅ magic link, no password field; OAuth buttons appear only where configured |
 | "Mes AO" list (§20.1) | ✅ by stage, soonest deadline first, showing where a candidate came from |
 | Settings: inbound address (§6.5) | ✅ the address to subscribe, with copy-to-clipboard and what to do with it |
+| Library / evidence vault (§7.2, §20.1) | ✅ health counters, soonest expiry first, red reserved for an expired proof |
 | Tender workspace (§12.1), compliance matrix, studio | ❌ sections render honest empty states rather than 404s |
 
 ### API — §19
@@ -105,7 +108,7 @@ exercised against a real Postgres and, for the adapters, against live source pay
 | Item | State |
 |---|---|
 | `/health`, `/health/ready` | ✅ version-neutral |
-| `/v1/org`, `/v1/matches` (+ shortlist/dismiss/pursue), `/v1/notices/{id}`, `/v1/tenders`, `/v1/status/coverage`, `/v1/profile` (+ bootstrap), `/v1/inbound/email` | ✅ 49 API tests, including session verification and the inbound webhook |
+| `/v1/org`, `/v1/matches` (+ shortlist/dismiss/pursue), `/v1/notices/{id}`, `/v1/tenders`, `/v1/library/evidence`, `/v1/library/references`, `/v1/status/coverage`, `/v1/profile` (+ bootstrap), `/v1/inbound/email` | ✅ 59 API tests |
 | OpenAPI document at `/docs` | ✅ generated |
 | Everything else in §19 | ❌ |
 
@@ -115,7 +118,7 @@ exercised against a real Postgres and, for the adapters, against live source pay
 |---|---|
 | Typecheck, build, lint (TS) | ✅ |
 | ruff check + format (Python) | ✅ |
-| Unit + integration tests | ✅ 275 Python, 86 TypeScript |
+| Unit + integration tests | ✅ 275 Python, 96 TypeScript |
 | CI running all of the above | ✅ `.github/workflows/ci.yml`, as a **non-superuser** owner - the default service-container role is a superuser, under which RLS does not apply and the isolation suite proves nothing (ADR-0014) |
 | E2E happy paths (Playwright) | ❌ the app is built and manually verified; the automated pass is not written |
 | **AI eval harness (Annex E.4)** | ⚠️ **real job**: harness self-tests and the prompt-registry check run and block; the gates themselves report "nothing measured" until the corpus and a key exist, and must become blocking then (ADR-0018) |

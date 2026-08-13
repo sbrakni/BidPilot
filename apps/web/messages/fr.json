@@ -71,7 +71,23 @@
     "subtitle": "Vos preuves, références et contenus réutilisables.",
     "vaultHealth": "Santé de la bibliothèque",
     "expiring": "{count, plural, =0 {Aucun document n'expire} one {# document expire} other {# documents expirent}} dans les 30 jours",
-    "expired": "{count, plural, =0 {Aucun document expiré} one {# document expiré} other {# documents expirés}}"
+    "expired": "{count, plural, =0 {Aucun document expiré} one {# document expiré} other {# documents expirés}}",
+    "noExpiry": "Sans échéance",
+    "expiresIn": "Expire dans {days} j",
+    "expiredFor": "Expiré depuis {days} j",
+    "statuses": {
+      "valid": "À jour",
+      "expiring": "Bientôt expiré",
+      "expired": "Expiré"
+    },
+    "kinds": {
+      "admin": "Administratif",
+      "certification": "Certification",
+      "reference": "Référence",
+      "people": "Équipe",
+      "content": "Contenu",
+      "template": "Modèle"
+    }
   },
   "notice": {
     "buyer": "Acheteur",
