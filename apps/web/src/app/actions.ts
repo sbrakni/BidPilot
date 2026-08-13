@@ -40,3 +40,38 @@ export async function pursueMatch(matchId: string): Promise<Result> {
   revalidatePath("/tenders");
   return result;
 }
+
+/**
+ * Bootstrap the profile from a SIREN/SIRET (SPEC §7.1).
+ *
+ * The API's failure reason is passed back rather than a generic message, because the right next
+ * action differs: a typo means "check the number", an outage means "enter it manually".
+ */
+export async function bootstrapProfile(
+  identifier: string,
+): Promise<{ ok: boolean; identity?: unknown; reason?: "invalid" | "notFound" | "unavailable" }> {
+  try {
+    const result = await api.bootstrapProfile(identifier);
+    return { ok: true, identity: result.identity };
+  } catch (error) {
+    if (error instanceof ApiError) {
+      if (error.status === 400) {
+        return { ok: false, reason: /9 digits|9 chiffres/.test(error.message) ? "invalid" : "notFound" };
+      }
+      return { ok: false, reason: "unavailable" };
+    }
+    return { ok: false, reason: "unavailable" };
+  }
+}
+
+export async function saveProfile(input: {
+  cpvFamilies: string[];
+  zones: { nuts: string[]; national: boolean; max_distance_km: number | null };
+  revenues: Array<{ year: number; amount: number }>;
+}): Promise<Result> {
+  const result = await run(() => api.saveProfile(input));
+  // The inbox is what the user is about to look at, and saving a profile changes it.
+  revalidatePath("/opportunities");
+  return result;
+}
+

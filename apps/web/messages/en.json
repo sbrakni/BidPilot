@@ -119,5 +119,43 @@
     "title": "Choose a demo organisation",
     "body": "This demo environment contains three organisations, one per persona in the specification. Auth.js sign-in is not wired yet.",
     "continueAs": "Continue as {name}"
+  },
+  "onboarding": {
+    "title": "Welcome to BidPilot",
+    "step": "Step {current} of {total}",
+    "siret": {
+      "title": "Your SIRET or SIREN",
+      "body": "We pre-fill your company details from the official registry. You confirm them next.",
+      "placeholder": "e.g. 304 555 634",
+      "submit": "Look up",
+      "manual": "Enter manually",
+      "notFound": "No company found for that identifier.",
+      "unavailable": "The registry is temporarily unavailable. You can enter your details manually.",
+      "invalid": "A SIREN (9 digits) or SIRET (14 digits) is expected."
+    },
+    "confirm": {
+      "title": "Confirm your details",
+      "body": "These come from the official registry. Correct anything that needs it — nothing is saved until you confirm.",
+      "legalName": "Legal name",
+      "naf": "NAF code",
+      "headcountBand": "Employee band",
+      "location": "Establishment",
+      "unknown": "Not published",
+      "submit": "Continue"
+    },
+    "scope": {
+      "title": "Your scope",
+      "body": "What you do and where you work: this is what decides which notices you see.",
+      "sectorPack": "Sector",
+      "zones": "Areas covered",
+      "national": "All of France",
+      "revenue": "Annual revenue (€)",
+      "revenueHint": "Used to flag tenders that are disproportionate to your size.",
+      "submit": "See my notices"
+    },
+    "done": {
+      "title": "Monitoring is active",
+      "body": "These are the notices matching your profile."
+    }
   }
 }

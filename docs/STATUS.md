@@ -12,7 +12,7 @@ Last updated: 2026-08-13.
 | Phase | State |
 |---|---|
 | **Phase 0 — Foundations** | Complete except Auth.js (a demo session picker stands in) |
-| **Phase 1 — "Radar"** | Ingestion runs end-to-end on a schedule; deadline alerts and coverage status live. Email connector, digest email and onboarding wizard outstanding |
+| **Phase 1 — "Radar"** | **Exit demo passes**: signup → SIREN → live matches → pursue → digest. Email connector and remaining Tier-1/2 adapters outstanding |
 | Phase 2 — "Decision" | Not started |
 | Phase 3 — "Studio" | Not started |
 | Phase 4 — "Coverage & intelligence" | Not started |
@@ -81,14 +81,15 @@ exercised against a real Postgres and, for the adapters, against live source pay
 | Match inbox (§20.2 screen 2) | ✅ score ring, factor breakdown, deadline chip, source badges, triage actions |
 | Design tokens (§20.3) | ✅ red reserved for eliminatory/deadline danger only |
 | i18n, French-first (§20.6) | ✅ FR + EN via next-intl |
-| Onboarding wizard (§15.3), tender workspace (§12.1), matrix, studio | ❌ sections render honest empty states rather than 404s |
+| Onboarding wizard (§15.3) | ✅ SIREN → confirm → scope → inbox, verified in a browser against the live registry |
+| Tender workspace (§12.1), compliance matrix, studio | ❌ sections render honest empty states rather than 404s |
 
 ### API — §19
 
 | Item | State |
 |---|---|
 | `/health`, `/health/ready` | ✅ version-neutral |
-| `/v1/org`, `/v1/matches` (+ shortlist/dismiss/pursue), `/v1/notices/{id}`, `/v1/status/coverage` | ✅ 17 API tests |
+| `/v1/org`, `/v1/matches` (+ shortlist/dismiss/pursue), `/v1/notices/{id}`, `/v1/status/coverage`, `/v1/profile` (+ bootstrap) | ✅ 33 API tests |
 | OpenAPI document at `/docs` | ✅ generated |
 | Everything else in §19 | ❌ |
 
@@ -98,7 +99,7 @@ exercised against a real Postgres and, for the adapters, against live source pay
 |---|---|
 | Typecheck, build, lint (TS) | ✅ |
 | ruff check + format (Python) | ✅ |
-| Unit + integration tests | ✅ 151 Python, 44 TypeScript |
+| Unit + integration tests | ✅ 151 Python, 60 TypeScript |
 | CI running all of the above | ✅ `.github/workflows/ci.yml` |
 | E2E happy paths (Playwright) | ❌ the app is built and manually verified; the automated pass is not written |
 | **AI eval harness (Annex E.4)** | ❌ **placeholder job in CI**; must become blocking before any extraction prompt ships |
@@ -111,12 +112,26 @@ exercised against a real Postgres and, for the adapters, against live source pay
    exists and is tested, so this is contained.
 2. **Email inbox connector** (§6.5), which §21 requires in Phase 1. It is the universal
    fallback that "covers" any portal able to send an alert mail, including authenticated ones.
-3. **Onboarding wizard** (§15.3) - the scripted path to the P5 "value in under five minutes"
-   promise. The matching it depends on already works.
-4. **Remaining Tier-1/2 adapters**: BOAMP is live, PLACE, BOSA (BE) and the atexo family are
+3. **Remaining Tier-1/2 adapters**: BOAMP is live, PLACE, BOSA (BE) and the atexo family are
    seeded as rows but disabled pending the legal review §24.7 requires.
-5. Then Phase 2: the DCE document pipeline, extractions with page-anchored citations, the
+4. Then Phase 2: the DCE document pipeline, extractions with page-anchored citations, the
    eval harness with its Annex E.4 gates enforced in CI, and the Go/No-Go brief.
+
+## Phase 1 exit demo (§21)
+
+> "fresh signup → SIRET → 20 live matches → pursue one → digest email next morning contains it"
+
+Each step now runs, and was checked rather than assumed:
+
+| Step | How it was verified |
+|---|---|
+| SIRET → profile | Live lookup of a real SIREN through the API; identity pre-filled and confirmed in a browser |
+| → live matches | 22 real matches for the seeded IT org, from a 48h TED+BOAMP window |
+| → pursue | Creates the tender workspace in `analysis`, idempotently (P2) |
+| → digest | Rendered and delivered to a real SMTP server, once per org per day in its own timezone |
+
+What is *not* claimed: the "20" is corpus-dependent (a narrow profile against a 48h window draws
+14-22), and signup itself is still the demo persona picker rather than Auth.js.
 
 ## Deliberate scope choices
 

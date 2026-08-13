@@ -119,5 +119,43 @@
     "title": "Choisir une démonstration",
     "body": "Cet environnement de démonstration contient trois organisations, une par persona du cahier des charges. L'authentification Auth.js n'est pas encore branchée.",
     "continueAs": "Continuer en tant que {name}"
+  },
+  "onboarding": {
+    "title": "Bienvenue sur BidPilot",
+    "step": "Étape {current} sur {total}",
+    "siret": {
+      "title": "Votre SIRET ou SIREN",
+      "body": "Nous pré-remplissons votre fiche entreprise depuis le registre officiel. Vous confirmez ensuite.",
+      "placeholder": "ex. 304 555 634",
+      "submit": "Rechercher",
+      "manual": "Saisir manuellement",
+      "notFound": "Aucune entreprise trouvée pour cet identifiant.",
+      "unavailable": "Le registre est momentanément indisponible. Vous pouvez saisir vos informations manuellement.",
+      "invalid": "Un SIREN (9 chiffres) ou un SIRET (14 chiffres) est attendu."
+    },
+    "confirm": {
+      "title": "Confirmez votre fiche",
+      "body": "Ces informations viennent du registre officiel. Corrigez ce qui doit l'être — rien n'est enregistré sans votre validation.",
+      "legalName": "Raison sociale",
+      "naf": "Code NAF",
+      "headcountBand": "Tranche d'effectif",
+      "location": "Établissement",
+      "unknown": "Non communiqué",
+      "submit": "Continuer"
+    },
+    "scope": {
+      "title": "Votre périmètre",
+      "body": "Ce que vous faites et où vous intervenez : c'est ce qui détermine les avis que vous verrez.",
+      "sectorPack": "Secteur",
+      "zones": "Zones d'intervention",
+      "national": "Toute la France",
+      "revenue": "Chiffre d'affaires annuel (€)",
+      "revenueHint": "Sert à signaler les marchés disproportionnés par rapport à votre taille.",
+      "submit": "Voir mes avis"
+    },
+    "done": {
+      "title": "Votre veille est active",
+      "body": "Voici les avis qui correspondent à votre profil."
+    }
   }
 }

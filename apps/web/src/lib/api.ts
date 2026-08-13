@@ -119,6 +119,18 @@ export const api = {
     return request<MatchPage>(`/v1/matches?${query.toString()}`);
   },
 
+  bootstrapProfile: (identifier: string) =>
+    request<{ identity: Record<string, unknown>; suggested: { cpvFamilies: string[] } }>(
+      "/v1/profile/bootstrap",
+      { method: "POST", body: JSON.stringify({ siret: identifier }) },
+    ),
+
+  saveProfile: (input: {
+    cpvFamilies: string[];
+    zones: { nuts: string[]; national: boolean; max_distance_km: number | null };
+    revenues: Array<{ year: number; amount: number }>;
+  }) => request("/v1/profile", { method: "PUT", body: JSON.stringify(input) }),
+
   shortlist: (matchId: string) => request(`/v1/matches/${matchId}/shortlist`, { method: "POST" }),
   dismiss: (matchId: string, reason: string) =>
     request(`/v1/matches/${matchId}/dismiss`, { method: "POST", body: JSON.stringify({ reason }) }),
